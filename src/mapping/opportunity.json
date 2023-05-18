@@ -23,7 +23,7 @@
       {
         "name": "close_date",
         "label": "Close date",
-        "type": "text"
+        "type": "date"
       }
     ]
   ],
@@ -53,7 +53,7 @@
       {
         "name": "close_date",
         "label": "Close date",
-        "type": "text"
+        "type": "date"
       }
     ],
     [

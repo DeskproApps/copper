@@ -19,9 +19,9 @@ export const mapFieldValues = (
           value = new Date(
             field[metadataField.name as keyof APIArrayReturnTypes] as string
           ).toLocaleDateString("en-GB");
-
           break;
         }
+
         value = new Date(
           (field[metadataField.name as keyof APIArrayReturnTypes] as number) *
             1000
