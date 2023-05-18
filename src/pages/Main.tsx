@@ -1,7 +1,6 @@
 import {
   LoadingSpinner,
   Stack,
-  useDeskproAppEvents,
   useDeskproLatestAppContext,
   useInitialisedDeskproAppClient,
   useQueryWithClient,
@@ -20,21 +19,16 @@ import opportunityJson from "../mapping/opportunity.json";
 
 import { makeFirstLetterUppercase } from "../utils/utils";
 import { IActivityNote, IOpportunity } from "../api/types";
-import { useNavigate } from "react-router-dom";
 
 export const Main = () => {
   const { context } = useDeskproLatestAppContext();
-
-  const navigate = useNavigate();
 
   useInitialisedDeskproAppClient((client) => {
     client.registerElement("refresh", {
       type: "refresh_button",
     });
 
-    client.registerElement("home", {
-      type: "home_button",
-    });
+    client.deregisterElement("home");
   });
 
   const contactQuery = useQueryWithClient(
@@ -72,15 +66,6 @@ export const Main = () => {
   const accountQuery = useQueryWithClient(["account"], (client) =>
     getAccount(client)
   );
-
-  useDeskproAppEvents({
-    async onElementEvent(id) {
-      switch (id) {
-        case "homeButton":
-          navigate("/redirect");
-      }
-    },
-  });
 
   if (
     [contactQuery, activitiesNotesQuery, opportunitiesQuery, accountQuery].some(

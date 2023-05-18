@@ -7,6 +7,7 @@ import {
   IDeskproClient,
   LoadingSpinner,
   useDeskproAppEvents,
+  useInitialisedDeskproAppClient,
   useQueryWithClient,
 } from "@deskpro/app-sdk";
 import { FieldMapping } from "../../components/FieldMapping/FieldMapping";
@@ -38,10 +39,16 @@ export const View = () => {
     }
   );
 
+  useInitialisedDeskproAppClient((client) => {
+    client.registerElement("home", {
+      type: "home_button",
+    });
+  });
+
   useDeskproAppEvents({
     async onElementEvent(id) {
       switch (id) {
-        case "homeButton":
+        case "home":
           navigate("/redirect");
       }
     },

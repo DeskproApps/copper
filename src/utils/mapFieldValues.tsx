@@ -15,6 +15,13 @@ export const mapFieldValues = (
     let value;
     switch (metadataField.type) {
       case "date":
+        if (metadataField.name === "close_date") {
+          value = new Date(
+            field[metadataField.name as keyof APIArrayReturnTypes] as string
+          ).toLocaleDateString("en-GB");
+
+          break;
+        }
         value = new Date(
           (field[metadataField.name as keyof APIArrayReturnTypes] as number) *
             1000
