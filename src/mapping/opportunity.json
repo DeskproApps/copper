@@ -1,0 +1,88 @@
+{
+  "externalUrl": "a",
+  "idKey": "id",
+  "main": [
+    [
+      {
+        "name": "pipeline_stage_name",
+        "label": "Stage",
+        "type": "text"
+      },
+      {
+        "name": "monetary_value",
+        "label": "Value",
+        "type": "currency"
+      }
+    ],
+    [
+      {
+        "name": "assignee_name",
+        "label": "Owner",
+        "type": "text"
+      },
+      {
+        "name": "close_date",
+        "label": "Close date",
+        "type": "text"
+      }
+    ]
+  ],
+  "view": [
+    [
+      {
+        "name": "pipeline_name",
+        "label": "Pipeline",
+        "type": "text"
+      }
+    ],
+    [
+      {
+        "name": "pipeline_stage_name",
+        "label": "Stage",
+        "type": "text"
+      }
+    ],
+    [
+      {
+        "name": "monetary_value",
+        "label": "Value",
+        "type": "currency"
+      }
+    ],
+    [
+      {
+        "name": "close_date",
+        "label": "Close date",
+        "type": "text"
+      }
+    ],
+    [
+      {
+        "name": "assignee_name",
+        "label": "Owner",
+        "type": "text"
+      }
+    ],
+    [
+      {
+        "name": "status",
+        "label": "Status",
+        "type": "text"
+      }
+    ],
+    [
+      {
+        "name": "priority",
+        "label": "Priority",
+        "type": "text"
+      }
+    ],
+    [
+      {
+        "name": "details",
+        "label": "Description",
+        "type": "text"
+      }
+    ]
+  ]
+}
