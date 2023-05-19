@@ -1,4 +1,3 @@
-My App
-======
+# Copper
 
-todo: add a description that will appear alongside your app in Deskpro admin
+Elevate your customer relationships, optimize your sales pipeline, and simplify your business workflows with Copper.

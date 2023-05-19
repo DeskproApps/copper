@@ -1,0 +1,34 @@
+{
+  "titleKeyName": "Name",
+  "idKey": "id",
+  "main": [
+    [
+      {
+        "name": "details",
+        "label": "Type",
+        "type": "text"
+      },
+      {
+        "name": "activity_date",
+        "label": "Date",
+        "type": "date"
+      }
+    ]
+  ],
+  "view": [
+    [
+      {
+        "name": "details",
+        "label": "Description",
+        "type": "text"
+      }
+    ],
+    [
+      {
+        "name": "activity_date",
+        "label": "Date/time",
+        "type": "date"
+      }
+    ]
+  ]
+}

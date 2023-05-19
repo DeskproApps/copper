@@ -1,79 +1,121 @@
-import { useState } from "react";
 import {
-  Context,
-  H1,
-  HorizontalDivider,
   LoadingSpinner,
-  Property,
-  proxyFetch,
   Stack,
-  useDeskproAppEvents,
+  useDeskproLatestAppContext,
   useInitialisedDeskproAppClient,
+  useQueryWithClient,
 } from "@deskpro/app-sdk";
-import * as React from "react";
-/*
-    Note: the following page component contains example code, please remove the contents of this component before you
-    develop your app. For more information, please refer to our apps
-    guides @see https://support.deskpro.com/en-US/guides/developers/anatomy-of-an-app
-*/
+import {
+  getAccount,
+  getActivitiesByContactId,
+  getContactsByEmail,
+  getOpportunitiesByContactId,
+} from "../api/api";
+import { FieldMapping } from "../components/FieldMapping/FieldMapping";
+import contactJson from "../mapping/contact.json";
+import activityJson from "../mapping/activity.json";
+import noteJson from "../mapping/note.json";
+import opportunityJson from "../mapping/opportunity.json";
+
+import { makeFirstLetterUppercase } from "../utils/utils";
+import { IActivityNote, IOpportunity } from "../api/types";
 
 export const Main = () => {
-  const [ticketContext, setTicketContext] = useState<Context | null>(null);
-  const [examplePosts, setExamplePosts] = useState<
-    { id: string; title: string }[]
-  >([]);
+  const { context } = useDeskproLatestAppContext();
 
-  // Add a "refresh" button @see https://support.deskpro.com/en-US/guides/developers/app-elements
   useInitialisedDeskproAppClient((client) => {
-    client.registerElement("myRefreshButton", { type: "refresh_button" });
+    client.registerElement("refresh", {
+      type: "refresh_button",
+    });
+
+    client.deregisterElement("home");
   });
 
-  // Listen for the "change" event and store the context data
-  // as local state @see https://support.deskpro.com/en-US/guides/developers/app-events
-  useDeskproAppEvents({
-    onChange: setTicketContext,
-  });
-
-  // Use the apps proxy to fetch data from a third party
-  // API @see https://support.deskpro.com/en-US/guides/developers/app-proxy
-  useInitialisedDeskproAppClient((client) =>
-    (async () => {
-      const fetch = await proxyFetch(client);
-
-      const response = await fetch(
-        "https://jsonplaceholder.typicode.com/posts"
-      );
-
-      const posts = await response.json();
-
-      setExamplePosts(posts.slice(0, 3));
-    })()
+  const contactQuery = useQueryWithClient(
+    ["contact", context?.data.user.primaryEmail],
+    (client) => getContactsByEmail(client, context?.data.user.primaryEmail),
+    {
+      enabled: !!context?.data.user.primaryEmail,
+    }
   );
 
-  // If we don't have a ticket context yet, show a loading spinner
-  if (ticketContext === null) {
+  const activitiesNotesQuery = useQueryWithClient(
+    ["activity", contactQuery.data?.id as unknown as string],
+    (client) =>
+      getActivitiesByContactId(
+        client,
+        contactQuery.data?.id as unknown as string
+      ),
+    {
+      enabled: !!contactQuery.data?.id,
+    }
+  );
+
+  const opportunitiesQuery = useQueryWithClient(
+    ["opportunities", contactQuery.data?.id as unknown as string],
+    (client) =>
+      getOpportunitiesByContactId(
+        client,
+        contactQuery.data?.id as unknown as number
+      ),
+    {
+      enabled: !!contactQuery.data?.id,
+    }
+  );
+
+  const accountQuery = useQueryWithClient(["account"], (client) =>
+    getAccount(client)
+  );
+
+  if (
+    [contactQuery, activitiesNotesQuery, opportunitiesQuery, accountQuery].some(
+      (e) => e.isLoading
+    )
+  )
     return <LoadingSpinner />;
+
+  if (contactQuery.isFetched && !contactQuery.data) {
+    return <h1>No contacts found</h1>;
+  } else if (!contactQuery.data) {
+    return <div></div>;
   }
 
-  // Show some information about a given
-  // ticket @see https://support.deskpro.com/en-US/guides/developers/targets and third party API
+  const contact = contactQuery.data;
+
+  const activities = activitiesNotesQuery.data?.activities as IActivityNote[];
+
+  const opportunities = opportunitiesQuery.data as IOpportunity[];
+
+  const notes = activitiesNotesQuery.data?.notes as IActivityNote[];
+
+  const account = accountQuery.data;
+
   return (
-    <>
-      <H1>Ticket Data</H1>
-      <Stack gap={12} vertical>
-        <Property title="Ticket ID">{ticketContext.data.ticket.id}</Property>
-        <Property title="Ticket Subject">
-          {ticketContext.data.ticket.subject}
-        </Property>
-      </Stack>
-      <HorizontalDivider width={2} />
-      <H1>Example Posts</H1>
-      {examplePosts.map((post) => (
-        <div key={post.id}>
-          <Property title="Post Title">{post.title}</Property>
-          <HorizontalDivider width={2} />
-        </div>
-      ))}
-    </>
+    <Stack vertical>
+      <FieldMapping
+        childTitleAccessor={(field) => field.name}
+        idKey={contactJson.idKey}
+        externalChildUrl={`${account?.id}/app#/contacts/default/contact/`}
+        fields={[contact]}
+        metadata={contactJson.main}
+      />
+      <FieldMapping
+        childTitleAccessor={(field) => field.name}
+        idKey={opportunityJson.idKey}
+        title="Opportunities"
+        internalChildUrl="/view/opportunity/"
+        externalChildUrl={`${account?.id}/app#/deal/`}
+        fields={opportunities}
+        metadata={opportunityJson.main}
+      />
+      <FieldMapping title="Notes" fields={notes} metadata={noteJson.main} />
+      <FieldMapping
+        title="Activities"
+        childTitleAccessor={(field) => makeFirstLetterUppercase(field.details)}
+        idKey={activityJson.idKey}
+        fields={activities}
+        metadata={activityJson.main}
+      />
+    </Stack>
   );
 };

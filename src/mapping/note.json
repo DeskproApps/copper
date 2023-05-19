@@ -1,0 +1,20 @@
+{
+  "titleKeyName": "Name",
+  "idKey": "id",
+  "main": [
+    [
+      {
+        "name": "activity_date",
+        "label": "",
+        "type": "date"
+      }
+    ],
+    [
+      {
+        "name": "details",
+        "label": "",
+        "type": "text"
+      }
+    ]
+  ]
+}
