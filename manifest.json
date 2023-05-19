@@ -2,16 +2,11 @@
   "name": "@deskpro-apps/copper",
   "title": "Copper",
   "description": "Elevate your customer relationships, optimize your sales pipeline, and simplify your business workflows with Copper.",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "scope": "agent",
   "isSingleInstall": false,
   "hasDevMode": true,
-  "targets": [
-    {
-      "target": "user_sidebar",
-      "entrypoint": "index.html"
-    }
-  ],
+  "targets": [{ "target": "user_sidebar", "entrypoint": "index.html" }],
   "settings": {
     "api_key": {
       "title": "Api Key",
@@ -34,12 +29,7 @@
     "whitelist": [
       {
         "url": "https://api.copper.com/developer_api/v1/.*",
-        "methods": [
-          "GET",
-          "PUT",
-          "POST",
-          "PATCH"
-        ],
+        "methods": ["GET", "PUT", "POST", "PATCH"],
         "timeout": 20
       }
     ]
