@@ -1,7 +1,5 @@
-My App
+Copper
 ===
-
-TODO: Include a summary of app functionality and a screenshot
 
 Pull Requests
 ===
