@@ -2,6 +2,7 @@
   "name": "@deskpro-apps/copper",
   "title": "Copper",
   "description": "Elevate your customer relationships, optimize your sales pipeline, and simplify your business workflows with Copper.",
+  "appStoreUrl": "https://www.deskpro.com/product-embed/apps/copper",
   "version": "1.0.4",
   "scope": "agent",
   "isSingleInstall": false,
