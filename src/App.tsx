@@ -19,6 +19,7 @@ import { Suspense } from "react";
 import { Redirect } from "./components/Redirect/Redirect";
 import { query } from "./utils/query";
 import { View } from "./pages/View/View";
+import { VerifySettings } from "./pages/Admin/VerifySettings";
 
 function App() {
   return (
@@ -30,6 +31,12 @@ function App() {
               <ErrorBoundary onReset={reset} FallbackComponent={ErrorFallback}>
                 <Routes>
                   <Route path="/">
+                    <Route path="/admin">
+                      <Route
+                        path="verifysettings"
+                        element={<VerifySettings />}
+                      />
+                    </Route>
                     <Route path="/redirect" element={<Redirect />} />
                     <Route index element={<Main />} />
                     <Route path="view/:type/:id" element={<View />} />
