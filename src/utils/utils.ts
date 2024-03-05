@@ -53,7 +53,7 @@ export const timeSince = (date: Date) => {
 };
 
 export const makeFirstLetterUppercase = (str: string) => {
-  return str.charAt(0).toUpperCase() + str.slice(1);
+  return !str ? "" : `${str}`.charAt(0).toUpperCase() + str.slice(1);
 };
 
 export const formatDateSince = (date: Date) => {

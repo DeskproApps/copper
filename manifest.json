@@ -8,7 +8,12 @@
   "isSingleInstall": false,
   "hasDevMode": true,
   "serveUrl": "https://apps-cdn.deskpro-service.com/__name__/__version__",
-  "targets": [{ "target": "user_sidebar", "entrypoint": "index.html" }],
+  "targets": [
+    {
+      "target": "user_sidebar",
+      "entrypoint": "index.html"
+    }
+  ],
   "settings": {
     "api_key": {
       "title": "Api Key",
@@ -25,13 +30,28 @@
       "isRequired": true,
       "isBackendOnly": true,
       "order": 20
+    },
+    "verify_settings": {
+      "title": "",
+      "type": "app_embedded",
+      "options": {
+        "entrypoint": "#/admin/verifysettings"
+      },
+      "isRequired": false,
+      "isBackendOnly": false,
+      "order": 30
     }
   },
   "proxy": {
     "whitelist": [
       {
         "url": "https://api.copper.com/developer_api/v1/.*",
-        "methods": ["GET", "PUT", "POST", "PATCH"],
+        "methods": [
+          "GET",
+          "PUT",
+          "POST",
+          "PATCH"
+        ],
         "timeout": 20
       }
     ]
