@@ -3,17 +3,12 @@
   "title": "Copper",
   "description": "Elevate your customer relationships, optimize your sales pipeline, and simplify your business workflows with Copper.",
   "appStoreUrl": "https://www.deskpro.com/product-embed/apps/copper",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "scope": "agent",
   "isSingleInstall": false,
   "hasDevMode": true,
   "serveUrl": "https://apps-cdn.deskpro-service.com/__name__/__version__",
-  "targets": [
-    {
-      "target": "user_sidebar",
-      "entrypoint": "index.html"
-    }
-  ],
+  "targets": [{ "target": "user_sidebar", "entrypoint": "index.html" }],
   "settings": {
     "api_key": {
       "title": "Api Key",
@@ -34,9 +29,7 @@
     "verify_settings": {
       "title": "",
       "type": "app_embedded",
-      "options": {
-        "entrypoint": "#/admin/verifysettings"
-      },
+      "options": { "entrypoint": "#/admin/verifysettings" },
       "isRequired": false,
       "isBackendOnly": false,
       "order": 30
@@ -46,12 +39,7 @@
     "whitelist": [
       {
         "url": "https://api.copper.com/developer_api/v1/.*",
-        "methods": [
-          "GET",
-          "PUT",
-          "POST",
-          "PATCH"
-        ],
+        "methods": ["GET", "PUT", "POST", "PATCH"],
         "timeout": 20
       }
     ]
