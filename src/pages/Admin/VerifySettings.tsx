@@ -1,7 +1,5 @@
+import { Button, H1, Stack } from "@deskpro/deskpro-ui";
 import {
-  Button,
-  H1,
-  Stack,
   adminGenericProxyFetch,
   useDeskproAppClient,
   useDeskproAppEvents,

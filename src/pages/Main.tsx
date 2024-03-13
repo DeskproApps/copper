@@ -1,6 +1,6 @@
+import { Stack } from "@deskpro/deskpro-ui";
 import {
   LoadingSpinner,
-  Stack,
   useDeskproLatestAppContext,
   useInitialisedDeskproAppClient,
   useQueryWithClient,
