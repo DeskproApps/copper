@@ -9,7 +9,7 @@ dependencies:
     specifier: ^2.1.13
     version: 2.1.13(@babel/core@7.24.0)(@deskpro/deskpro-ui@7.18.3)(@types/react-dom@18.2.22)(@types/react@18.2.65)(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)(typescript@4.9.5)
   '@deskpro/deskpro-ui':
-    specifier: ^7.18.3
+    specifier: ^7.1.0
     version: 7.18.3(@types/web@0.0.86)(react-dom@18.2.0)(react@18.2.0)(styled-components@5.3.11)
   '@heroicons/react':
     specifier: 1.0.6
@@ -1184,7 +1184,7 @@ packages:
       '@motionone/easing': 10.17.0
       '@motionone/types': 10.17.0
       '@motionone/utils': 10.17.0
-      tslib: 2.4.1
+      tslib: 2.6.2
     dev: false
 
   /@motionone/dom@10.12.0:
@@ -1195,14 +1195,14 @@ packages:
       '@motionone/types': 10.17.0
       '@motionone/utils': 10.17.0
       hey-listen: 1.0.8
-      tslib: 2.4.1
+      tslib: 2.6.2
     dev: false
 
   /@motionone/easing@10.17.0:
     resolution: {integrity: sha512-Bxe2wSuLu/qxqW4rBFS5m9tMLOw+QBh8v5A7Z5k4Ul4sTj5jAOfZG5R0bn5ywmk+Fs92Ij1feZ5pmC4TeXA8Tg==}
     dependencies:
       '@motionone/utils': 10.17.0
-      tslib: 2.4.1
+      tslib: 2.6.2
     dev: false
 
   /@motionone/generators@10.17.0:
@@ -1210,7 +1210,7 @@ packages:
     dependencies:
       '@motionone/types': 10.17.0
       '@motionone/utils': 10.17.0
-      tslib: 2.4.1
+      tslib: 2.6.2
     dev: false
 
   /@motionone/types@10.17.0:
@@ -1222,7 +1222,7 @@ packages:
     dependencies:
       '@motionone/types': 10.17.0
       hey-listen: 1.0.8
-      tslib: 2.4.1
+      tslib: 2.6.2
     dev: false
 
   /@nodelib/fs.scandir@2.1.5:
@@ -3047,7 +3047,7 @@ packages:
       react: 18.2.0
       react-fast-compare: 2.0.4
       tiny-warning: 1.0.3
-      tslib: 2.4.1
+      tslib: 2.6.2
     dev: false
 
   /framer-motion@6.5.1(react-dom@18.2.0)(react@18.2.0):
@@ -3063,7 +3063,7 @@ packages:
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       style-value-types: 5.0.0
-      tslib: 2.4.1
+      tslib: 2.6.2
     optionalDependencies:
       '@emotion/is-prop-valid': 0.8.8
     dev: false
@@ -3071,7 +3071,7 @@ packages:
   /framesync@6.0.1:
     resolution: {integrity: sha512-fUY88kXvGiIItgNC7wcTOl0SNRCVXMKSWW2Yzfmn7EKNc+MpCzcz9DhdHcdjbrtN3c6R4H5dTY2jiCpPdysEjA==}
     dependencies:
-      tslib: 2.4.1
+      tslib: 2.6.2
     dev: false
 
   /fs-extra@8.1.0:
@@ -4644,7 +4644,7 @@ packages:
       framesync: 6.0.1
       hey-listen: 1.0.8
       style-value-types: 5.0.0
-      tslib: 2.4.1
+      tslib: 2.6.2
     dev: false
 
   /possible-typed-array-names@1.0.0:
@@ -5212,7 +5212,7 @@ packages:
     resolution: {integrity: sha512-08yq36Ikn4kx4YU6RD7jWEv27v4V+PUsOGa4n/as8Et3CuODMJQ00ENeAVXAeydX4Z2j1XHZF1K2sX4mGl18fA==}
     dependencies:
       hey-listen: 1.0.8
-      tslib: 2.4.1
+      tslib: 2.6.2
     dev: false
 
   /styled-components@5.3.11(@babel/core@7.24.0)(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0):
@@ -5394,7 +5394,6 @@ packages:
 
   /tslib@2.6.2:
     resolution: {integrity: sha512-AEYxH93jGFPn/a2iVAwW87VuUIkR1FVUKB77NwMF7nBTDkDrrT/Hpt/IrCJ0QXhW27jTBDcf5ZY7w6RiqTMw2Q==}
-    dev: true
 
   /tsutils@3.21.0(typescript@4.9.5):
     resolution: {integrity: sha512-mHKK3iUXL+3UF6xL5k0PEhKRUBKPBCv/+RkEOpjRWxxx27KKRBmmA60A9pgOUvMi8GKhRMPEmjBRPzs2W7O1OA==}

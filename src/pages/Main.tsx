@@ -1,4 +1,4 @@
-import { Stack } from "@deskpro/deskpro-ui";
+import { Stack, H2 } from "@deskpro/deskpro-ui";
 import {
   LoadingSpinner,
   useDeskproLatestAppContext,
@@ -70,12 +70,13 @@ export const Main = () => {
   if (
     [contactQuery, activitiesNotesQuery, opportunitiesQuery, accountQuery].some(
       (e) => e.isLoading
-    )
+    ) &&
+    !(contactQuery.isFetched && !contactQuery.data)
   )
     return <LoadingSpinner />;
 
   if (contactQuery.isFetched && !contactQuery.data) {
-    return <h1>No contacts found</h1>;
+    return <H2>No contacts found</H2>;
   } else if (!contactQuery.data) {
     return <div></div>;
   }

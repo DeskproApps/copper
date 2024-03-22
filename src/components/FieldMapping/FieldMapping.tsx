@@ -183,7 +183,11 @@ export const FieldMapping = ({
                       {usableFields
                         .filter((_, i) => i !== 2)
                         .map((e, ii) => (
-                          <Property key={ii} label={e.key as string} text={e.value}/>
+                          <Property
+                            key={ii}
+                            label={e.key as string}
+                            text={e.value}
+                          />
                         ))}
                     </PropertyRow>
                   </Stack>

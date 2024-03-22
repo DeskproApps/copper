@@ -130,7 +130,7 @@ export const getContactById = (
 export const getContactsByEmail = async (
   client: IDeskproClient,
   email: string
-): Promise<IContact> => {
+): Promise<IContact | null> => {
   const contact = await installedRequest(
     client,
     `people/fetch_by_email`,
@@ -139,6 +139,10 @@ export const getContactsByEmail = async (
       email,
     }
   );
+
+  if (!contact) {
+    return null;
+  }
 
   const owner = await installedRequest(
     client,
@@ -178,6 +182,10 @@ const installedRequest = async (
     `https://api.copper.com/developer_api/v1/${endpoint.trim()}`,
     options
   );
+
+  if (response.status === 404 && endpoint.includes("people")) {
+    return null;
+  }
 
   if (isResponseError(response)) {
     throw new Error(
