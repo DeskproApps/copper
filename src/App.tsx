@@ -1,54 +1,43 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
+import { useMemo } from "react";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import { useRegisterElements } from "./hooks";
+import { useDeskproAppEvents } from "@deskpro/app-sdk";
 import {
-  QueryClientProvider,
-  QueryErrorResetBoundary,
-} from "@tanstack/react-query";
-import { ErrorBoundary } from "react-error-boundary";
-import { HashRouter, Route, Routes } from "react-router-dom";
-import { ErrorFallback } from "./components/ErrorFallback/ErrorFallback";
-import { Main } from "./pages/Main";
+  VerifySettingsPage,
+  HomePage,
+  LoadingPage,
+  OpportunityPage,
+} from "./pages";
 
-import "flatpickr/dist/themes/light.css";
-import "simplebar/dist/simplebar.min.css";
-import "tippy.js/dist/tippy.css";
+const App = () => {
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
+  const isAdmin = useMemo(() => pathname.includes("/admin/"), [pathname]);
 
-import { LoadingSpinner } from "@deskpro/app-sdk";
-import "@deskpro/deskpro-ui/dist/deskpro-custom-icons.css";
-import "@deskpro/deskpro-ui/dist/deskpro-ui.css";
-import { Suspense } from "react";
-import { Redirect } from "./components/Redirect/Redirect";
-import { query } from "./utils/query";
-import { View } from "./pages/View/View";
-import { VerifySettings } from "./pages/Admin/VerifySettings";
+  useRegisterElements(({ registerElement }) => {
+    registerElement("refresh", { type: "refresh_button" });
+  });
 
-function App() {
+  useDeskproAppEvents({
+    async onElementEvent(id) {
+      switch (id) {
+        case "home":
+          navigate("/home");
+      }
+    },
+  }, [navigate]);
+
   return (
-    <HashRouter>
-      <QueryClientProvider client={query}>
-        <Suspense fallback={<LoadingSpinner />}>
-          <QueryErrorResetBoundary>
-            {({ reset }) => (
-              <ErrorBoundary onReset={reset} FallbackComponent={ErrorFallback}>
-                <Routes>
-                  <Route path="/">
-                    <Route path="/admin">
-                      <Route
-                        path="verifysettings"
-                        element={<VerifySettings />}
-                      />
-                    </Route>
-                    <Route path="/redirect" element={<Redirect />} />
-                    <Route index element={<Main />} />
-                    <Route path="view/:type/:id" element={<View />} />
-                  </Route>
-                </Routes>
-              </ErrorBoundary>
-            )}
-          </QueryErrorResetBoundary>
-        </Suspense>
-      </QueryClientProvider>
-    </HashRouter>
+    <>
+      <Routes>
+        <Route path="/admin/verify_settings" element={<VerifySettingsPage/>}/>
+        <Route path="/home" element={<HomePage/>}/>
+        <Route path="/opportunity/:id" element={<OpportunityPage/>}/>
+        <Route index element={<LoadingPage/>}/>
+      </Routes>
+      {!isAdmin && (<><br/><br/><br/></>)}
+    </>
   );
 }
 
-export default App;
+export { App };

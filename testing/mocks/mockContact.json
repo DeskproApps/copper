@@ -1,0 +1,45 @@
+{
+  "id": 163014874,
+  "name": "Ivan Mazepa",
+  "prefix": null,
+  "first_name": "Ivan",
+  "middle_name": null,
+  "last_name": "Mazepa",
+  "suffix": null,
+  "address": {
+    "street": "1 Volodymyrska Street",
+    "city": "Kyiv",
+    "state": "Kyiv City",
+    "postal_code": "01001",
+    "country": "UA"
+  },
+  "assignee_id": 1135999,
+  "assignee_name": "Kyivan Rus",
+  "company_id": 67810510,
+  "company_name": "Cossack Hetmanate",
+  "contact_type_id": 2374625,
+  "details": null,
+  "emails": [
+    {
+      "email": "ivan.mazepa@cossacks.org",
+      "category": "work"
+    }
+  ],
+  "phone_numbers": [
+    {
+      "number": "+123-456-7891",
+      "category": "work"
+    }
+  ],
+  "socials": [],
+  "tags": [],
+  "title": "The Hetman",
+  "websites": [],
+  "custom_fields": [],
+  "date_created": 1716202419,
+  "date_modified": 1716213134,
+  "date_last_contacted": 1716202606,
+  "interaction_count": 4,
+  "leads_converted_from": [],
+  "date_lead_created": null
+}

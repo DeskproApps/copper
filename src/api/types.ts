@@ -1,7 +1,19 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import type { Timestamp } from "../types";
+
 export type RequestMethod = "GET" | "POST" | "PATCH" | "DELETE" | "PUT";
 
 export type APIArrayReturnTypes = IContact & IActivityNote & IOpportunity;
+
+export interface IAccount {
+  id: number;
+  name: string;
+  settings: {
+    setting_team_permissions_enabled: boolean;
+    setting_enable_leads: boolean;
+  },
+  primary_timezone: string;
+}
 
 export interface IContact {
   id: number;
@@ -58,8 +70,8 @@ export interface Website {
 
 export interface IActivityNote {
   id: number;
-  parent: Parent;
-  type: Type;
+  parent: Parent; // { id: number; type: string }
+  type: Type;     // { id: number; category: string }
   user_id: number;
   details: string;
   activity_date: number;
@@ -83,7 +95,7 @@ export interface IOpportunity {
   id: number;
   name: string;
   assignee_id: number;
-  close_date: string;
+  close_date: number;
   company_id: number;
   company_name: string;
   customer_source_id: null;
@@ -121,4 +133,28 @@ export interface IUser {
   id: number;
   name: string;
   email: string;
+}
+
+export interface IActivityType {
+  id: number;
+  category: "user"|"system";
+  name: string;
+  is_disabled: boolean;
+  count_as_interaction: boolean;
+}
+
+export interface IActivity {
+  id: number;
+  parent: Parent;
+  type: {
+    id: number;
+    category: IActivityType["category"];
+  },
+  user_id: number;
+  details: string;
+  activity_date: Timestamp;
+  old_value: null;
+  new_value: null;
+  date_created: Timestamp;
+  date_modified: Timestamp;
 }

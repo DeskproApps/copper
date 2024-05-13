@@ -1,0 +1,3 @@
+const tryToLinkAutomatically = () => {};
+
+export { tryToLinkAutomatically };
