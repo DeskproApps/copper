@@ -1,41 +1,25 @@
 import { IDeskproClient, proxyFetch } from "@deskpro/app-sdk";
 import {
+  IActivity,
   IActivityNote,
   IContact,
   IOpportunity,
   IPipelineStage,
   IUser,
   RequestMethod,
+  IActivityType,
 } from "./types";
 
-export const getActivitiesByContactId = async (
+export const getActivitiesByContactId = (
   client: IDeskproClient,
-  contactId: string
-): Promise<{
-  notes: IActivityNote[];
-  activities: IActivityNote[];
-}> => {
-  const data = (
-    (await installedRequest(
-      client,
-      `people/${contactId}/activities`,
-      "POST"
-    )) as IActivityNote[]
-  ).filter((item) => !!item.details);
-
-  return {
-    notes: data.filter(
-      (item) => !["call", "meeting", "sms"].includes(item.details)
-    ),
-    activities: data.filter((item) =>
-      ["call", "meeting", "sms"].includes(item.details)
-    ),
-  };
+  contactId: IContact["id"],
+): Promise<IActivity[]> => {
+  return installedRequest(client, `people/${contactId}/activities`, "POST");
 };
 
 export const getOpportunitiesByContactId = async (
   client: IDeskproClient,
-  contactId: number
+  contactId: IContact["id"],
 ): Promise<IOpportunity[]> => {
   const opportunities: IOpportunity[] = (
     (await installedRequest(client, `opportunities/search`, "POST", {
@@ -78,8 +62,8 @@ export const getPipelineStages = async (
 
 export const getOpportunityById = async (
   client: IDeskproClient,
-  id: string
-): Promise<IContact> => {
+  id: IOpportunity["id"],
+): Promise<IOpportunity> => {
   const opportunity = await installedRequest(
     client,
     `opportunities/${id}`,
@@ -122,7 +106,7 @@ export const getActivityById = (
 
 export const getContactById = (
   client: IDeskproClient,
-  id: string
+  id: IContact["id"],
 ): Promise<IContact> => {
   return installedRequest(client, `people/${id}`, "GET");
 };
@@ -153,6 +137,12 @@ export const getContactsByEmail = async (
   contact.assignee_name = owner.name;
 
   return contact;
+};
+
+export const getActivityTypes = (
+  client: IDeskproClient,
+): Promise<{ user: IActivityType[] }> => {
+  return installedRequest(client, "activity_types", "GET");
 };
 
 const installedRequest = async (

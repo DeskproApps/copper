@@ -29,7 +29,7 @@
     "verify_settings": {
       "title": "",
       "type": "app_embedded",
-      "options": { "entrypoint": "#/admin/verifysettings" },
+      "options": { "entrypoint": "#/admin/verify_settings" },
       "isRequired": false,
       "isBackendOnly": false,
       "order": 30

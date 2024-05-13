@@ -1,0 +1,11 @@
+export { tryToLinkAutomatically } from "./tryToLinkAutomatically";
+export { addBlankTargetToLinks } from "./addBlankTargetToLinks";
+export { getAddress } from "./getAddress";
+export { formatPrice } from "./formatPrice";
+export { isActivity } from "./isActivity";
+export { isMeeting } from "./isMeeting";
+export { isNote } from "./isNote";
+export { isPhoneCall } from "./isPhoneCall";
+export { isSms } from "./isSms";
+export { isLast } from "./isLast";
+export { getActivityTypeName } from "./getActivityTypeName";
