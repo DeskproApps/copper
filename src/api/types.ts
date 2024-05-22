@@ -3,8 +3,6 @@ import type { Timestamp } from "../types";
 
 export type RequestMethod = "GET" | "POST" | "PATCH" | "DELETE" | "PUT";
 
-export type APIArrayReturnTypes = IContact & IActivityNote & IOpportunity;
-
 export interface IAccount {
   id: number;
   name: string;

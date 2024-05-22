@@ -13,6 +13,7 @@ type UseRegisterElements = (
 const useRegisterElements: UseRegisterElements = (fn, deps) => {
   useDeskproElements(({ deRegisterElement, registerElement }) => {
     deRegisterElement("home");
+    deRegisterElement("menu");
 
     fn && fn({ deRegisterElement, registerElement });
   }, [...(deps || [])]);

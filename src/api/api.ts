@@ -44,12 +44,6 @@ export const getOpportunitiesByContactId = async (
   }));
 };
 
-export const getAccount = async (
-  client: IDeskproClient
-): Promise<{ id: string }> => {
-  return installedRequest(client, `account`, "GET");
-};
-
 export const getUsers = async (client: IDeskproClient): Promise<IUser[]> => {
   return await installedRequest(client, `users`, "GET");
 };
@@ -102,13 +96,6 @@ export const getActivityById = (
   id: string
 ): Promise<IActivityNote> => {
   return installedRequest(client, `activities/${id}`, "GET");
-};
-
-export const getContactById = (
-  client: IDeskproClient,
-  id: IContact["id"],
-): Promise<IContact> => {
-  return installedRequest(client, `people/${id}`, "GET");
 };
 
 export const getContactsByEmail = async (

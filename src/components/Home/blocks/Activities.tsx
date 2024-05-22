@@ -13,7 +13,10 @@ export type Props = {
 
 const Activities: FC<Props> = ({ activities, activityTypes }) => (
   <>
-    <Title title={`Activities (${size(activities)})`} marginBottom={0}/>
+    <Title
+      title={`Activities (${size(activities)})`}
+      {...(!size(activities) ? {} : { marginBottom: 0 })}
+    />
     {!size(activities)
       ? <NoFound text="No activities found"/>
       : activities.map((activity, idx) => (

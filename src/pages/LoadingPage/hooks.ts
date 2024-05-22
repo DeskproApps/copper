@@ -1,11 +1,14 @@
 import { useMemo } from "react";
-import { get, isEmpty } from "lodash";
+import { get, size, isEmpty } from "lodash";
 import { useNavigate } from "react-router-dom";
 import {
   useDeskproLatestAppContext,
   useInitialisedDeskproAppClient,
 } from "@deskpro/app-sdk";
+import { getEntityListService } from "../../services/deskpro";
+import { checkAuthService } from "../../services/copper";
 import { useAsyncError } from "../../hooks";
+import { tryToLinkAutomatically } from "../../utils";
 import type { UserContext } from "../../types";
 
 type UseLoadingApp = () => void;
@@ -21,8 +24,10 @@ const useLoadingApp: UseLoadingApp = () => {
       return;
     }
 
-    Promise.resolve(client)
-      .then(() => navigate("/home"))
+    checkAuthService(client)
+      .then(() => tryToLinkAutomatically(client, dpUser))
+      .then(() => getEntityListService(client, dpUser.id))
+      .then((entityIds) => navigate(size(entityIds) ? "/home" : "/contacts/link"))
       .catch(asyncErrorHandler)
   }, [dpUser]);
 };

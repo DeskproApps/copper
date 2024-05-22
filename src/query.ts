@@ -12,4 +12,11 @@ const queryClient = new QueryClient({
   },
 });
 
-export { queryClient };
+const QueryKey = {
+  SEARCH: "search",
+  ACCOUNT: "account",
+  CONTACT: "contact",
+  LINKED_CONTACT: "linked_contact",
+};
+
+export { queryClient, QueryKey };

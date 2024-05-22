@@ -6,7 +6,6 @@ import { Home } from "../../components";
 const HomePage = () => {
   const {
     isLoading,
-    isFetched,
     contact,
     account,
     opportunities,
@@ -16,10 +15,16 @@ const HomePage = () => {
   } = useContact();
 
   useRegisterElements(({ registerElement }) => {
-    registerElement("refresh", { type: "refresh_button" });
+    registerElement("menu", {
+      type: "menu",
+      items: [{
+        title: "Unlink Contact",
+        payload: { type: "unlink" },
+      }],
+    });
   });
 
-  if (isLoading || !isFetched) {
+  if (isLoading) {
     return (
       <LoadingSpinner />
     );

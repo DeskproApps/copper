@@ -1,5 +1,6 @@
-import type { To } from "react-router-dom";
-import type { Context } from "@deskpro/app-sdk";
+import type { To, ParamKeyValuePair } from "react-router-dom";
+import type { Context, IDeskproClient } from "@deskpro/app-sdk";
+import type { Response } from "./services/copper/types";
 
 /** common */
 export type Maybe<T> = T | undefined | null;
@@ -11,6 +12,25 @@ export type Timestamp = number;
 
 /** 5/31/2024 */
 export type DateTime = string
+
+/** Request types */
+export type ApiRequestMethod = "GET" | "POST";
+
+export type RequestParams = {
+  url?: string;
+  rawUrl?: string;
+  method?: ApiRequestMethod;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  data?: Dict<any>|RequestInit["body"];
+  headers?: Dict<string>;
+  queryParams?: string|Dict<string>|ParamKeyValuePair[];
+  settings?: Settings;
+};
+
+export type Request = <T>(
+  client: IDeskproClient,
+  params: RequestParams,
+) => Response<T>;
 
 /** Deskpro */
 export type Settings = {
