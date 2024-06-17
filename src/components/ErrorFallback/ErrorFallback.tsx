@@ -1,6 +1,5 @@
-import { get } from "lodash";
 import { Stack } from "@deskpro/deskpro-ui";
-import { DEFAULT_ERROR } from "../../constants";
+import { getError } from "../../utils";
 import { Container, ErrorBlock } from "../common";
 import type { FC } from "react";
 import type { FallbackProps } from "react-error-boundary";
@@ -10,17 +9,7 @@ type Props = Omit<FallbackProps, "error"> & {
 };
 
 export const ErrorFallback: FC<Props> = ({ error }) => {
-  let parsedMessage;
-  let parsedError;
-
-  try {
-    parsedMessage = JSON.parse(get(error, ["message"]));
-    parsedError = JSON.parse(get(parsedMessage, ["message"]));
-  } catch (e) {
-    //..
-  }
-
-  const message = get(parsedError, ["error"]) || DEFAULT_ERROR;
+  const message = getError(error);
 
   // eslint-disable-next-line no-console
   console.error(error);

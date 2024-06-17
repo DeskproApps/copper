@@ -1,4 +1,5 @@
 import type { To, ParamKeyValuePair } from "react-router-dom";
+import type { DropdownValueType } from "@deskpro/deskpro-ui";
 import type { Context, IDeskproClient } from "@deskpro/app-sdk";
 import type { Response } from "./services/copper/types";
 
@@ -6,6 +7,8 @@ import type { Response } from "./services/copper/types";
 export type Maybe<T> = T | undefined | null;
 
 export type Dict<T> = Record<string, T>;
+
+export type Option<Value = unknown> = Omit<DropdownValueType<Value>, "subItems">;
 
 /** Unix timestamp 1715684105 */
 export type Timestamp = number;
