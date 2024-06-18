@@ -6,3 +6,5 @@ export { Button, AnchorButton } from "./Button";
 export { ErrorBlock } from "./ErrorBlock";
 export { Navigation } from "./Navigation";
 export { Card } from "./Card";
+export { Input } from "./Input";
+export { Label } from "./Label";

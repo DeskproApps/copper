@@ -67,3 +67,8 @@ export type Contact = {
   date_modified: number;
   interaction_count: number;
 };
+
+export type ContactType = {
+  id: number;
+  name: string;
+};

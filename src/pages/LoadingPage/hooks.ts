@@ -28,7 +28,7 @@ const useLoadingApp: UseLoadingApp = () => {
       .then(() => tryToLinkAutomatically(client, dpUser))
       .then(() => getEntityListService(client, dpUser.id))
       .then((entityIds) => navigate(size(entityIds) ? "/home" : "/contacts/link"))
-      .catch(asyncErrorHandler)
+      .catch(asyncErrorHandler);
   }, [dpUser]);
 };
 

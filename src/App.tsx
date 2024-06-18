@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { useDebouncedCallback } from "use-debounce";
 import { match } from "ts-pattern";
+import { ErrorBoundary } from "react-error-boundary";
 import {
   LoadingSpinner,
   useDeskproAppClient,
@@ -10,6 +11,7 @@ import {
 import { useRegisterElements, useUnlinkContact } from "./hooks";
 import { isNavigatePayload } from "./utils";
 import { AppContainer } from "./components/common";
+import { ErrorFallback } from "./components/ErrorFallback/ErrorFallback";
 import {
   HomePage,
   LoadingPage,
@@ -59,14 +61,16 @@ const App: FC = () => {
 
   return (
     <AppContainer isAdmin={isAdmin}>
-      <Routes>
-        <Route path="/admin/verify_settings" element={<VerifySettingsPage/>}/>
-        <Route path="/home" element={<HomePage/>}/>
-        <Route path="/contacts/link" element={<LinkContactPage/>}/>
-        <Route path="/contacts/create" element={<CreateContactPage/>}/>
-        <Route path="/opportunity/:id" element={<OpportunityPage/>}/>
-        <Route index element={<LoadingPage/>}/>
-      </Routes>
+      <ErrorBoundary FallbackComponent={ErrorFallback}>
+        <Routes>
+          <Route path="/admin/verify_settings" element={<VerifySettingsPage/>}/>
+          <Route path="/home" element={<HomePage/>}/>
+          <Route path="/contacts/link" element={<LinkContactPage/>}/>
+          <Route path="/contacts/create" element={<CreateContactPage/>}/>
+          <Route path="/opportunity/:id" element={<OpportunityPage/>}/>
+          <Route index element={<LoadingPage/>}/>
+        </Routes>
+      </ErrorBoundary>
     </AppContainer>
   );
 }

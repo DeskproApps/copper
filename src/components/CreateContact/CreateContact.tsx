@@ -1,16 +1,17 @@
-import { Title } from "@deskpro/app-sdk";
 import { Container, Navigation } from "../common";
+import { ContactForm } from "../ContactForm";
 import type { FC } from "react";
+import type { Props as FormProps } from "../ContactForm";
 
-type Props = {
+type Props = FormProps & {
   onNavigateToLink: () => void;
 };
 
-const CreateContact: FC<Props> = ({ onNavigateToLink }) => {
+const CreateContact: FC<Props> = ({ onNavigateToLink, ...props }) => {
   return (
     <Container>
       <Navigation onNavigateToLink={onNavigateToLink}/>
-      <Title title="CreateContact"/>
+      <ContactForm {...props}/>
     </Container>
   );
 };
