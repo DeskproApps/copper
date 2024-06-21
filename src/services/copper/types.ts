@@ -73,6 +73,11 @@ export type ContactType = {
   name: string;
 };
 
+export type OpportunityRelated = {
+  id: number;
+  type: "opportunity";
+}
+
 export type OpportunityInput = {
   //..
 };

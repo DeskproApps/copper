@@ -96,4 +96,4 @@ const ContactForm: FC<Props> = ({ error, onSubmit, onCancel, isEditMode, contact
   );
 };
 
-export {ContactForm};
+export { ContactForm };

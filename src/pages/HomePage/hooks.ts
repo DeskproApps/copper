@@ -4,12 +4,15 @@ import { useQueryWithClient } from "@deskpro/app-sdk";
 import {
   getActivityTypes,
   getActivitiesByContactId,
-  getOpportunitiesByContactId,
 } from "../../api/api";
-import { getAccountService } from "../../services/copper";
+import {
+  getAccountService,
+  getPipelinesService,
+  getOpportunitiesService,
+} from "../../services/copper";
 import { useLinkedContact } from "../../hooks";
 import { QueryKey } from "../../query";
-import { isNote, isSms, isPhoneCall, isMeeting } from "../../utils";
+import { isNote, isSms, isPhoneCall, isMeeting, enhanceOpportunities } from "../../utils";
 import type { IAccount, IContact, IActivity, IOpportunity, IActivityType } from "../../api/types";
 import type { Contact } from "../../services/copper/types";
 
@@ -30,11 +33,15 @@ const useContact: UseContact = () => {
 
   const contactId = useMemo(() => get(contact, ["contact", "id"]), [contact]);
 
+  const pipelines = useQueryWithClient([QueryKey.PIPELINES], getPipelinesService);
+
   const opportunities = useQueryWithClient(
-    ["opportunities", `${contactId}`],
-    (client) => getOpportunitiesByContactId(client, contactId as IContact["id"]),
+    [QueryKey.OPPORTUNITIES, contactId],
+    (client) => getOpportunitiesService(client, { contactId }),
     { enabled: Boolean(contactId) },
   );
+
+  // console.log(">>> hook:", pipelines);
 
   const activitiesLog = useQueryWithClient(
     ["activity", `${contactId}`],
@@ -64,7 +71,9 @@ const useContact: UseContact = () => {
     account: account.data as unknown as IAccount,
     activities,
     notes,
-    opportunities: opportunities.data || [],
+    opportunities: useMemo(() => {
+      return enhanceOpportunities(opportunities.data, pipelines.data)
+    }, [opportunities.data, pipelines.data]),
     activityTypes: get(activityTypes, ["data", "user"]) || []
   }
 };

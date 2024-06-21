@@ -18,14 +18,14 @@ const Opportunity: FC<Props> = ({ opportunity }) => (
       )}
     />
     <TwoProperties
-      leftLabel="Stage"
-      leftText={get(opportunity, ["pipeline_stage_name"])}
-      rightLabel="Value"
-      rightText={formatPrice(opportunity?.monetary_value, opportunity?.monetary_unit)}
+      leftLabel="Pipeline"
+      leftText={get(opportunity, ["pipeline_name"])}
+      rightLabel="Stage"
+      rightText={get(opportunity, ["pipeline_stage_name"])}
     />
     <TwoProperties
-      leftLabel="Owner"
-      leftText={get(opportunity, ["assignee_name"])}
+      leftLabel="Value"
+      leftText={formatPrice(opportunity?.monetary_value, opportunity?.monetary_unit)}
       rightLabel="Close date"
       rightText={format(get(opportunity, ["close_date"]))}
     />
