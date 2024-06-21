@@ -72,3 +72,50 @@ export type ContactType = {
   id: number;
   name: string;
 };
+
+export type OpportunityInput = {
+  //..
+};
+
+export type Opportunity = {
+  id: number;
+  name: string;
+  assignee_id: number;
+  close_date: number;
+  company_id: number;
+  company_name: string;
+  customer_source_id: null;
+  details: string;
+  loss_reason_id: null;
+  pipeline_id: number;
+  pipeline_stage_id: number;
+  primary_contact_id: number;
+  priority: string;
+  status: string;
+  tags: object[];
+  interaction_count: number;
+  monetary_unit: string;
+  monetary_value: number;
+  converted_unit: string;
+  converted_value: string;
+  win_probability: number;
+  date_stage_changed: number;
+  date_last_contacted: number;
+  leads_converted_from: object[];
+  date_lead_created: null;
+  date_created: number;
+  date_modified: number;
+  custom_fields: object[];
+};
+
+export type PipeLineStage = {
+  id: number;
+  name: string;
+  win_probability: null;
+};
+
+export type Pipeline = {
+  id: number;
+  name: string;
+  stages: PipeLineStage[];
+};

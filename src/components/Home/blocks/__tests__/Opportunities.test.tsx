@@ -6,6 +6,7 @@ import type { Props } from "../Opportunities";
 const renderOpportunities = (props?: Partial<Props>) => render((
   <Opportunities
     opportunities={props?.opportunities || mockSearchOpportunities as never[]}
+    onNavigateToCreateOpportunity={props?.onNavigateToCreateOpportunity || jest.fn}
   />
 ), { wrappers: { router: true } });
 

@@ -12,9 +12,18 @@ type Props = {
   notes: IActivity[];
   opportunities: IOpportunity[];
   activityTypes: IActivityType[];
+  onNavigateToCreateOpportunity: () => void;
 };
 
-const Home: FC<Props> = ({ contact, account, opportunities, notes, activities, activityTypes }) => {
+const Home: FC<Props> = ({
+  contact,
+  account,
+  opportunities,
+  notes,
+  activities,
+  activityTypes,
+  onNavigateToCreateOpportunity,
+}) => {
   if (!contact) {
     return (
       <Container>
@@ -32,7 +41,10 @@ const Home: FC<Props> = ({ contact, account, opportunities, notes, activities, a
       <HorizontalDivider />
 
       <Container>
-        <Opportunities opportunities={opportunities}/>
+        <Opportunities
+          opportunities={opportunities}
+          onNavigateToCreateOpportunity={onNavigateToCreateOpportunity}
+        />
       </Container>
 
       <HorizontalDivider />

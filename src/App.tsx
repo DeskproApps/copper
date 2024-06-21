@@ -20,6 +20,7 @@ import {
   EditContactPage,
   CreateContactPage,
   VerifySettingsPage,
+  CreateOpportunityPage,
 } from "./pages";
 import type { FC } from "react";
 import type { EventPayload } from "./types";
@@ -68,7 +69,8 @@ const App: FC = () => {
           <Route path="/home" element={<HomePage/>}/>
           <Route path="/contacts/link" element={<LinkContactPage/>}/>
           <Route path="/contacts/create" element={<CreateContactPage/>}/>
-          <Route path="/contacts/edit/:id" element={<EditContactPage/>}/>
+          <Route path="/contacts/:id/edit/" element={<EditContactPage/>}/>
+          <Route path="/opportunity/create" element={<CreateOpportunityPage/>}/>
           <Route path="/opportunity/:id" element={<OpportunityPage/>}/>
           <Route index element={<LoadingPage/>}/>
         </Routes>

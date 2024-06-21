@@ -33,7 +33,7 @@ const ContactForm: FC<Props> = ({ error, onSubmit, onCancel, isEditMode, contact
     <form onSubmit={handleSubmit(onSubmit)}>
       {error && <ErrorBlock text={error}/>}
 
-      <Label htmlFor="" label="First Name" required>
+      <Label htmlFor="firstName" label="First Name" required>
         <Input
           id="firstName"
           error={has(errors, ["firstName", "message"])}
