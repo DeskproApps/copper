@@ -12,7 +12,10 @@ const OpportunityPage: FC = () => {
   useSetTitle();
 
   useRegisterElements(({ registerElement }) => {
-    registerElement("home", { type: "home_button" });
+    registerElement("home", {
+      type: "home_button",
+      payload: { type: "changePage", path: "/home" },
+    });
   });
 
   if (isLoading) {

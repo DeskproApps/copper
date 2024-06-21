@@ -1,42 +1,79 @@
 import { useMemo } from "react";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
-import { useRegisterElements } from "./hooks";
-import { useDeskproAppEvents } from "@deskpro/app-sdk";
+import { useDebouncedCallback } from "use-debounce";
+import { match } from "ts-pattern";
+import { ErrorBoundary } from "react-error-boundary";
 import {
-  VerifySettingsPage,
+  LoadingSpinner,
+  useDeskproAppClient,
+  useDeskproAppEvents,
+} from "@deskpro/app-sdk";
+import { useRegisterElements, useUnlinkContact } from "./hooks";
+import { isNavigatePayload } from "./utils";
+import { AppContainer } from "./components/common";
+import { ErrorFallback } from "./components/ErrorFallback/ErrorFallback";
+import {
   HomePage,
   LoadingPage,
   OpportunityPage,
+  LinkContactPage,
+  EditContactPage,
+  CreateContactPage,
+  VerifySettingsPage,
 } from "./pages";
+import type { FC } from "react";
+import type { EventPayload } from "./types";
 
-const App = () => {
+const App: FC = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
+  const { client } = useDeskproAppClient();
+  const { unlink, isLoading: isLoadingUnlink } = useUnlinkContact();
   const isAdmin = useMemo(() => pathname.includes("/admin/"), [pathname]);
+  const isLoading = useMemo(() => {
+    return !client || isLoadingUnlink
+  }, [client, isLoadingUnlink]);
 
   useRegisterElements(({ registerElement }) => {
     registerElement("refresh", { type: "refresh_button" });
   });
 
+  const debounceElementEvent = useDebouncedCallback((_, __, payload: EventPayload) => {
+    return match(payload.type)
+      .with("changePage", () => isNavigatePayload(payload) && navigate(payload.path))
+      .with("unlink", unlink)
+      .run();
+  }, 500);
+
   useDeskproAppEvents({
-    async onElementEvent(id) {
-      switch (id) {
-        case "home":
-          navigate("/home");
-      }
+    onShow: () => {
+      client && setTimeout(() => client.resize(), 200);
     },
-  }, [navigate]);
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    onElementEvent: debounceElementEvent,
+  }, [client]);
+
+  if (isLoading) {
+    return (
+      <LoadingSpinner/>
+    );
+  }
 
   return (
-    <>
-      <Routes>
-        <Route path="/admin/verify_settings" element={<VerifySettingsPage/>}/>
-        <Route path="/home" element={<HomePage/>}/>
-        <Route path="/opportunity/:id" element={<OpportunityPage/>}/>
-        <Route index element={<LoadingPage/>}/>
-      </Routes>
-      {!isAdmin && (<><br/><br/><br/></>)}
-    </>
+    <AppContainer isAdmin={isAdmin}>
+      <ErrorBoundary FallbackComponent={ErrorFallback}>
+        <Routes>
+          <Route path="/admin/verify_settings" element={<VerifySettingsPage/>}/>
+          <Route path="/home" element={<HomePage/>}/>
+          <Route path="/contacts/link" element={<LinkContactPage/>}/>
+          <Route path="/contacts/create" element={<CreateContactPage/>}/>
+          <Route path="/contacts/edit/:id" element={<EditContactPage/>}/>
+          <Route path="/opportunity/:id" element={<OpportunityPage/>}/>
+          <Route index element={<LoadingPage/>}/>
+        </Routes>
+      </ErrorBoundary>
+    </AppContainer>
   );
 }
 

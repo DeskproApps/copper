@@ -2,10 +2,11 @@ import { HorizontalDivider } from "@deskpro/app-sdk";
 import {Container, NoFound} from "../common";
 import { ContactInfo, Opportunities, Notes, Activities } from "./blocks";
 import type { FC } from "react";
-import type { IContact, IActivity, IOpportunity, IAccount, IActivityType } from "../../api/types";
+import type { IActivity, IOpportunity, IAccount, IActivityType } from "../../api/types";
+import type { Contact } from "../../services/copper/types";
 
 type Props = {
-  contact: IContact;
+  contact: Contact;
   account: IAccount;
   activities: IActivity[];
   notes: IActivity[];

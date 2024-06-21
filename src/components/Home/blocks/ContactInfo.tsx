@@ -1,13 +1,14 @@
 import { useMemo } from "react";
 import { get, map } from "lodash";
 import { Title, Property } from "@deskpro/app-sdk";
-import { getAddress } from "../../../utils";
+import { getAddress, getExternalLinks } from "../../../utils";
 import { CopperLogo, DPNormalize } from "../../common";
 import type { FC } from "react";
-import type { IAccount, IContact } from "../../../api/types";
+import type { IAccount } from "../../../api/types";
+import type { Contact } from "../../../services/copper/types";
 
 export type Props = {
-  contact: IContact;
+  contact: Contact;
   account: IAccount;
 };
 
@@ -19,13 +20,16 @@ const ContactInfo: FC<Props> = ({ contact, account }) => {
     return map(get(contact, ["phone_numbers"]), "number").join(`,\n`);
   }, [contact]);
   const address = useMemo(() => getAddress(get(contact, ["address"])), [contact]);
+  const link = useMemo(() => {
+    return getExternalLinks.contact(account?.id, contact?.id);
+  }, [account, contact]);
 
   return (
     <>
       <Title
         title={get(contact, ["name"])}
-        icon={<CopperLogo />}
-        link={`https://app.copper.com/companies/${account?.id}/app#/contacts/default/contact/${contact.id}`}
+        {...(!link ? {} : { icon: <CopperLogo /> })}
+        {...(!link ? {} : { link })}
       />
       <Property
         label="Email"
@@ -36,8 +40,8 @@ const ContactInfo: FC<Props> = ({ contact, account }) => {
         text={<DPNormalize text={phone} />}
       />
       <Property label="Title" text={contact.title}/>
-      <Property label="Owner" text={contact.assignee_name}/>
-      <Property label="Company name" text={contact.company_name}/>
+      <Property label="Owner" text={get(contact, ["assignee_name"])}/>
+      <Property label="Company name" text={get(contact, ["company_name"])}/>
       <Property label="Address" text={address}/>
     </>
   );

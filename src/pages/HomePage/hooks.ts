@@ -1,23 +1,21 @@
 import { useMemo } from "react";
 import { get, filter } from "lodash";
+import { useQueryWithClient } from "@deskpro/app-sdk";
 import {
-  useQueryWithClient,
-  useDeskproLatestAppContext,
-} from "@deskpro/app-sdk";
-import {
-  getAccount,
   getActivityTypes,
-  getContactsByEmail,
   getActivitiesByContactId,
   getOpportunitiesByContactId,
 } from "../../api/api";
+import { getAccountService } from "../../services/copper";
+import { useLinkedContact } from "../../hooks";
+import { QueryKey } from "../../query";
 import { isNote, isSms, isPhoneCall, isMeeting } from "../../utils";
 import type { IAccount, IContact, IActivity, IOpportunity, IActivityType } from "../../api/types";
+import type { Contact } from "../../services/copper/types";
 
 type UseContact = () => {
-  isFetched: boolean;
   isLoading: boolean;
-  contact: IContact;
+  contact: Contact;
   account: IAccount;
   activities: IActivity[];
   notes: IActivity[];
@@ -26,18 +24,11 @@ type UseContact = () => {
 };
 
 const useContact: UseContact = () => {
-  const { context } = useDeskproLatestAppContext();
-  const dpUserEmail = useMemo(() => get(context, ["data", "user", "primaryEmail"]), [context]);
+  const account = useQueryWithClient([QueryKey.ACCOUNT], getAccountService);
 
-  const account = useQueryWithClient(["account"], getAccount);
+  const contact = useLinkedContact();
 
-  const contact = useQueryWithClient(
-    ["contact", dpUserEmail],
-    (client) => getContactsByEmail(client, dpUserEmail),
-    { enabled: Boolean(dpUserEmail) },
-  );
-
-  const contactId = useMemo(() => get(contact.data, ["id"]), [contact.data]);
+  const contactId = useMemo(() => get(contact, ["contact", "id"]), [contact]);
 
   const opportunities = useQueryWithClient(
     ["opportunities", `${contactId}`],
@@ -64,15 +55,12 @@ const useContact: UseContact = () => {
   }), [activitiesLog.data, activityTypes.data?.user]);
 
   return {
-    isLoading: Boolean(contactId) && [
-      contact,
+    isLoading: [
       account,
-      opportunities,
-      activitiesLog,
+      contact,
       activityTypes,
     ].some(({ isLoading }) => isLoading),
-    isFetched: [contact].some(({ isFetched }) => isFetched),
-    contact: contact.data as IContact,
+    contact: contact.contact as Contact,
     account: account.data as unknown as IAccount,
     activities,
     notes,
