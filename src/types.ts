@@ -17,7 +17,7 @@ export type Timestamp = number;
 export type DateTime = string
 
 /** Request types */
-export type ApiRequestMethod = "GET" | "POST";
+export type ApiRequestMethod = "GET" | "POST" | "PUT";
 
 export type RequestParams = {
   url?: string;

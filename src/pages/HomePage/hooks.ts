@@ -55,11 +55,9 @@ const useContact: UseContact = () => {
   }), [activitiesLog.data, activityTypes.data?.user]);
 
   return {
-    isLoading: !contactId && [
-      contact,
+    isLoading: [
       account,
-      opportunities,
-      activitiesLog,
+      contact,
       activityTypes,
     ].some(({ isLoading }) => isLoading),
     contact: contact.contact as Contact,

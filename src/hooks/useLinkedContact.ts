@@ -5,7 +5,7 @@ import {
   useDeskproLatestAppContext,
 } from "@deskpro/app-sdk";
 import { getEntityListService } from "../services/deskpro";
-import { getContactService } from "../services/copper";
+import { useContact } from "./useContact";
 import { QueryKey } from "../query";
 import type { UserContext } from "../types";
 import type { Contact } from "../services/copper/types";
@@ -26,17 +26,16 @@ const useLinkedContact: UseLinkedContact = () => {
     { enabled: Boolean(dpUserId) },
   );
 
-  const contactId = useMemo(() => get(contactIds.data, [0]), [contactIds.data]) as string;
+  const contactId = useMemo(() => {
+    const id = get(contactIds.data, [0]);
+    return !id ? null : parseInt(id);
+  }, [contactIds.data]);
 
-  const contact = useQueryWithClient(
-    [QueryKey.CONTACT, `${contactId}`],
-    (client) => getContactService(client, parseInt(contactId)),
-    { enabled: Boolean(contactId) },
-  );
+  const contact = useContact(contactId);
 
   return {
     isLoading: [contactIds, contact].some(({ isLoading }) => isLoading),
-    contact: contact.data,
+    contact: contact.contact,
   };
 };
 

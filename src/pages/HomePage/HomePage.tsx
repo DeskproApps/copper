@@ -18,11 +18,17 @@ const HomePage = () => {
     registerElement("menu", {
       type: "menu",
       items: [{
-        title: "Unlink Contact",
+        title: !contact?.id ? "Link Contact" : "Unlink Contact",
         payload: { type: "unlink" },
       }],
     });
-  });
+    if (contact?.id) {
+      registerElement("edit", {
+        type: "edit_button",
+        payload: { type: "changePage", path: `/contacts/edit/${contact.id}` },
+      });
+    }
+  }, [contact?.id]);
 
   if (isLoading) {
     return (

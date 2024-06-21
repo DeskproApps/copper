@@ -5,7 +5,7 @@ import { Stack } from "@deskpro/deskpro-ui";
 import { Select, LoadingSpinner } from "@deskpro/app-sdk";
 import { getInitValues, validationSchema } from "./utils";
 import { useFormDeps } from "./hooks";
-import { Input, Label, Button, ErrorBlock } from "../common";
+import { Input, Label, Button, ErrorBlock, MultiInput } from "../common";
 import type { FC } from "react";
 import type { ContactType } from "../../services/copper/types";
 import type { Props, FormValidationSchema } from "./types";
@@ -59,19 +59,22 @@ const ContactForm: FC<Props> = ({ error, onSubmit, onCancel, isEditMode, contact
         />
       </Label>
 
-      <Label htmlFor="email" label="Email">
-        <Input
-          id="email"
-          error={has(errors, ["email", "message"])}
-          {...register("email")}
+      <Label htmlFor="emails" label="Emails">
+        <MultiInput
+          id="emails"
+          validators={["email"]}
+          values={watch("emails")}
+          error={has(errors, ["emails", "message"])}
+          onChange={(value) => setValue("emails", value)}
         />
       </Label>
 
-      <Label htmlFor="phone" label="Phone">
-        <Input
-          id="phone"
-          error={has(errors, ["phone", "message"])}
-          {...register("phone")}
+      <Label htmlFor="phones" label="Phones">
+        <MultiInput
+          id="phones"
+          values={watch("phones")}
+          error={has(errors, ["phones", "message"])}
+          onChange={(value) => setValue("phones", value)}
         />
       </Label>
 
