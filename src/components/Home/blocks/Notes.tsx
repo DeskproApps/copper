@@ -8,11 +8,15 @@ import type { IActivity } from "../../../api/types";
 
 export type Props = {
   notes: IActivity[];
+  onNavigateToCreateNote: () => void;
 };
 
-const Notes: FC<Props> = ({ notes }) => (
+const Notes: FC<Props> = ({ notes, onNavigateToCreateNote }) => (
   <>
-    <Title title={`Notes (${size(notes)})`}/>
+    <Title
+      title={`Notes (${size(notes)})`}
+      onClick={onNavigateToCreateNote}
+    />
     {!size(notes)
       ? <NoFound text="No notes found"/>
       : notes.map((note, idx) => (

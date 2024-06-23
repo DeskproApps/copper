@@ -15,6 +15,7 @@ import { ErrorFallback } from "./components/ErrorFallback/ErrorFallback";
 import {
   HomePage,
   LoadingPage,
+  CreateNotePage,
   OpportunityPage,
   LinkContactPage,
   EditContactPage,
@@ -72,6 +73,7 @@ const App: FC = () => {
           <Route path="/contacts/:id/edit/" element={<EditContactPage/>}/>
           <Route path="/opportunity/create" element={<CreateOpportunityPage/>}/>
           <Route path="/opportunity/:id" element={<OpportunityPage/>}/>
+          <Route path="/notes/create" element={<CreateNotePage/>}/>
           <Route index element={<LoadingPage/>}/>
         </Routes>
       </ErrorBoundary>

@@ -124,3 +124,7 @@ export type Pipeline = {
   name: string;
   stages: PipeLineStage[];
 };
+
+export type ActivityInput = {
+  //..
+};
