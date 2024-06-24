@@ -1,9 +1,12 @@
+import { useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import { LoadingSpinner } from "@deskpro/app-sdk";
 import { useRegisterElements } from "../../hooks";
 import { useContact } from "./hooks";
 import { Home } from "../../components";
 
 const HomePage = () => {
+  const navigate = useNavigate();
   const {
     isLoading,
     contact,
@@ -13,6 +16,10 @@ const HomePage = () => {
     activities,
     activityTypes,
   } = useContact();
+
+  const onNavigateToCreateOpportunity = useCallback(() => {
+    navigate("/opportunity/create");
+  }, [navigate]);
 
   useRegisterElements(({ registerElement }) => {
     registerElement("menu", {
@@ -44,6 +51,7 @@ const HomePage = () => {
       notes={notes}
       opportunities={opportunities}
       activityTypes={activityTypes}
+      onNavigateToCreateOpportunity={onNavigateToCreateOpportunity}
     />
   );
 };

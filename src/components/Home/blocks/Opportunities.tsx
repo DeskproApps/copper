@@ -7,11 +7,15 @@ import type { IOpportunity } from "../../../api/types";
 
 export type Props = {
   opportunities: IOpportunity[];
+  onNavigateToCreateOpportunity: () => void;
 };
 
-const Opportunities: FC<Props> = ({ opportunities }) => (
+const Opportunities: FC<Props> = ({ opportunities, onNavigateToCreateOpportunity }) => (
   <>
-    <Title title={`Opportunities (${size(opportunities)})`}/>
+    <Title
+      title={`Opportunities (${size(opportunities)})`}
+      onClick={onNavigateToCreateOpportunity}
+    />
     {!size(opportunities)
       ? (<NoFound text="No opportunities found"/>)
       : opportunities.map((o) => (
