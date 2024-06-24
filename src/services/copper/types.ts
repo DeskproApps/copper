@@ -1,4 +1,4 @@
-import type { Maybe } from "../../types";
+import type { Maybe, Timestamp } from "../../types";
 
 export type Response<T> = Promise<T>;
 
@@ -125,6 +125,47 @@ export type Pipeline = {
   stages: PipeLineStage[];
 };
 
+export type ActivityType<Category> = {
+  id: number;
+  name: string;
+  category: Category;
+  is_disabled: boolean;
+  count_as_interaction: boolean;
+};
+
+export type UserActivityType = ActivityType<"user">;
+
+export type SystemActivityType = ActivityType<"system">;
+
+export type ActivityTypes = {
+  system: Array<SystemActivityType>;
+  user: Array<UserActivityType>;
+};
+
 export type ActivityInput = {
-  //..
+  type: {
+    category: "user";
+    id: UserActivityType["id"];
+  },
+  details: string;
+  activity_date?: Timestamp;
+};
+
+export type Activity = {
+  id: number;
+  parent: {
+    id: Contact["id"];
+    type: "person"
+  },
+  type: {
+    id: UserActivityType["id"];
+    category: "user";
+  },
+  user_id: number;
+  details: number;
+  activity_date: Timestamp;
+  old_value: null;
+  new_value: null;
+  date_created: Timestamp;
+  date_modified: Timestamp;
 };

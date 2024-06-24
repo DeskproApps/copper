@@ -18,7 +18,7 @@ const Activity: FC<Props> = ({ activity, isLast, activityTypes }) => (
       leftLabel={"Type"}
       leftText={getActivityTypeName(activity, activityTypes)}
       rightLabel="Date"
-      rightText={format(activity.activity_date)}
+      rightText={format(activity.activity_date, { time: true })}
     />
     <Property text={<DPNormalize text={activity.details} />}/>
     {!isLast && <HorizontalDivider/>}

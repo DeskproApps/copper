@@ -6,3 +6,4 @@ export { CreateContact } from "./CreateContact";
 export { EditContact } from "./EditContact";
 export { CreateOpportunity } from "./CreateOpportunity";
 export { CreateNote } from "./CreateNote";
+export { CreateActivity } from "./CreateActivity";

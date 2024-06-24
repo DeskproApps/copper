@@ -25,6 +25,11 @@ const HomePage = () => {
     navigate("/notes/create");
   }, [navigate]);
 
+  const onNavigateToCreateActivity = useCallback(() => {
+    navigate("/activities/create");
+  }, [navigate]);
+
+
   useRegisterElements(({ registerElement }) => {
     registerElement("menu", {
       type: "menu",
@@ -56,6 +61,7 @@ const HomePage = () => {
       opportunities={opportunities}
       activityTypes={activityTypes}
       onNavigateToCreateNote={onNavigateToCreateNote}
+      onNavigateToCreateActivity={onNavigateToCreateActivity}
       onNavigateToCreateOpportunity={onNavigateToCreateOpportunity}
     />
   );

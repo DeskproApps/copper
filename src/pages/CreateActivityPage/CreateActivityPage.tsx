@@ -1,18 +1,17 @@
-import { useMemo, useState, useCallback } from "react";
+import {useCallback, useMemo, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
 import { useDeskproAppClient } from "@deskpro/app-sdk";
+import { useSetTitle, useRegisterElements, useLinkedContact } from "../../hooks";
 import { createActivityService } from "../../services/copper";
-import { useSetTitle, useLinkedContact, useRegisterElements } from "../../hooks";
 import { getError } from "../../utils";
-import { getValues } from "../../components/NoteForm";
-import { CreateNote } from "../../components";
+import { getValues } from "../../components/ActivityForm";
+import { CreateActivity } from "../../components";
 import type { FC } from "react";
 import type { Maybe } from "../../types";
-import type { FormValidationSchema } from "../../components/NoteForm";
+import type { FormValidationSchema } from "../../components/ActivityForm";
 
-
-const CreateNotePage: FC = () => {
+const CreateActivityPage: FC = () => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const { client } = useDeskproAppClient();
@@ -24,7 +23,7 @@ const CreateNotePage: FC = () => {
     return new Promise((resolve) => {
       setTimeout(() => {
         queryClient.invalidateQueries({ queryKey: ["activity"] }).then(resolve)
-      }, 3000);
+      }, 4000);
     });
   }, [queryClient]);
 
@@ -43,7 +42,7 @@ const CreateNotePage: FC = () => {
       .catch((err) => setError(getError(err)));
   }, [client, contactId, navigate, debouncedInvalidate]);
 
-  useSetTitle("Note");
+  useSetTitle("Activity");
 
   useRegisterElements(({ registerElement }) => {
     registerElement("refresh", { type: "refresh_button" });
@@ -54,7 +53,7 @@ const CreateNotePage: FC = () => {
   });
 
   return (
-    <CreateNote
+    <CreateActivity
       error={error}
       onSubmit={onSubmit}
       onCancel={onCancel}
@@ -62,4 +61,4 @@ const CreateNotePage: FC = () => {
   );
 };
 
-export { CreateNotePage };
+export { CreateActivityPage };
