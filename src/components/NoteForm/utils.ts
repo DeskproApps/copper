@@ -1,4 +1,5 @@
 import { z } from "zod";
+import type {ActivityInput} from "../../services/copper/types";
 import type { FormValidationSchema } from "./types";
 
 const validationSchema = z.object({
@@ -11,9 +12,10 @@ const getInitValues = (): FormValidationSchema => {
   };
 };
 
-const getValues = (data: FormValidationSchema) => {
+const getValues = (data: FormValidationSchema): ActivityInput => {
   return {
-    note: data.note || "",
+    type: { category: "user", id: 0 }, // zero is activity type - note
+    details: data.note || "",
   };
 };
 

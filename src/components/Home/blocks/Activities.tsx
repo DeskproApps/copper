@@ -9,12 +9,18 @@ import type { IActivity, IActivityType } from "../../../api/types";
 export type Props = {
   activities: IActivity[];
   activityTypes: IActivityType[];
+  onNavigateToCreateActivity: () => void;
 };
 
-const Activities: FC<Props> = ({ activities, activityTypes }) => (
+const Activities: FC<Props> = ({
+  activities,
+  activityTypes,
+  onNavigateToCreateActivity,
+}) => (
   <>
     <Title
       title={`Activities (${size(activities)})`}
+      onClick={onNavigateToCreateActivity}
       {...(!size(activities) ? {} : { marginBottom: 0 })}
     />
     {!size(activities)

@@ -9,4 +9,5 @@ export { getContactTypesService } from "./getContactTypesService";
 export { createOpportunityService } from "./createOpportunityService";
 export { getPipelinesService } from "./getPipelinesService";
 export { getOpportunitiesService } from "./getOpportunitiesService";
-export { createNoteService } from "./createNoteService";
+export { getActivityTypesService } from "./getActivityTypesService";
+export { createActivityService } from "./createActivityService";
