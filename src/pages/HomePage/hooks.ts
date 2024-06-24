@@ -41,6 +41,8 @@ const useContact: UseContact = () => {
     { enabled: Boolean(contactId) },
   );
 
+  // console.log(">>> hook:", pipelines);
+
   const activitiesLog = useQueryWithClient(
     ["activity", `${contactId}`],
     (client) => getActivitiesByContactId(client, contactId as IContact["id"]),
