@@ -12,6 +12,7 @@ type Props = {
   notes: IActivity[];
   opportunities: IOpportunity[];
   activityTypes: IActivityType[];
+  onNavigateToCreateNote: () => void;
   onNavigateToCreateOpportunity: () => void;
 };
 
@@ -22,6 +23,7 @@ const Home: FC<Props> = ({
   notes,
   activities,
   activityTypes,
+  onNavigateToCreateNote,
   onNavigateToCreateOpportunity,
 }) => {
   if (!contact) {
@@ -50,7 +52,10 @@ const Home: FC<Props> = ({
       <HorizontalDivider />
 
       <Container>
-        <Notes notes={notes}/>
+        <Notes
+          notes={notes}
+          onNavigateToCreateNote={onNavigateToCreateNote}
+        />
       </Container>
 
       <HorizontalDivider />

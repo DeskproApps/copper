@@ -8,7 +8,7 @@ const getExternalLinks = {
       return null;
     }
 
-    return `${COPPER_URL}/companies/${accountId}/app#/contacts/default/contact/${contactId}`;
+    return `${COPPER_URL}/companies/${accountId}/app#/browse/list/people/default?fullProfile=people-${contactId}`;
   },
 };
 
