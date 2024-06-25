@@ -9,6 +9,13 @@
   "hasDevMode": true,
   "serveUrl": "https://apps-cdn.deskpro-service.com/__name__/__version__",
   "targets": [{ "target": "user_sidebar", "entrypoint": "index.html" }],
+  "entityAssociations": {
+    "linkedCopperContact": {
+      "entity": "person",
+      "type": "external_id",
+      "title": "Copper Contact"
+    }
+  },
   "settings": {
     "api_key": {
       "title": "Api Key",
@@ -29,7 +36,7 @@
     "verify_settings": {
       "title": "",
       "type": "app_embedded",
-      "options": { "entrypoint": "#/admin/verifysettings" },
+      "options": { "entrypoint": "#/admin/verify_settings" },
       "isRequired": false,
       "isBackendOnly": false,
       "order": 30

@@ -1,0 +1,10 @@
+export { default as mockActivities } from "./mockActivities.json";
+export { default as mockActivityTypes } from "./mockActivityTypes.json";
+export { default as mockAccount } from "./mockAccount.json";
+export { default as mockAuthError } from "./mockAuthError.json";
+export { default as mockContact } from "./mockContact.json";
+export { default as mockPipelineStages } from "./mockPipelineStages.json";
+export { default as mockSearchOpportunities } from "./mockSearchOpportunities.json";
+export { default as mockUser } from "./mockUser.json";
+export { default as mockUsers } from "./mockUsers.json";
+export { default as mockOpportunity } from "./mockOpportunity.json";

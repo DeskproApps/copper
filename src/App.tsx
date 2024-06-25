@@ -1,54 +1,86 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-import {
-  QueryClientProvider,
-  QueryErrorResetBoundary,
-} from "@tanstack/react-query";
+import { useMemo } from "react";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import { useDebouncedCallback } from "use-debounce";
+import { match } from "ts-pattern";
 import { ErrorBoundary } from "react-error-boundary";
-import { HashRouter, Route, Routes } from "react-router-dom";
+import {
+  LoadingSpinner,
+  useDeskproAppClient,
+  useDeskproAppEvents,
+} from "@deskpro/app-sdk";
+import { useRegisterElements, useUnlinkContact } from "./hooks";
+import { isNavigatePayload } from "./utils";
+import { AppContainer } from "./components/common";
 import { ErrorFallback } from "./components/ErrorFallback/ErrorFallback";
-import { Main } from "./pages/Main";
+import {
+  HomePage,
+  LoadingPage,
+  CreateNotePage,
+  OpportunityPage,
+  LinkContactPage,
+  EditContactPage,
+  CreateContactPage,
+  CreateActivityPage,
+  VerifySettingsPage,
+  CreateOpportunityPage,
+} from "./pages";
+import type { FC } from "react";
+import type { EventPayload } from "./types";
 
-import "flatpickr/dist/themes/light.css";
-import "simplebar/dist/simplebar.min.css";
-import "tippy.js/dist/tippy.css";
+const App: FC = () => {
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
+  const { client } = useDeskproAppClient();
+  const { unlink, isLoading: isLoadingUnlink } = useUnlinkContact();
+  const isAdmin = useMemo(() => pathname.includes("/admin/"), [pathname]);
+  const isLoading = useMemo(() => {
+    return !client || isLoadingUnlink
+  }, [client, isLoadingUnlink]);
 
-import { LoadingSpinner } from "@deskpro/app-sdk";
-import "@deskpro/deskpro-ui/dist/deskpro-custom-icons.css";
-import "@deskpro/deskpro-ui/dist/deskpro-ui.css";
-import { Suspense } from "react";
-import { Redirect } from "./components/Redirect/Redirect";
-import { query } from "./utils/query";
-import { View } from "./pages/View/View";
-import { VerifySettings } from "./pages/Admin/VerifySettings";
+  useRegisterElements(({ registerElement }) => {
+    registerElement("refresh", { type: "refresh_button" });
+  });
 
-function App() {
+  const debounceElementEvent = useDebouncedCallback((_, __, payload: EventPayload) => {
+    return match(payload.type)
+      .with("changePage", () => isNavigatePayload(payload) && navigate(payload.path))
+      .with("unlink", unlink)
+      .run();
+  }, 500);
+
+  useDeskproAppEvents({
+    onShow: () => {
+      client && setTimeout(() => client.resize(), 200);
+    },
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    onElementEvent: debounceElementEvent,
+  }, [client]);
+
+  if (isLoading) {
+    return (
+      <LoadingSpinner/>
+    );
+  }
+
   return (
-    <HashRouter>
-      <QueryClientProvider client={query}>
-        <Suspense fallback={<LoadingSpinner />}>
-          <QueryErrorResetBoundary>
-            {({ reset }) => (
-              <ErrorBoundary onReset={reset} FallbackComponent={ErrorFallback}>
-                <Routes>
-                  <Route path="/">
-                    <Route path="/admin">
-                      <Route
-                        path="verifysettings"
-                        element={<VerifySettings />}
-                      />
-                    </Route>
-                    <Route path="/redirect" element={<Redirect />} />
-                    <Route index element={<Main />} />
-                    <Route path="view/:type/:id" element={<View />} />
-                  </Route>
-                </Routes>
-              </ErrorBoundary>
-            )}
-          </QueryErrorResetBoundary>
-        </Suspense>
-      </QueryClientProvider>
-    </HashRouter>
+    <AppContainer isAdmin={isAdmin}>
+      <ErrorBoundary FallbackComponent={ErrorFallback}>
+        <Routes>
+          <Route path="/admin/verify_settings" element={<VerifySettingsPage/>}/>
+          <Route path="/home" element={<HomePage/>}/>
+          <Route path="/contacts/link" element={<LinkContactPage/>}/>
+          <Route path="/contacts/create" element={<CreateContactPage/>}/>
+          <Route path="/contacts/:id/edit/" element={<EditContactPage/>}/>
+          <Route path="/opportunity/create" element={<CreateOpportunityPage/>}/>
+          <Route path="/opportunity/:id" element={<OpportunityPage/>}/>
+          <Route path="/notes/create" element={<CreateNotePage/>}/>
+          <Route path="/activities/create" element={<CreateActivityPage/>}/>
+          <Route index element={<LoadingPage/>}/>
+        </Routes>
+      </ErrorBoundary>
+    </AppContainer>
   );
 }
 
-export default App;
+export { App };

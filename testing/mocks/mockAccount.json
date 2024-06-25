@@ -1,0 +1,9 @@
+{
+  "id": 537669,
+  "name": "Kyivan Rus",
+  "settings": {
+    "setting_team_permissions_enabled": false,
+    "setting_enable_leads": false
+  },
+  "primary_timezone": "Europe/London"
+}

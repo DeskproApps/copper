@@ -1,0 +1,1 @@
+export { LinkContactPage } from "./LinkContactPage";
