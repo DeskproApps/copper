@@ -5,10 +5,10 @@ import { formatPrice } from "../../utils";
 import { Container, DPNormalize } from "../common";
 import type { FC } from "react";
 import type { Maybe } from "../../types";
-import type { IOpportunity } from "../../api/types";
+import type { Opportunity as OpportunityType } from "../../services/copper/types";
 
 export type Props = {
-  opportunity: Maybe<IOpportunity>;
+  opportunity: Maybe<OpportunityType>;
 };
 
 const Opportunity: FC<Props> = ({ opportunity }) => {

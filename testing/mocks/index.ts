@@ -1,4 +1,3 @@
-export { default as mockUserContext } from "./mockUserContext.json";
 export { default as mockActivities } from "./mockActivities.json";
 export { default as mockActivityTypes } from "./mockActivityTypes.json";
 export { default as mockAccount } from "./mockAccount.json";

@@ -1,5 +1,5 @@
 import { cleanup } from "@testing-library/react";
-import { render } from "../../../../../testing";
+import { render } from "@deskpro/app-testing-utils";
 import { ErrorBlock } from "../ErrorBlock";
 import type { Props } from "../ErrorBlock";
 

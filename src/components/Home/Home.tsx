@@ -2,16 +2,16 @@ import { HorizontalDivider } from "@deskpro/app-sdk";
 import {Container, NoFound} from "../common";
 import { ContactInfo, Opportunities, Notes, Activities } from "./blocks";
 import type { FC } from "react";
-import type { IActivity, IOpportunity, IAccount, IActivityType } from "../../api/types";
+import type { Activity, Opportunity, Account, UserActivityType } from "../../services/copper/types";
 import type { Contact } from "../../services/copper/types";
 
 type Props = {
   contact: Contact;
-  account: IAccount;
-  activities: IActivity[];
-  notes: IActivity[];
-  opportunities: IOpportunity[];
-  activityTypes: IActivityType[];
+  account: Account;
+  activities: Activity[];
+  notes: Activity[];
+  opportunities: Opportunity[];
+  activityTypes: UserActivityType[];
   onNavigateToCreateNote: () => void;
   onNavigateToCreateActivity: () => void;
   onNavigateToCreateOpportunity: () => void;

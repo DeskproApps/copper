@@ -1,5 +1,6 @@
 import { cleanup } from "@testing-library/react";
-import { render, mockActivities, mockActivityTypes } from "../../../../../testing";
+import { render } from "@deskpro/app-testing-utils";
+import { mockActivities, mockActivityTypes } from "../../../../../testing";
 import { Activity } from "../Activity";
 import type { Props } from "../Activity";
 
@@ -11,7 +12,7 @@ const renderActivity = (props?: Partial<Props>) => render((
     isLast={props?.isLast || false}
     activityTypes={props?.activityTypes || mockActivityTypes.user as never[]}
   />
-));
+), { wrappers: { theme: true } });
 
 describe("Home", () => {
   describe("Activity", () => {

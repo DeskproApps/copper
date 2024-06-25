@@ -3,12 +3,12 @@ import { format } from "../../../utils/date";
 import { getActivityTypeName } from "../../../utils";
 import { DPNormalize } from "../../common";
 import type { FC } from "react";
-import type { IActivity, IActivityType } from "../../../api/types";
+import type { Activity, UserActivityType } from "../../../services/copper/types";
 
 export type Props = {
-  activity: IActivity;
+  activity: Activity;
   isLast: boolean;
-  activityTypes: IActivityType[];
+  activityTypes: UserActivityType[];
 };
 
 const Activity: FC<Props> = ({ activity, isLast, activityTypes }) => (

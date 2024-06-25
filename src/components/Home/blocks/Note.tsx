@@ -2,10 +2,10 @@ import { HorizontalDivider, Property } from "@deskpro/app-sdk";
 import { format } from "../../../utils/date";
 import { DPNormalize } from "../../common";
 import type { FC } from "react";
-import type { IActivity } from "../../../api/types";
+import type { Activity } from "../../../services/copper/types";
 
 export type Props = {
-  note: IActivity;
+  note: Activity;
   isLast: boolean;
 };
 

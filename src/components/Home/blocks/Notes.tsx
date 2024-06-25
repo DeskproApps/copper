@@ -4,10 +4,10 @@ import { isLast } from "../../../utils";
 import { NoFound } from "../../common";
 import { Note } from "./Note";
 import type { FC } from "react";
-import type { IActivity } from "../../../api/types";
+import type { Activity } from "../../../services/copper/types";
 
 export type Props = {
-  notes: IActivity[];
+  notes: Activity[];
   onNavigateToCreateNote: () => void;
 };
 

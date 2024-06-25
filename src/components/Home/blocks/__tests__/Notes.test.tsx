@@ -1,13 +1,17 @@
 import { cleanup } from "@testing-library/react";
-import { render, mockActivities } from "../../../../../testing";
+import { render } from "@deskpro/app-testing-utils";
+import { mockActivities } from "../../../../../testing";
 import { Notes } from "../Notes";
 import type { Props } from "../Notes";
 
 const mockNotes = [mockActivities[5]];
 
-const renderNotes = (props?: Partial<Props>) => render(
-  <Notes notes={props?.notes || mockNotes as never[]}/>
-);
+const renderNotes = (props?: Partial<Props>) => render((
+  <Notes
+    notes={props?.notes || mockNotes as never[]}
+    onNavigateToCreateNote={props?.onNavigateToCreateNote || jest.fn}
+  />
+), { wrappers: { theme: true } });
 
 describe("Home", () => {
   describe("Notes", () => {

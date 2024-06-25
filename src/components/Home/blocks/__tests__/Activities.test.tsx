@@ -1,5 +1,6 @@
 import { cleanup } from "@testing-library/react";
-import { render, mockActivities, mockActivityTypes } from "../../../../../testing";
+import { render } from "@deskpro/app-testing-utils";
+import { mockActivities, mockActivityTypes } from "../../../../../testing";
 import { Activities } from "../Activities";
 import type { Props } from "../Activities";
 
@@ -13,8 +14,9 @@ const renderActivities = (props?: Partial<Props>) => render((
   <Activities
     activities={props?.activities || mockActivityList as never[]}
     activityTypes={props?.activityTypes || mockActivityTypes.user as never[]}
+    onNavigateToCreateActivity={props?.onNavigateToCreateActivity || jest.fn}
   />
-));
+), { wrappers: { theme: true } });
 
 describe("Home", () => {
   describe("Activities", () => {

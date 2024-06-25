@@ -1,5 +1,6 @@
 import { cleanup } from "@testing-library/react";
-import { render, mockSearchOpportunities } from "../../../../../testing";
+import { render } from "@deskpro/app-testing-utils";
+import { mockSearchOpportunities } from "../../../../../testing";
 import { Opportunities } from "../Opportunities";
 import type { Props } from "../Opportunities";
 
@@ -8,7 +9,7 @@ const renderOpportunities = (props?: Partial<Props>) => render((
     opportunities={props?.opportunities || mockSearchOpportunities as never[]}
     onNavigateToCreateOpportunity={props?.onNavigateToCreateOpportunity || jest.fn}
   />
-), { wrappers: { router: true } });
+), { wrappers: { theme: true, router: true } });
 
 
 describe("Home", () => {

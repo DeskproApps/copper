@@ -2,28 +2,31 @@ import { useMemo } from "react";
 import { get, filter } from "lodash";
 import { useQueryWithClient } from "@deskpro/app-sdk";
 import {
-  getActivityTypes,
-  getActivitiesByContactId,
-} from "../../api/api";
-import {
   getAccountService,
   getPipelinesService,
+  getActivitiesService,
+  getActivityTypesService,
   getOpportunitiesService,
 } from "../../services/copper";
 import { useLinkedContact } from "../../hooks";
 import { QueryKey } from "../../query";
 import { isNote, isSms, isPhoneCall, isMeeting, enhanceOpportunities } from "../../utils";
-import type { IAccount, IContact, IActivity, IOpportunity, IActivityType } from "../../api/types";
-import type { Contact } from "../../services/copper/types";
+import type {
+  Account,
+  Contact,
+  Activity,
+  Opportunity,
+  UserActivityType,
+} from "../../services/copper/types";
 
 type UseContact = () => {
   isLoading: boolean;
   contact: Contact;
-  account: IAccount;
-  activities: IActivity[];
-  notes: IActivity[];
-  opportunities: IOpportunity[];
-  activityTypes: IActivityType[];
+  account: Account;
+  activities: Activity[];
+  notes: Activity[];
+  opportunities: Opportunity[];
+  activityTypes: UserActivityType[];
 };
 
 const useContact: UseContact = () => {
@@ -41,15 +44,16 @@ const useContact: UseContact = () => {
     { enabled: Boolean(contactId) },
   );
 
-  // console.log(">>> hook:", pipelines);
-
   const activitiesLog = useQueryWithClient(
-    ["activity", `${contactId}`],
-    (client) => getActivitiesByContactId(client, contactId as IContact["id"]),
+    [QueryKey.ACTIVITIES, `${contactId}`],
+    (client) => getActivitiesService(client, contactId as Contact["id"]),
     { enabled: Boolean(contactId) },
   );
 
-  const activityTypes = useQueryWithClient(["activityTypes"], getActivityTypes);
+  const activityTypes = useQueryWithClient(
+    [QueryKey.ACTIVITY_TYPES],
+    getActivityTypesService,
+  );
 
   const notes = useMemo(() => filter(activitiesLog.data, (activity) => {
     return isNote(activity, activityTypes.data?.user);
@@ -68,7 +72,7 @@ const useContact: UseContact = () => {
       activityTypes,
     ].some(({ isLoading }) => isLoading),
     contact: contact.contact as Contact,
-    account: account.data as unknown as IAccount,
+    account: account.data as Account,
     activities,
     notes,
     opportunities: useMemo(() => {

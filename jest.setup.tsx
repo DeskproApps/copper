@@ -8,7 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 import { TextDecoder, TextEncoder } from "util";
 import * as React from "react";
 import { lightTheme } from "@deskpro/deskpro-ui";
-import { mockClient, mockUserContext } from "./testing";
+import { mockClient, mockUserContext } from "@deskpro/app-testing-utils";
 import type { IDeskproClient } from "@deskpro/app-sdk";
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment

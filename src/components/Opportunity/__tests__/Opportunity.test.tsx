@@ -1,5 +1,6 @@
 import { cleanup } from "@testing-library/react";
-import { render, mockOpportunity } from "../../../../testing";
+import { render } from "@deskpro/app-testing-utils";
+import { mockOpportunity } from "../../../../testing";
 import { Opportunity } from "../Opportunity";
 import type { Props } from "../Opportunity";
 
@@ -7,7 +8,7 @@ const renderOpportunity = (props?: Partial<Props>) => render((
   <Opportunity
     opportunity={props?.opportunity || mockOpportunity as never}
   />
-));
+), { wrappers: { theme: true } });
 
 describe("Opportunity", () => {
   afterEach(() => {

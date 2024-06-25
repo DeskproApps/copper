@@ -1,12 +1,12 @@
 import { get, find, toLower, isPlainObject } from "lodash";
-import type { IActivityType, IActivity } from "../api/types";
+import type { Activity, UserActivityType } from "../services/copper/types";
 
 const isActivity = (
   type: string,
 ) => (
-  activity?: IActivity,
-  types?: IActivityType[],
-): activity is IActivity  => {
+  activity?: Activity,
+  types?: UserActivityType[],
+): activity is Activity  => {
   if (!isPlainObject(activity) || !Array.isArray(types)) {
     return false;
   }

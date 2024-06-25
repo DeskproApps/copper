@@ -4,13 +4,13 @@ import { nbsp } from "../../constants";
 import { Button, Invalid, Secondary } from "../common";
 import type { FC } from "react";
 import type { Maybe, Settings } from "../../types";
-import type { IAccount } from "../../api/types";
+import type { Account } from "../../services/copper/types";
 
 export type Props = {
   isLoading: boolean;
   settings: Settings;
   error: Maybe<string>;
-  account: Maybe<IAccount>;
+  account: Maybe<Account>;
   onVerifySettings: () => void;
 };
 

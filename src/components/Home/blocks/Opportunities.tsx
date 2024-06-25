@@ -3,10 +3,10 @@ import { Title } from "@deskpro/app-sdk";
 import { NoFound } from "../../common";
 import { Opportunity } from "./Opportunity";
 import type { FC } from "react";
-import type { IOpportunity } from "../../../api/types";
+import type { Opportunity as OpportunityType } from "../../../services/copper/types";
 
 export type Props = {
-  opportunities: IOpportunity[];
+  opportunities: OpportunityType[];
   onNavigateToCreateOpportunity: () => void;
 };
 

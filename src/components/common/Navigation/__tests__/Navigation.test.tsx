@@ -1,6 +1,6 @@
 import { cleanup } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { render } from "../../../../../testing";
+import { render } from "@deskpro/app-testing-utils";
 import { Navigation } from "../Navigation";
 import type { Props } from "../Navigation";
 

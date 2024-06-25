@@ -1,5 +1,6 @@
 import { cleanup } from "@testing-library/react";
-import { render, mockSearchOpportunities } from "../../../../../testing";
+import { render } from "@deskpro/app-testing-utils";
+import { mockSearchOpportunities } from "../../../../../testing";
 import { Opportunity } from "../Opportunity";
 import type { Props } from "../Opportunity";
 
@@ -7,7 +8,7 @@ const renderOpportunity = (props?: Partial<Props>) => render((
   <Opportunity
     opportunity={props?.opportunity || mockSearchOpportunities[0] as never}
   />
-), { wrappers: { router: true } });
+), { wrappers: { theme: true, router: true } });
 
 describe("Home", () => {
   describe("Opportunity", () => {

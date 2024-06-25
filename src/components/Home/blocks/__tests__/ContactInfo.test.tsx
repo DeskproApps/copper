@@ -1,14 +1,15 @@
 import { cleanup } from "@testing-library/react";
-import { render, mockAccount, mockContact } from "../../../../../testing";
+import { render } from "@deskpro/app-testing-utils";
+import { mockAccount, mockContact } from "../../../../../testing";
 import { ContactInfo } from "../ContactInfo";
 import type { Props } from "../ContactInfo";
 
-const renderContactInfo = (props?: Partial<Props>) => render(
+const renderContactInfo = (props?: Partial<Props>) => render((
   <ContactInfo
     contact={props?.contact || mockContact as never}
     account={props?.account || mockAccount as never}
   />
-);
+), { wrappers: { theme: true } });
 
 describe("Home", () => {
   describe("ContactInfo", () => {

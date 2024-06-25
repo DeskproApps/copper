@@ -19,8 +19,12 @@ const QueryKey = {
   LINKED_CONTACT: "linked_contact",
   CONTACT_TYPES: "contact_types",
   PIPELINES: "pipelines",
+  PIPELINE_STAGES: "pipeline_stages",
+  OPPORTUNITY: "opportunity",
   OPPORTUNITIES: "opportunities",
   ACTIVITY_TYPES: "activityTypes",
+  ACTIVITIES: "activities",
+  USERS: "users",
 };
 
 export { queryClient, QueryKey };

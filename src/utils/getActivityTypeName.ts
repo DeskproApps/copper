@@ -1,7 +1,7 @@
 import { get, find } from "lodash";
-import { IActivityType, IActivity } from "../api/types";
+import { UserActivityType, Activity } from "../services/copper/types";
 
-const getActivityTypeName = (activity: IActivity, types: IActivityType[]): string => {
+const getActivityTypeName = (activity: Activity, types: UserActivityType[]): string => {
   const type = find(types, { id: get(activity, ["type", "id"]) });
 
   return type?.name || "-";

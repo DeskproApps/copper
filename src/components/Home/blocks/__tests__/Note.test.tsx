@@ -1,16 +1,17 @@
 import { cleanup } from "@testing-library/react";
-import { render, mockActivities } from "../../../../../testing";
+import { render } from "@deskpro/app-testing-utils";
+import { mockActivities } from "../../../../../testing";
 import { Note } from "../Note";
 import type { Props } from "../Note";
 
 const mockNote = mockActivities[5];
 
-const renderNotes = (props?: Partial<Props>) => render(
+const renderNotes = (props?: Partial<Props>) => render((
   <Note
     note={props?.note || mockNote as never}
     isLast={props?.isLast || false}
   />
-);
+), { wrappers: { theme: true } });
 
 describe("Home", () => {
   describe("Note", () => {

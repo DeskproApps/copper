@@ -1,23 +1,49 @@
+import { useMemo } from "react";
 import { useQueryWithClient } from "@deskpro/app-sdk";
-import { getOpportunityById } from "../../api/api";
+import {
+  getUsersService,
+  getPipelinesService,
+  getOpportunityService,
+  getPipelineStagesService,
+} from "../../services/copper";
+import { enhanceOpportunity } from "../../utils";
+import { QueryKey } from "../../query";
 import type { Maybe } from "../../types";
-import type { IOpportunity } from "../../api/types";
+import type { Opportunity } from "../../services/copper/types";
 
-type UseOpportunity = (id?: IOpportunity["id"]) => {
+type UseOpportunity = (id?: Opportunity["id"]) => {
   isLoading: boolean;
-  opportunity: Maybe<IOpportunity>;
+  opportunity: Maybe<Opportunity>;
 };
 
 const useOpportunity: UseOpportunity = (id) => {
   const opportunity = useQueryWithClient(
-    ["opportunity", `${id}`],
-    (client) => getOpportunityById(client, id as IOpportunity["id"]),
+    [QueryKey.OPPORTUNITY, `${id}`],
+    (client) => getOpportunityService(client, id as Opportunity["id"]),
     { enabled: Boolean(id) },
   );
 
+  const users = useQueryWithClient([QueryKey.USERS], getUsersService);
+
+  const pipelines = useQueryWithClient([QueryKey.PIPELINES], getPipelinesService);
+
+  const pipelineStages = useQueryWithClient(
+    [QueryKey.PIPELINE_STAGES],
+    getPipelineStagesService,
+  );
+
   return {
-    isLoading: Boolean(id) && [opportunity].some(({ isLoading }) => isLoading),
-    opportunity: opportunity.data || null,
+    isLoading: Boolean(id) && [
+      opportunity,
+      pipelineStages,
+    ].some(({ isLoading }) => isLoading),
+    opportunity: useMemo(() => {
+      return !opportunity.data ? null : enhanceOpportunity(
+        opportunity.data,
+        pipelines.data,
+        users.data,
+      );
+    }, [opportunity.data, pipelines.data, users.data]),
   };
 };
 

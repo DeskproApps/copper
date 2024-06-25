@@ -4,9 +4,9 @@ import { Link, Title, TwoProperties } from "@deskpro/app-sdk";
 import { format } from "../../../utils/date";
 import { formatPrice } from "../../../utils";
 import type { FC } from "react";
-import type { IOpportunity } from "../../../api/types";
+import type { Opportunity } from "../../../services/copper/types";
 
-export type Props = { opportunity: IOpportunity };
+export type Props = { opportunity: Opportunity };
 
 const Opportunity: FC<Props> = ({ opportunity }) => (
   <>

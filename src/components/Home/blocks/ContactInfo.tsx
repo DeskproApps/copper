@@ -4,12 +4,11 @@ import { Title, Property } from "@deskpro/app-sdk";
 import { getAddress, getExternalLinks } from "../../../utils";
 import { CopperLogo, DPNormalize } from "../../common";
 import type { FC } from "react";
-import type { IAccount } from "../../../api/types";
-import type { Contact } from "../../../services/copper/types";
+import type { Contact, Account } from "../../../services/copper/types";
 
 export type Props = {
   contact: Contact;
-  account: IAccount;
+  account: Account;
 };
 
 const ContactInfo: FC<Props> = ({ contact, account }) => {

@@ -4,11 +4,11 @@ import { isLast } from "../../../utils";
 import { NoFound } from "../../common";
 import { Activity } from "./Activity";
 import type { FC } from "react";
-import type { IActivity, IActivityType } from "../../../api/types";
+import type { Activity as ActivityType, UserActivityType } from "../../../services/copper/types";
 
 export type Props = {
-  activities: IActivity[];
-  activityTypes: IActivityType[];
+  activities: ActivityType[];
+  activityTypes: UserActivityType[];
   onNavigateToCreateActivity: () => void;
 };
 

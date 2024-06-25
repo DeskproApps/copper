@@ -6,6 +6,12 @@ export type CopperAPIError = {
   //..
 };
 
+export type User = {
+  id: number;
+  name: string;
+  email: string;
+};
+
 export type Account = {
   id: number;
   name: string;
@@ -162,7 +168,7 @@ export type Activity = {
     category: "user";
   },
   user_id: number;
-  details: number;
+  details: string;
   activity_date: Timestamp;
   old_value: null;
   new_value: null;
