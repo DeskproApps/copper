@@ -1,0 +1,14 @@
+[
+  {
+    "id": 4786198,
+    "name": "Stage 1",
+    "pipeline_id": 1054941,
+    "win_probability": 50
+  },
+  {
+    "id": 4786199,
+    "name": "Stage 2",
+    "pipeline_id": 1054941,
+    "win_probability": 50
+  }
+]

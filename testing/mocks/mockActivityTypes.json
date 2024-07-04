@@ -1,0 +1,90 @@
+{
+  "user": [
+    {
+      "id": 0,
+      "category": "user",
+      "name": "Note",
+      "is_disabled": false,
+      "count_as_interaction": false
+    },
+    {
+      "id": 2052143,
+      "category": "user",
+      "name": "Phone Call",
+      "is_disabled": false,
+      "count_as_interaction": true
+    },
+    {
+      "id": 2052144,
+      "category": "user",
+      "name": "Meeting",
+      "is_disabled": false,
+      "count_as_interaction": true
+    },
+    {
+      "id": 2052145,
+      "category": "user",
+      "name": "To Do",
+      "is_disabled": true,
+      "count_as_interaction": false
+    },
+    {
+      "id": 2052146,
+      "category": "user",
+      "name": "SMS",
+      "is_disabled": false,
+      "count_as_interaction": true
+    }
+  ],
+  "system": [
+    {
+      "id": 1,
+      "category": "system",
+      "name": "Property Changed",
+      "is_disabled": false,
+      "count_as_interaction": false
+    },
+    {
+      "id": 2,
+      "category": "system",
+      "name": "User Assigned",
+      "is_disabled": false,
+      "count_as_interaction": false
+    },
+    {
+      "id": 3,
+      "category": "system",
+      "name": "Pipeline Stage Changed",
+      "is_disabled": false,
+      "count_as_interaction": false
+    },
+    {
+      "id": 8,
+      "category": "system",
+      "name": "Entity Created",
+      "is_disabled": false,
+      "count_as_interaction": false
+    },
+    {
+      "id": 12,
+      "category": "system",
+      "name": "User Joined",
+      "is_disabled": false,
+      "count_as_interaction": false
+    },
+    {
+      "id": 48,
+      "category": "system",
+      "name": "Form Submitted",
+      "is_disabled": false,
+      "count_as_interaction": false
+    },
+    {
+      "id": 6,
+      "category": "system",
+      "name": "Email",
+      "is_disabled": false,
+      "count_as_interaction": true
+    }
+  ]
+}

@@ -1,25 +1,28 @@
-import { Stack, H1, H2, Button } from "@deskpro/deskpro-ui";
-import { faRefresh } from "@fortawesome/free-solid-svg-icons";
+import { Stack } from "@deskpro/deskpro-ui";
+import { getError } from "../../utils";
+import { Container, ErrorBlock } from "../common";
+import type { FC } from "react";
+import type { FallbackProps } from "react-error-boundary";
 
-import { parseJsonErrorMessage } from "../../utils/utils";
+type Props = Omit<FallbackProps, "error"> & {
+  error: Error,
+};
 
-export const ErrorFallback = ({
-  error,
-  resetErrorBoundary,
-}: {
-  error: Error;
-  resetErrorBoundary: () => void;
-}) => {
+export const ErrorFallback: FC<Props> = ({ error }) => {
+  const message = getError(error);
+
+  // eslint-disable-next-line no-console
+  console.error(error);
+
   return (
-    <Stack vertical gap={10} role="alert">
-      <H1>Something went wrong:</H1>
-      <H2>{parseJsonErrorMessage(error.message)}</H2>
-      <Button
-        text="Reload"
-        onClick={resetErrorBoundary}
-        icon={faRefresh as never}
-        intent="secondary"
+    <Container>
+      <ErrorBlock
+        text={(
+          <Stack gap={6} vertical style={{ padding: "8px" }}>
+            {message}
+          </Stack>
+        )}
       />
-    </Stack>
+    </Container>
   );
 };
