@@ -1,9 +1,9 @@
-import { get, isEmpty } from "lodash";
-import { setEntityService, getEntityListService } from "../services/deskpro";
-import { getPersonByEmailService } from "../services/copper";
+import { get, isEmpty } from "lodash-es";
+import { setEntityService, getEntityListService } from "@/services/deskpro";
+import { getPersonByEmailService } from "@/services/copper";
 import type { IDeskproClient } from "@deskpro/app-sdk";
-import type { Maybe, DPUser } from "../types";
-import type { Contact } from "../services/copper/types";
+import type { Maybe, DPUser } from "@/types";
+import type { Contact } from "@/services/copper/types";
 
 const tryToLinkAutomatically = async (
   client: IDeskproClient,

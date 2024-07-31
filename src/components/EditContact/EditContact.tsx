@@ -1,7 +1,7 @@
-import { Container } from "../common";
-import { ContactForm } from "../ContactForm";
+import { Container } from "@/components/common";
+import { ContactForm } from "@/components/ContactForm";
 import type { FC } from "react";
-import type { Props as FormProps } from "../ContactForm";
+import type { Props as FormProps } from "@/components/ContactForm";
 
 type Props = FormProps & {
   //..

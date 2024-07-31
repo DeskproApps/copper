@@ -1,7 +1,7 @@
-import { get } from "lodash";
+import { get } from "lodash-es";
 import { z } from "zod";
-import type { Contact, OpportunityInput } from "../../services/copper/types";
-import type { Maybe } from "../../types";
+import type { Contact, OpportunityInput } from "@/services/copper/types";
+import type { Maybe } from "@/types";
 import type { FormValidationSchema } from "./types";
 
 const validationSchema = z.object({

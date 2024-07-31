@@ -1,9 +1,9 @@
 import { HorizontalDivider, Property, TwoProperties } from "@deskpro/app-sdk";
-import { format } from "../../../utils/date";
-import { getActivityTypeName } from "../../../utils";
-import { DPNormalize } from "../../common";
+import { format } from "@/utils/date";
+import { getActivityTypeName } from "@/utils";
+import { DPNormalize } from "@/components/common";
 import type { FC } from "react";
-import type { Activity, UserActivityType } from "../../../services/copper/types";
+import type { Activity, UserActivityType } from "@/services/copper/types";
 
 export type Props = {
   activity: Activity;

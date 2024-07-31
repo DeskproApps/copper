@@ -1,4 +1,4 @@
-import { map, isEmpty } from "lodash";
+import { map, isEmpty } from "lodash-es";
 import { baseRequest } from "./baseRequest";
 import type { IDeskproClient } from "@deskpro/app-sdk";
 import type { Contact, Opportunity, OpportunityRelated } from "./types";

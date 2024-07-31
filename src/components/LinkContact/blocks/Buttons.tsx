@@ -1,8 +1,8 @@
 import { Stack } from "@deskpro/deskpro-ui";
-import { Button } from "../../common";
+import { Button } from "@/components/common";
 import type { FC } from "react";
-import type { Maybe } from "../../../types";
-import type { Contact } from "../../../services/copper/types";
+import type { Maybe } from "@/types";
+import type { Contact } from "@/services/copper/types";
 
 export type Props = {
   isSubmitting: boolean;

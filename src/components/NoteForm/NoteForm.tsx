@@ -1,8 +1,8 @@
-import { has } from "lodash";
+import { has } from "lodash-es";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Stack } from "@deskpro/deskpro-ui";
-import { Label, Button, TextArea, ErrorBlock } from "../common";
+import { Label, Button, TextArea, ErrorBlock } from "@/components/common";
 import { getInitValues, validationSchema } from "./utils";
 import type { FC } from "react";
 import type { Props, FormValidationSchema } from "./types";

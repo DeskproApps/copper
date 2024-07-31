@@ -1,7 +1,7 @@
 import type { To, ParamKeyValuePair } from "react-router-dom";
 import type { DropdownValueType } from "@deskpro/deskpro-ui";
 import type { Context, IDeskproClient } from "@deskpro/app-sdk";
-import type { Response } from "./services/copper/types";
+import type { Response, Opportunity } from "@/services/copper/types";
 
 /** common */
 export type Maybe<T> = T | undefined | null;
@@ -72,3 +72,9 @@ export type EventPayload =
   | NavigateToChangePage
   | UnlinkPayload
 ;
+
+export type OpportunityType = Opportunity & {
+  pipeline_name: string;
+  pipeline_stage_name: string;
+  assignee_name: string;
+};
