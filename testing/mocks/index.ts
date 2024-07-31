@@ -8,3 +8,5 @@ export { default as mockSearchOpportunities } from "./mockSearchOpportunities.js
 export { default as mockUser } from "./mockUser.json";
 export { default as mockUsers } from "./mockUsers.json";
 export { default as mockOpportunity } from "./mockOpportunity.json";
+export { default as mockOrganisationContext } from "./mockOrganisationContext.json";
+export { default as mockSearchCompanies } from "./mockSearchCompanies.json";

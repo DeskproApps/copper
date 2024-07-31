@@ -8,12 +8,20 @@
   "isSingleInstall": false,
   "hasDevMode": true,
   "serveUrl": "https://apps-cdn.deskpro-service.com/__name__/__version__",
-  "targets": [{ "target": "user_sidebar", "entrypoint": "index.html" }],
+  "targets": [
+    { "target": "user_sidebar", "entrypoint": "index.html" },
+    { "target": "organisation_sidebar", "entrypoint": "index.html" }
+  ],
   "entityAssociations": {
     "linkedCopperContact": {
       "entity": "person",
       "type": "external_id",
       "title": "Copper Contact"
+    },
+    "linkedCopperCompany": {
+      "entity": "person",
+      "type": "external_id",
+      "title": "Copper Company"
     }
   },
   "settings": {

@@ -3,7 +3,8 @@ import type { Maybe, Timestamp } from "@/types";
 export type Response<T> = Promise<T>;
 
 export type CopperAPIError = {
-  //..
+  error?: string;
+  message?: string;
 };
 
 export type User = {
@@ -42,7 +43,7 @@ export type Address = {
   city: string;
   state: string;
   postal_code: string;
-  country: null;
+  country: string;
 }
 
 export type Contact = {
@@ -172,6 +173,25 @@ export type Activity = {
   activity_date: Timestamp;
   old_value: null;
   new_value: null;
+  date_created: Timestamp;
+  date_modified: Timestamp;
+};
+
+export type Company = {
+  id: number;
+  name: string;
+  address: Address;
+  assignee_id: Contact["id"];
+  contact_type_id: ContactType["id"];
+  details: Maybe<string>;
+  email_domain: string;
+  phone_numbers: PhoneNumber[];
+  primary_contact_id: Contact["id"];
+  socials: [];
+  tags: [];
+  websites: Website[];
+  custom_fields: [];
+  interaction_count: number;
   date_created: Timestamp;
   date_modified: Timestamp;
 };

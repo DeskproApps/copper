@@ -4,7 +4,7 @@ import { DEFAULT_ERROR } from "@/constants";
 
 const getError = (error: Error) => {
   if (error instanceof CopperError) {
-    return get(error, ["data", "message"]) || DEFAULT_ERROR;
+    return get(error, ["data", "message"]) || get(error, ["data", "error"]) || DEFAULT_ERROR;
   }
 
   let parsedMessage;

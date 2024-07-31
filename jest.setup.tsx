@@ -25,6 +25,12 @@ global.React = React;
 //@ts-ignore
 global.ResizeObserver = ResizeObserver;
 
+let currentContext: any = mockUserContext;
+
+export const setCurrentContext = (context: any) => {
+  currentContext = context || mockUserContext;
+};
+
 jest.mock("@deskpro/app-sdk", () => ({
   ...jest.requireActual("@deskpro/app-sdk"),
   useDeskproAppClient: () => ({ client: mockClient }),
@@ -33,17 +39,17 @@ jest.mock("@deskpro/app-sdk", () => ({
     deps: [] = []
   ) => {
     React.useEffect(() => {
-      !!hooks.onChange && hooks.onChange(mockUserContext);
-      !!hooks.onShow && hooks.onShow(mockUserContext);
-      !!hooks.onReady && hooks.onReady(mockUserContext);
-      !!hooks.onAdminSettingsChange && hooks.onAdminSettingsChange(mockUserContext.settings);
+      !!hooks.onChange && hooks.onChange(currentContext);
+      !!hooks.onShow && hooks.onShow(currentContext);
+      !!hooks.onReady && hooks.onReady(currentContext);
+      !!hooks.onAdminSettingsChange && hooks.onAdminSettingsChange(currentContext.settings);
       /* eslint-disable-next-line react-hooks/exhaustive-deps */
     }, deps);
   },
   useInitialisedDeskproAppClient: (callback: (param: typeof mockClient) => void) => {
     callback(mockClient);
   },
-  useDeskproLatestAppContext: () => ({ context: mockUserContext }),
+  useDeskproLatestAppContext: () => ({ context: currentContext }),
   useDeskproAppTheme: () => ({ theme: lightTheme }),
   proxyFetch: async () => fetch,
   LoadingSpinner: () => <>Loading...</>,

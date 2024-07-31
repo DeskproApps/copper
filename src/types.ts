@@ -58,11 +58,23 @@ export type DPUser = {
   locale: string;
 };
 
+export type DPOrganisation = {
+  id: string;
+  name: string;
+  summary: string;
+};
+
 export type UserData = {
   user: DPUser;
 };
 
+export type OrganisationData = {
+  organisation: DPOrganisation;
+};
+
 export type UserContext = Context<UserData, Maybe<Settings>>;
+
+export type OrganisationContext = Context<OrganisationData, Maybe<Settings>>;
 
 export type NavigateToChangePage = { type: "changePage", path: To };
 

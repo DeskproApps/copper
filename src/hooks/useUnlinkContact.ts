@@ -19,7 +19,7 @@ const useUnlinkContact: UseUnlinkContact = () => {
   const { context } = useDeskproLatestAppContext() as { context?: UserContext };
   const { asyncErrorHandler } = useAsyncError();
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const dpUserId = context?.data?.user.id;
+  const dpUserId = context?.data?.user?.id;
 
   const unlink = useCallback(() => {
     if (!client || !dpUserId) {

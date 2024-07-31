@@ -19,6 +19,8 @@ import {
   OpportunityPage,
   LinkContactPage,
   EditContactPage,
+  LinkCompanyPage,
+  CompanyHomePage,
   CreateContactPage,
   CreateActivityPage,
   VerifySettingsPage,
@@ -76,6 +78,8 @@ const App: FC = () => {
           <Route path="/opportunity/:id" element={<OpportunityPage/>}/>
           <Route path="/notes/create" element={<CreateNotePage/>}/>
           <Route path="/activities/create" element={<CreateActivityPage/>}/>
+          <Route path="/companies/link" element={<LinkCompanyPage/>}/>
+          <Route path="/companies/home" element={<CompanyHomePage/>}/>
           <Route index element={<LoadingPage/>}/>
         </Routes>
       </ErrorBoundary>
