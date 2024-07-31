@@ -1,14 +1,14 @@
-import { has } from "lodash";
+import { has } from "lodash-es";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Stack } from "@deskpro/deskpro-ui";
 import { Select, LoadingSpinner } from "@deskpro/app-sdk";
 import { useFormDeps } from "./hooks";
 import { getInitValues, validationSchema } from "./utils";
-import { Input, Label, Button, ErrorBlock } from "../common";
+import { Input, Label, Button, ErrorBlock } from "@/components/common";
 import type { FC } from "react";
 import type { Props } from "./types";
-import type { Pipeline, PipeLineStage } from "../../services/copper/types";
+import type { Pipeline, PipeLineStage } from "@/services/copper/types";
 
 const OpportunityForm: FC<Props> = ({ error, onSubmit, onCancel, contact }) => {
   const {

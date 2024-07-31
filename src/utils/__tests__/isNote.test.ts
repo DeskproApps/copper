@@ -1,5 +1,5 @@
 import { isNote } from "../isNote";
-import { mockActivities, mockActivityTypes } from "../../../testing";
+import { mockActivities, mockActivityTypes } from "@/testing";
 
 const mockNote = mockActivities[5];
 const mockActivity = mockActivities[1];

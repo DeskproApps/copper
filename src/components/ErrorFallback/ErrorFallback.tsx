@@ -1,6 +1,6 @@
 import { Stack } from "@deskpro/deskpro-ui";
-import { getError } from "../../utils";
-import { Container, ErrorBlock } from "../common";
+import { getError } from "@/utils";
+import { Container, ErrorBlock } from "@/components/common";
 import type { FC } from "react";
 import type { FallbackProps } from "react-error-boundary";
 

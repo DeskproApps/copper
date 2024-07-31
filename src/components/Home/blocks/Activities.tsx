@@ -1,10 +1,10 @@
-import { size } from "lodash";
+import { size } from "lodash-es";
 import { Title } from "@deskpro/app-sdk";
-import { isLast } from "../../../utils";
-import { NoFound } from "../../common";
+import { isLast } from "@/utils";
+import { NoFound } from "@/components/common";
 import { Activity } from "./Activity";
 import type { FC } from "react";
-import type { Activity as ActivityType, UserActivityType } from "../../../services/copper/types";
+import type { Activity as ActivityType, UserActivityType } from "@/services/copper/types";
 
 export type Props = {
   activities: ActivityType[];

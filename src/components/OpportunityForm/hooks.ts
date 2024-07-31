@@ -1,11 +1,11 @@
 import { useMemo } from "react";
-import { get, find } from "lodash";
+import { get, find } from "lodash-es";
 import { useQueryWithClient } from "@deskpro/app-sdk";
-import { getPipelinesService } from "../../services/copper";
-import { QueryKey } from "../../query";
-import { getOptions } from "../../utils";
-import type { Maybe, Option } from "../../types";
-import type { Pipeline, PipeLineStage } from "../../services/copper/types";
+import { getPipelinesService } from "@/services/copper";
+import { QueryKey } from "@/query";
+import { getOptions } from "@/utils";
+import type { Maybe, Option } from "@/types";
+import type { Pipeline, PipeLineStage } from "@/services/copper/types";
 
 type UseFormDeps = (pipelineId?: Maybe<Pipeline["id"]>) => {
   isLoading: boolean;

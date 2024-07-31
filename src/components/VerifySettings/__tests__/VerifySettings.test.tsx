@@ -1,7 +1,7 @@
 import { cleanup } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { render, mockUserContext } from "@deskpro/app-testing-utils";
-import { mockAccount, mockAuthError } from "../../../../testing";
+import { mockAccount, mockAuthError } from "@/testing";
 import { VerifySettings } from "../VerifySettings";
 import type { Props } from "../VerifySettings";
 

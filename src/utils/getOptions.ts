@@ -1,4 +1,4 @@
-import { get, size } from "lodash";
+import { get, size } from "lodash-es";
 import { getOption } from "./getOption";
 
 const getOptions = <T>(items?: T[], keyName?: keyof T, keyValue?: keyof T) => {

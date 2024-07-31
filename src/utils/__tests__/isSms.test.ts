@@ -1,5 +1,5 @@
 import { isSms } from "../isSms";
-import { mockActivities, mockActivityTypes } from "../../../testing";
+import { mockActivities, mockActivityTypes } from "@/testing";
 
 const mockPhoneCall = mockActivities[0];
 const mockActivity = mockActivities[2];

@@ -1,9 +1,9 @@
-import { size } from "lodash";
+import { size } from "lodash-es";
 import { Title } from "@deskpro/app-sdk";
-import { NoFound } from "../../common";
+import { NoFound } from "@/components/common";
 import { Opportunity } from "./Opportunity";
 import type { FC } from "react";
-import type { Opportunity as OpportunityType } from "../../../services/copper/types";
+import type { Opportunity as OpportunityType } from "@/services/copper/types";
 
 export type Props = {
   opportunities: OpportunityType[];

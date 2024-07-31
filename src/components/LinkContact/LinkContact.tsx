@@ -1,9 +1,9 @@
 import { Search, HorizontalDivider } from "@deskpro/app-sdk";
-import { Container, Navigation } from "../common";
+import { Container, Navigation } from "@/components/common";
 import { Buttons, Contacts } from "./blocks";
 import type { FC, Dispatch } from "react";
-import type { Maybe } from "../../types";
-import type { Account, Contact } from "../../services/copper/types";
+import type { Maybe } from "@/types";
+import type { Account, Contact } from "@/services/copper/types";
 
 type Props = {
   isLoading: boolean;

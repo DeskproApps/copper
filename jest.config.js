@@ -17,9 +17,11 @@ const esModules = [
   "data-uri-to-buffer",
   "fetch-blob",
   "formdata-polyfill",
+  "lodash-es",
 ].join("|");
 
 module.exports = {
+  preset: "ts-jest",
   testEnvironment: "jsdom",
   resolver: "<rootDir>/custom-jest-resolver",
   maxWorkers: "75%",
@@ -38,6 +40,8 @@ module.exports = {
     "\\.(jpg|ico|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":
       "<rootDir>/config/jest/fileTransform.js",
     "\\.(css|less)$": "<rootDir>/config/jest/fileTransform.js",
+    "^@/testing": "<rootDir>/testing",
+    "^@/(.*)$": "<rootDir>/src/$1",
   },
   transformIgnorePatterns: [`/node_modules/.pnpm/(?!${esModules})`],
   modulePathIgnorePatterns: ["/node_modules/", ".dist"],

@@ -1,6 +1,6 @@
-import { ENTITY } from "../../constants";
+import { ENTITY } from "@/constants";
 import type { IDeskproClient } from "@deskpro/app-sdk";
-import type { DPUser } from "../../types";
+import type { DPUser } from "@/types";
 
 const setEntityService = (
   client: IDeskproClient,

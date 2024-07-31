@@ -1,7 +1,7 @@
-import { get, find, isEmpty } from "lodash";
+import { get, find, isEmpty } from "lodash-es";
 import countries from "./iso-3166.json";
-import type { Maybe } from "../types";
-import type { Address } from "../services/copper/types";
+import type { Maybe } from "@/types";
+import type { Address } from "@/services/copper/types";
 
 const getAddress = (address?: Maybe<Partial<Address>>): string => {
 

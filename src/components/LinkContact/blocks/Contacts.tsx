@@ -1,12 +1,12 @@
 import { Fragment } from "react";
-import { size } from "lodash";
+import { size } from "lodash-es";
 import { Radio } from "@deskpro/deskpro-ui";
 import { LoadingSpinner } from "@deskpro/app-sdk";
-import { Card, NoFound } from "../../common";
+import { Card, NoFound } from "@/components/common";
 import { ContactItem } from "./ContactItem";
 import type { FC, Dispatch } from "react";
-import type { Maybe } from "../../../types";
-import type { Account, Contact } from "../../../services/copper/types";
+import type { Maybe } from "@/types";
+import type { Account, Contact } from "@/services/copper/types";
 
 export type Props = {
   isLoading: boolean;

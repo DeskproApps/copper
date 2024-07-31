@@ -1,5 +1,5 @@
-import { has } from "lodash";
-import type { Maybe, EventPayload, NavigateToChangePage } from "../types";
+import { has } from "lodash-es";
+import type { Maybe, EventPayload, NavigateToChangePage } from "@/types";
 
 const isNavigatePayload = (
   payload?: Maybe<EventPayload>,

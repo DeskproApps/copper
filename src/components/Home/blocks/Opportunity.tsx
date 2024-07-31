@@ -1,10 +1,10 @@
-import { get } from "lodash";
+import { get } from "lodash-es";
 import { Link as RouterLink } from "react-router-dom";
 import { Link, Title, TwoProperties } from "@deskpro/app-sdk";
-import { format } from "../../../utils/date";
-import { formatPrice } from "../../../utils";
+import { format } from "@/utils/date";
+import { formatPrice } from "@/utils";
 import type { FC } from "react";
-import type { Opportunity } from "../../../services/copper/types";
+import type { Opportunity } from "@/services/copper/types";
 
 export type Props = { opportunity: Opportunity };
 

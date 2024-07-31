@@ -1,11 +1,11 @@
 import { useMemo, useCallback } from "react";
-import {get, map} from "lodash";
+import { get, map } from "lodash-es";
 import { Title, Link } from "@deskpro/app-sdk";
-import { getExternalLinks } from "../../../utils";
-import { CopperLogo, Secondary } from "../../common";
+import { getExternalLinks } from "@/utils";
+import { CopperLogo, Secondary } from "@/components/common";
 import type { FC, MouseEventHandler } from "react";
-import type { Maybe } from "../../../types";
-import type { Account, Contact } from "../../../services/copper/types";
+import type { Maybe } from "@/types";
+import type { Account, Contact } from "@/services/copper/types";
 
 export type Props = {
   contact: Contact;

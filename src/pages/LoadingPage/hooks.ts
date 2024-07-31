@@ -1,15 +1,15 @@
 import { useMemo } from "react";
-import { get, size, isEmpty } from "lodash";
+import { get, size, isEmpty } from "lodash-es";
 import { useNavigate } from "react-router-dom";
 import {
   useDeskproLatestAppContext,
   useInitialisedDeskproAppClient,
 } from "@deskpro/app-sdk";
-import { getEntityListService } from "../../services/deskpro";
-import { checkAuthService } from "../../services/copper";
-import { useAsyncError } from "../../hooks";
-import { tryToLinkAutomatically } from "../../utils";
-import type { UserContext } from "../../types";
+import { getEntityListService } from "@/services/deskpro";
+import { checkAuthService } from "@/services/copper";
+import { useAsyncError } from "@/hooks";
+import { tryToLinkAutomatically } from "@/utils";
+import type { UserContext } from "@/types";
 
 type UseLoadingApp = () => void;
 

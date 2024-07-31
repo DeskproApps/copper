@@ -4,9 +4,9 @@ import {
   useDeskproAppEvents,
   adminGenericProxyFetch,
 } from "@deskpro/app-sdk";
-import { VerifySettings } from "../../components";
-import type { Maybe, Settings } from "../../types";
-import type { Account } from "../../services/copper/types";
+import { VerifySettings } from "@/components";
+import type { Maybe, Settings } from "@/types";
+import type { Account } from "@/services/copper/types";
 
 const VerifySettingsPage = () => {
   const { client } = useDeskproAppClient();

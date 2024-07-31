@@ -2,14 +2,14 @@ import { useMemo, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
 import { useDeskproAppClient } from "@deskpro/app-sdk";
-import { createActivityService } from "../../services/copper";
-import { useSetTitle, useLinkedContact, useRegisterElements } from "../../hooks";
-import { getError } from "../../utils";
-import { getValues } from "../../components/NoteForm";
-import { CreateNote } from "../../components";
+import { createActivityService } from "@/services/copper";
+import { useSetTitle, useLinkedContact, useRegisterElements } from "@/hooks";
+import { getError } from "@/utils";
+import { getValues } from "@/components/NoteForm";
+import { CreateNote } from "@/components";
 import type { FC } from "react";
-import type { Maybe } from "../../types";
-import type { FormValidationSchema } from "../../components/NoteForm";
+import type { Maybe } from "@/types";
+import type { FormValidationSchema } from "@/components/NoteForm";
 
 
 const CreateNotePage: FC = () => {

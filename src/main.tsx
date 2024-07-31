@@ -7,8 +7,8 @@ import {
 } from "@tanstack/react-query";
 import { ErrorBoundary } from "react-error-boundary";
 import { DeskproAppProvider, LoadingSpinner } from "@deskpro/app-sdk";
-import { queryClient } from "./query";
-import { App } from "./App";
+import { queryClient } from "@/query";
+import { App } from "@/App";
 import { ErrorFallback } from "./components/ErrorFallback/ErrorFallback";
 import "iframe-resizer/js/iframeResizer.contentWindow.js";
 import "flatpickr/dist/themes/light.css";

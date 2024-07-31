@@ -2,14 +2,14 @@ import {useCallback, useMemo, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
 import { useDeskproAppClient } from "@deskpro/app-sdk";
-import { useSetTitle, useRegisterElements, useLinkedContact } from "../../hooks";
-import { createActivityService } from "../../services/copper";
-import { getError } from "../../utils";
-import { getValues } from "../../components/ActivityForm";
-import { CreateActivity } from "../../components";
+import { useSetTitle, useRegisterElements, useLinkedContact } from "@/hooks";
+import { createActivityService } from "@/services/copper";
+import { getError } from "@/utils";
+import { getValues } from "@/components/ActivityForm";
+import { CreateActivity } from "@/components";
 import type { FC } from "react";
-import type { Maybe } from "../../types";
-import type { FormValidationSchema } from "../../components/ActivityForm";
+import type { Maybe } from "@/types";
+import type { FormValidationSchema } from "@/components/ActivityForm";
 
 const CreateActivityPage: FC = () => {
   const navigate = useNavigate();

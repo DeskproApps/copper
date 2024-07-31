@@ -1,10 +1,10 @@
-import { get } from "lodash";
+import { get } from "lodash-es";
 import { Stack } from "@deskpro/deskpro-ui";
-import { nbsp } from "../../constants";
-import { Button, Invalid, Secondary } from "../common";
+import { nbsp } from "@/constants";
+import { Button, Invalid, Secondary } from "@/components/common";
 import type { FC } from "react";
-import type { Maybe, Settings } from "../../types";
-import type { Account } from "../../services/copper/types";
+import type { Maybe, Settings } from "@/types";
+import type { Account } from "@/services/copper/types";
 
 export type Props = {
   isLoading: boolean;

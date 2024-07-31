@@ -1,9 +1,9 @@
 import { HorizontalDivider } from "@deskpro/app-sdk";
-import {Container, NoFound} from "../common";
+import {Container, NoFound} from "@/components/common";
 import { ContactInfo, Opportunities, Notes, Activities } from "./blocks";
 import type { FC } from "react";
-import type { Activity, Opportunity, Account, UserActivityType } from "../../services/copper/types";
-import type { Contact } from "../../services/copper/types";
+import type { Activity, Opportunity, Account, UserActivityType } from "@/services/copper/types";
+import type { Contact } from "@/services/copper/types";
 
 type Props = {
   contact: Contact;

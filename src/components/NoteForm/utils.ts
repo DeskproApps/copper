@@ -1,5 +1,5 @@
 import { z } from "zod";
-import type { ActivityInput } from "../../services/copper/types";
+import type { ActivityInput } from "@/services/copper/types";
 import type { FormValidationSchema } from "./types";
 
 const validationSchema = z.object({

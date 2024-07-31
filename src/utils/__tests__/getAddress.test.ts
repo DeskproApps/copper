@@ -1,5 +1,5 @@
 import { getAddress } from "../getAddress";
-import { mockContact } from "../../../testing";
+import { mockContact } from "@/testing";
 
 const mockAddress = mockContact.address;
 
