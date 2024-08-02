@@ -1,0 +1,104 @@
+[
+  {
+    "id": 68839343,
+    "name": "Cossack Hetmanate",
+    "address": {
+      "street": "2 Mazepa Street",
+      "city": "Baturyn",
+      "state": "Chernihiv Oblast",
+      "postal_code": "16501",
+      "country": "UA"
+    },
+    "assignee_id": 1145430,
+    "contact_type_id": 2404392,
+    "details": null,
+    "email_domain": "cossackhetmanate.ua",
+    "phone_numbers": [
+      {
+        "number": "+380441234568",
+        "category": "work"
+      }
+    ],
+    "primary_contact_id": 165299945,
+    "socials": [],
+    "tags": [],
+    "websites": [
+      {
+        "url": "https://cossackhetmanate.ua",
+        "category": "work"
+      }
+    ],
+    "custom_fields": [],
+    "interaction_count": 5,
+    "date_created": 1722420481,
+    "date_modified": 1722426583
+  },
+  {
+    "id": 68847412,
+    "name": "Zakarpattian Sich",
+    "address": {
+      "street": "1 Sichova Street",
+      "city": "Mukachevo",
+      "state": "Zakarpattia Oblast",
+      "postal_code": "89600",
+      "country": "UA"
+    },
+    "assignee_id": 1145430,
+    "contact_type_id": 2404392,
+    "details": null,
+    "email_domain": "zakarpattiansich.ua",
+    "phone_numbers": [
+      {
+        "number": "+380312345678",
+        "category": "work"
+      }
+    ],
+    "primary_contact_id": null,
+    "socials": [],
+    "tags": [],
+    "websites": [
+      {
+        "url": "https://zakarpattiansich.ua",
+        "category": "work"
+      }
+    ],
+    "custom_fields": [],
+    "interaction_count": 0,
+    "date_created": 1722517718,
+    "date_modified": 1722930305
+  },
+  {
+    "id": 68839344,
+    "name": "Zaporizhian Host",
+    "address": {
+      "street": "3 Sich Street",
+      "city": "Zaporizhzhia",
+      "state": "Zaporizhzhia Oblast",
+      "postal_code": "69001",
+      "country": "UA"
+    },
+    "assignee_id": 1145430,
+    "contact_type_id": 2404392,
+    "details": null,
+    "email_domain": "zaporizhianhost.ua",
+    "phone_numbers": [
+      {
+        "number": "+380561234567",
+        "category": "work"
+      }
+    ],
+    "primary_contact_id": 165299949,
+    "socials": [],
+    "tags": [],
+    "websites": [
+      {
+        "url": "https://zaporizhianhost.ua",
+        "category": "work"
+      }
+    ],
+    "custom_fields": [],
+    "interaction_count": 0,
+    "date_created": 1722420530,
+    "date_modified": 1722424219
+  }
+]

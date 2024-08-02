@@ -10,6 +10,7 @@ import { DeskproAppProvider, LoadingSpinner } from "@deskpro/app-sdk";
 import { queryClient } from "@/query";
 import { App } from "@/App";
 import { ErrorFallback } from "./components/ErrorFallback/ErrorFallback";
+
 import "iframe-resizer/js/iframeResizer.contentWindow.js";
 import "flatpickr/dist/themes/light.css";
 import "simplebar/dist/simplebar.min.css";
