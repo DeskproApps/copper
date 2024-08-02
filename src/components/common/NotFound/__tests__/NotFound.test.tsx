@@ -1,25 +1,25 @@
 import { cleanup } from "@testing-library/react";
 import { render } from "@deskpro/app-testing-utils";
-import { NoFound } from "../NoFound";
-import type { Props } from "../NoFound";
+import { NotFound } from "../NotFound";
+import type { Props } from "../NotFound";
 
-const renderNoFound = (props?: Partial<Props>) => render((
-  <NoFound text={props?.text} />
+const renderNotFound = (props?: Partial<Props>) => render((
+  <NotFound text={props?.text} />
 ), { wrappers: { theme: true } });
 
-describe("NoFound", () => {
+describe("NotFound", () => {
   afterEach(() => {
     jest.clearAllMocks();
     cleanup();
   });
 
   test("render", async () => {
-    const { findByText } = renderNoFound();
+    const { findByText } = renderNotFound();
     expect(await findByText(/No found/i)).toBeInTheDocument();
   });
 
   test("should show \"Nothing found message\" if pass text", async () => {
-    const { findByText } = renderNoFound({ text: "Nothing found message" });
+    const { findByText } = renderNotFound({ text: "Nothing found message" });
     expect(await findByText(/Nothing found message/i)).toBeInTheDocument();
   });
 });

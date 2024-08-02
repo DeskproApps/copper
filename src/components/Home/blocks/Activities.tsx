@@ -1,7 +1,7 @@
 import { size } from "lodash-es";
 import { Title } from "@deskpro/app-sdk";
 import { isLast } from "@/utils";
-import { NoFound } from "@/components/common";
+import { NotFound } from "@/components/common";
 import { Activity } from "./Activity";
 import type { FC } from "react";
 import type { Activity as ActivityType, UserActivityType } from "@/services/copper/types";
@@ -24,7 +24,7 @@ const Activities: FC<Props> = ({
       {...(!size(activities) ? {} : { marginBottom: 0 })}
     />
     {!size(activities)
-      ? <NoFound text="No activities found"/>
+      ? <NotFound text="No activities found"/>
       : activities.map((activity, idx) => (
         <Activity
           key={activity.id}

@@ -1,5 +1,5 @@
 import { HorizontalDivider } from "@deskpro/app-sdk";
-import {Container, NoFound} from "@/components/common";
+import { Container, NotFound } from "@/components/common";
 import { ContactInfo, Opportunities, Notes, Activities } from "./blocks";
 import type { FC } from "react";
 import type { Activity, Opportunity, Account, UserActivityType } from "@/services/copper/types";
@@ -31,7 +31,7 @@ const Home: FC<Props> = ({
   if (!contact) {
     return (
       <Container>
-        <NoFound text="No contacts found"/>
+        <NotFound text="No contacts found"/>
       </Container>
     );
   }

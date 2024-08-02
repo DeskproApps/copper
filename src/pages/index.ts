@@ -8,3 +8,5 @@ export { EditContactPage } from "./EditContactPage";
 export { CreateOpportunityPage } from "./CreateOpportunityPage";
 export { CreateNotePage } from "./CreateNotePage";
 export { CreateActivityPage } from "./CreateActivityPage";
+export { LinkCompanyPage } from "./LinkCompanyPage";
+export { CompanyHomePage } from "./CompanyHomePage";

@@ -1,7 +1,7 @@
 import { size } from "lodash-es";
 import { Title } from "@deskpro/app-sdk";
 import { isLast } from "@/utils";
-import { NoFound } from "@/components/common";
+import { NotFound } from "@/components/common";
 import { Note } from "./Note";
 import type { FC } from "react";
 import type { Activity } from "@/services/copper/types";
@@ -18,7 +18,7 @@ const Notes: FC<Props> = ({ notes, onNavigateToCreateNote }) => (
       onClick={onNavigateToCreateNote}
     />
     {!size(notes)
-      ? <NoFound text="No notes found"/>
+      ? <NotFound text="No notes found"/>
       : notes.map((note, idx) => (
         <Note key={note.id} note={note} isLast={isLast(notes, idx)}/>
       ))

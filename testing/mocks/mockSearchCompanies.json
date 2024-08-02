@@ -1,0 +1,36 @@
+[
+  {
+    "id": 68839343,
+    "name": "Cossack Hetmanate",
+    "address": {
+      "street": "2 Mazepa Street",
+      "city": "Baturyn",
+      "state": "Chernihiv Oblast",
+      "postal_code": "16501",
+      "country": "UA"
+    },
+    "assignee_id": 1145430,
+    "contact_type_id": 2404392,
+    "details": null,
+    "email_domain": "cossackhetmanate.ua",
+    "phone_numbers": [
+      {
+        "number": "+380441234568",
+        "category": "work"
+      }
+    ],
+    "primary_contact_id": 165299945,
+    "socials": [],
+    "tags": [],
+    "websites": [
+      {
+        "url": "https://cossackhetmanate.ua",
+        "category": "work"
+      }
+    ],
+    "custom_fields": [],
+    "interaction_count": 5,
+    "date_created": 1722420481,
+    "date_modified": 1722426583
+  }
+]

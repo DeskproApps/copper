@@ -2,7 +2,7 @@ import { Fragment } from "react";
 import { size } from "lodash-es";
 import { Radio } from "@deskpro/deskpro-ui";
 import { LoadingSpinner } from "@deskpro/app-sdk";
-import { Card, NoFound } from "@/components/common";
+import { Card, NotFound } from "@/components/common";
 import { ContactItem } from "./ContactItem";
 import type { FC, Dispatch } from "react";
 import type { Maybe } from "@/types";
@@ -32,9 +32,9 @@ const Contacts: FC<Props> = ({
   return (
     <>
       {!Array.isArray(contacts)
-        ? <NoFound/>
+        ? <NotFound/>
         : !size(contacts)
-          ? <NoFound text="No people found"/>
+          ? <NotFound text="No people found"/>
           : contacts.map((contact) => (
             <Fragment key={contact.id}>
               <Card>

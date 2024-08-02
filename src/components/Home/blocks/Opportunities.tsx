@@ -1,6 +1,6 @@
 import { size } from "lodash-es";
 import { Title } from "@deskpro/app-sdk";
-import { NoFound } from "@/components/common";
+import { NotFound } from "@/components/common";
 import { Opportunity } from "./Opportunity";
 import type { FC } from "react";
 import type { Opportunity as OpportunityType } from "@/services/copper/types";
@@ -17,7 +17,7 @@ const Opportunities: FC<Props> = ({ opportunities, onNavigateToCreateOpportunity
       onClick={onNavigateToCreateOpportunity}
     />
     {!size(opportunities)
-      ? (<NoFound text="No opportunities found"/>)
+      ? (<NotFound text="No opportunities found"/>)
       : opportunities.map((o) => (
         <Opportunity key={o.id} opportunity={o} />
       ))

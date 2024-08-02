@@ -25,6 +25,7 @@ const QueryKey = {
   ACTIVITY_TYPES: "activityTypes",
   ACTIVITIES: "activities",
   USERS: "users",
+  COMPANIES: "companies",
 };
 
 export { queryClient, QueryKey };

@@ -4,3 +4,4 @@ export { useSetTitle } from "./useSetTitle";
 export { useUnlinkContact } from "./useUnlinkContact";
 export { useLinkedContact } from "./useLinkedContact";
 export { useContact } from "./useContact";
+export { useDPContext } from "./useDPContext";

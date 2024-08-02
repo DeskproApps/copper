@@ -1,35 +1,33 @@
-import { useMemo } from "react";
-import { get, size, isEmpty } from "lodash-es";
 import { useNavigate } from "react-router-dom";
-import {
-  useDeskproLatestAppContext,
-  useInitialisedDeskproAppClient,
-} from "@deskpro/app-sdk";
-import { getEntityListService } from "@/services/deskpro";
+import { useInitialisedDeskproAppClient } from "@deskpro/app-sdk";
+import { getEntityListService, getCompanyListService } from "@/services/deskpro";
 import { checkAuthService } from "@/services/copper";
-import { useAsyncError } from "@/hooks";
+import { useAsyncError, useDPContext } from "@/hooks";
 import { tryToLinkAutomatically } from "@/utils";
-import type { UserContext } from "@/types";
 
 type UseLoadingApp = () => void;
 
 const useLoadingApp: UseLoadingApp = () => {
   const navigate = useNavigate();
-  const { context } = useDeskproLatestAppContext() as { context: UserContext };
   const { asyncErrorHandler } = useAsyncError();
-  const dpUser = useMemo(() => get(context, ["data", "user"]), [context]);
+  const { isUserCtx, dpUser, isOrgCtx, dpOrg } = useDPContext();
 
   useInitialisedDeskproAppClient((client) => {
-    if (isEmpty(dpUser)) {
-      return;
-    }
-
-    checkAuthService(client)
+    if (isUserCtx && dpUser) {
+      checkAuthService(client)
       .then(() => tryToLinkAutomatically(client, dpUser))
       .then(() => getEntityListService(client, dpUser.id))
-      .then((entityIds) => navigate(size(entityIds) ? "/home" : "/contacts/link"))
+      .then((entityIds) => navigate(entityIds?.length ? "/home" : "/contacts/link"))
       .catch(asyncErrorHandler);
-  }, [dpUser]);
+    }
+
+    if (isOrgCtx && dpOrg) {
+      checkAuthService(client)
+        .then(() => getCompanyListService(client, dpOrg.id))
+        .then((entityIds) => navigate(entityIds?.length ? "/companies/home" : "/companies/link"))
+        .catch(asyncErrorHandler);
+    }
+  }, [isUserCtx, dpUser, isOrgCtx, dpOrg]);
 };
 
 export { useLoadingApp };
