@@ -3,7 +3,7 @@ import { Container } from "@/components/common";
 import type { FC } from "react";
 
 type Props = {
-  // todo: will be implemented in next PR
+  // @todo: will be implemented in next PR
 };
 
 const CompanyHome: FC<Props> = () => {

@@ -1,6 +1,6 @@
 import { Checkbox } from "@deskpro/deskpro-ui";
 import { LoadingSpinner, HorizontalDivider } from "@deskpro/app-sdk";
-import { Card, NoFound } from "@/components/common";
+import { Card, NotFound } from "@/components/common";
 import { CompanyItem } from "@/components/CompanyItem";
 import { Fragment, type FC } from "react";
 import type { Maybe } from "@/types";
@@ -30,7 +30,7 @@ const Companies: FC<Props> = ({
   return (
     <>
       {!companies.length
-        ? <NoFound text="No companies found"/>
+        ? <NotFound text="No companies found"/>
         : companies.map((company) => (
           <Fragment key={company.id}>
             <Card>

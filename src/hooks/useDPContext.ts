@@ -28,10 +28,10 @@ const useDPContext: UseDPContext = () => {
   useEffect(() => {
     if (isUser(context)) {
       setIsUserCtx(true);
-      setDPUser(context?.data?.user);
+      setDPUser(context.data?.user);
     } else if (isOrganisation(context)) {
       setIsOrgCtx(true);
-      setDPOrg(context?.data?.organisation);
+      setDPOrg(context.data?.organisation);
     } else {
       setIsUserCtx(false);
       setIsOrgCtx(false);

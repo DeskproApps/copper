@@ -10,14 +10,14 @@ export type Result = {
   account: Maybe<Account>;
 };
 
-type UseSearchOrg = (q?: string) => Result;
+type UseSearchOrg = (q: string) => Result;
 
 const useSearchOrg: UseSearchOrg = (q) => {
   const account = useQueryWithClient([QueryKey.ACCOUNT], getAccountService);
 
   const companies = useQueryWithClient(
-    [QueryKey.COMPANIES, q as string],
-    (client) => searchCompaniesService(client, q as string),
+    [QueryKey.COMPANIES, q],
+    (client) => searchCompaniesService(client, q),
     { enabled: Boolean(q) },
   );
 

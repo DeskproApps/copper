@@ -8,7 +8,7 @@ export const LOCALE = "en-GB";
 export const DEFAULT_ERROR = "There was an error!";
 
 export const ENTITY = "linkedCopperContact";
-// todo:  change entityAssociation type in manifest.json when organisation entity will be implemented in dp-product
+// @todo: change entityAssociation type in manifest.json when organisation entity will be implemented in dp-product
 export const ENTITY_ORG = "linkedCopperCompany";
 
 export const placeholders = {
