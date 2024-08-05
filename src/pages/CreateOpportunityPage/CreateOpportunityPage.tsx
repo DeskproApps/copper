@@ -1,16 +1,16 @@
 import { useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDeskproAppClient, LoadingSpinner } from "@deskpro/app-sdk";
-import { useSetTitle, useLinkedContact, useRegisterElements } from "../../hooks";
-import { createOpportunityService } from "../../services/copper";
-import { getError } from "../../utils";
-import { queryClient } from "../../query";
-import { getValues } from "../../components/OpportunityForm";
-import { CreateOpportunity } from "../../components";
+import { useSetTitle, useLinkedContact, useRegisterElements } from "@/hooks";
+import { createOpportunityService } from "@/services/copper";
+import { getError } from "@/utils";
+import { queryClient } from "@/query";
+import { getValues } from "@/components/OpportunityForm";
+import { CreateOpportunity } from "@/components";
 import type { FC } from "react";
-import type { Maybe } from "../../types";
-import type { Contact } from "../../services/copper/types";
-import type { FormValidationSchema } from "../../components/OpportunityForm";
+import type { Maybe } from "@/types";
+import type { Contact } from "@/services/copper/types";
+import type { FormValidationSchema } from "@/components/OpportunityForm";
 
 const CreateOpportunityPage: FC = () => {
   const navigate = useNavigate();

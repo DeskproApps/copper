@@ -1,9 +1,9 @@
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { LoadingSpinner } from "@deskpro/app-sdk";
-import { useRegisterElements } from "../../hooks";
+import { useRegisterElements } from "@/hooks";
 import { useContact } from "./hooks";
-import { Home } from "../../components";
+import { Home } from "@/components";
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -41,7 +41,7 @@ const HomePage = () => {
     if (contact?.id) {
       registerElement("edit", {
         type: "edit_button",
-        payload: { type: "changePage", path: `/contacts/edit/${contact.id}` },
+        payload: { type: "changePage", path: `/contacts/${contact.id}/edit` },
       });
     }
   }, [contact?.id]);

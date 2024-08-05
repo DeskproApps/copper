@@ -1,7 +1,7 @@
-import { Container } from "../common";
-import { ActivityForm } from "../ActivityForm";
+import { Container } from "@/components/common";
+import { ActivityForm } from "@/components/ActivityForm";
 import type { FC } from "react";
-import type { Props as FormProps } from "../ActivityForm";
+import type { Props as FormProps } from "@/components/ActivityForm";
 
 type Props = FormProps & {
   //..

@@ -1,11 +1,11 @@
 import { useMemo } from "react";
-import { get } from "lodash";
+import { get } from "lodash-es";
 import { useQueryWithClient } from "@deskpro/app-sdk";
-import { getActivityTypesService } from "../../services/copper";
-import { QueryKey } from "../../query";
+import { getActivityTypesService } from "@/services/copper";
+import { QueryKey } from "@/query";
 import { getActivityTypeOptions } from "./utils";
-import type { Option } from "../../types";
-import type { ActivityType } from "../../services/copper/types";
+import type { Option } from "@/types";
+import type { ActivityType } from "@/services/copper/types";
 
 type UseFormDeps = () => {
   isLoading: boolean;

@@ -1,6 +1,6 @@
 import { cleanup, renderHook, act } from "@testing-library/react";
 import { useNavigate } from "react-router-dom";
-import { deleteEntityService, getEntityListService } from "../../services/deskpro";
+import { deleteEntityService, getEntityListService } from "@/services/deskpro";
 import { useUnlinkContact } from "../useUnlinkContact";
 import type { Result } from "../useUnlinkContact";
 

@@ -1,7 +1,7 @@
-import { Container } from "../common";
-import { NoteForm } from "../NoteForm";
+import { Container } from "@/components/common";
+import { NoteForm } from "@/components/NoteForm";
 import type { FC } from "react";
-import type { Props as FormProps } from "../NoteForm";
+import type { Props as FormProps } from "@/components/NoteForm";
 
 type Props = FormProps & {
   //..

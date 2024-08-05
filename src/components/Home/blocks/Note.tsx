@@ -1,8 +1,8 @@
 import { HorizontalDivider, Property } from "@deskpro/app-sdk";
-import { format } from "../../../utils/date";
-import { DPNormalize } from "../../common";
+import { format } from "@/utils/date";
+import { DPNormalize } from "@/components/common";
 import type { FC } from "react";
-import type { Activity } from "../../../services/copper/types";
+import type { Activity } from "@/services/copper/types";
 
 export type Props = {
   note: Activity;

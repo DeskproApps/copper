@@ -1,10 +1,10 @@
 import { useMemo } from "react";
-import { get, map } from "lodash";
+import { get, map } from "lodash-es";
 import { Title, Property } from "@deskpro/app-sdk";
-import { getAddress, getExternalLinks } from "../../../utils";
-import { CopperLogo, DPNormalize } from "../../common";
+import { getAddress, getExternalLinks } from "@/utils";
+import { CopperLogo, DPNormalize } from "@/components/common";
 import type { FC } from "react";
-import type { Contact, Account } from "../../../services/copper/types";
+import type { Contact, Account } from "@/services/copper/types";
 
 export type Props = {
   contact: Contact;

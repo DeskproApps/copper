@@ -1,5 +1,5 @@
 import { isMeeting } from "../isMeeting";
-import { mockActivities, mockActivityTypes } from "../../../testing";
+import { mockActivities, mockActivityTypes } from "@/testing";
 
 const mockMeeting = mockActivities[4];
 const mockActivity = mockActivities[0];

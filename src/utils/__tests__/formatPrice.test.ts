@@ -1,4 +1,4 @@
-import { nbsp } from "../../constants";
+import { nbsp } from "@/constants";
 import { formatPrice } from "../formatPrice";
 
 describe("utils", () => {

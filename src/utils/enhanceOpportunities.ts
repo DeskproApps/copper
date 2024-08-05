@@ -1,16 +1,20 @@
-import { get, map, find, assign, isEmpty } from "lodash";
-import type { Maybe } from "../types";
-import type { Opportunity, Pipeline, User } from "../services/copper/types";
+import { get, map, find, assign, isEmpty } from "lodash-es";
+import type { Maybe, OpportunityType } from "@/types";
+import type { Opportunity, Pipeline, User } from "@/services/copper/types";
 
-const enhanceOpportunity = (o: Opportunity, pipelines?: Pipeline[], users?: User[]) => {
+const enhanceOpportunity = (
+  o: Opportunity,
+  pipelines?: Pipeline[],
+  users?: User[],
+): OpportunityType => {
   const pipeline = find(pipelines, { id: o.pipeline_id });
   const stage = find(get(pipeline, ["stages"]), { id: o.pipeline_stage_id });
   const assignee = find(users, { id: o.assignee_id });
 
   return assign({}, o, {
-    pipeline_name: get(pipeline, ["name"]),
-    pipeline_stage_name: get(stage, ["name"]),
-    assignee_name: get(assignee, ["name"]),
+    pipeline_name: get(pipeline, ["name"], ""),
+    pipeline_stage_name: get(stage, ["name"], ""),
+    assignee_name: get(assignee, ["name"], ""),
   });
 };
 
@@ -18,7 +22,7 @@ const enhanceOpportunities = (
   opportunities: Maybe<Opportunity[]>,
   pipelines?: Pipeline[],
   users?: User[],
-) => {
+): OpportunityType[] => {
   if (isEmpty(opportunities)) {
     return [];
   }

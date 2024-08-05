@@ -1,6 +1,6 @@
 import { cleanup } from "@testing-library/react";
 import { render } from "@deskpro/app-testing-utils";
-import { mockOpportunity } from "../../../../testing";
+import { mockOpportunity } from "@/testing";
 import { Opportunity } from "../Opportunity";
 import type { Props } from "../Opportunity";
 

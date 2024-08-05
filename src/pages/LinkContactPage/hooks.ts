@@ -1,9 +1,9 @@
 import { useMemo } from "react";
 import { useQueryWithClient } from "@deskpro/app-sdk";
-import { getPersonByEmailService, getAccountService } from "../../services/copper";
-import { QueryKey } from "../../query";
-import type { Account, Contact } from "../../services/copper/types";
-import type { Maybe } from "../../types";
+import { getPersonByEmailService, getAccountService } from "@/services/copper";
+import { QueryKey } from "@/query";
+import type { Account, Contact } from "@/services/copper/types";
+import type { Maybe } from "@/types";
 
 export type Result = {
   isLoading: boolean;

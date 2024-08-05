@@ -1,4 +1,4 @@
-import type { Maybe, Timestamp } from "../../types";
+import type { Maybe, Timestamp } from "@/types";
 
 export type Response<T> = Promise<T>;
 
