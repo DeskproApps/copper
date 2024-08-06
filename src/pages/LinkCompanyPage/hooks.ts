@@ -1,5 +1,5 @@
 import { useQueryWithClient } from "@deskpro/app-sdk";
-import { getAccountService, searchCompaniesService } from "@/services/copper";
+import { getAccountService, getCompaniesService } from "@/services/copper";
 import { QueryKey } from "@/query";
 import type { Maybe } from "@/types";
 import type { Company, Account } from "@/services/copper/types";
@@ -17,7 +17,7 @@ const useSearchOrg: UseSearchOrg = (q) => {
 
   const companies = useQueryWithClient(
     [QueryKey.COMPANIES, q],
-    (client) => searchCompaniesService(client, q),
+    (client) => getCompaniesService(client, { q }),
     { enabled: Boolean(q) },
   );
 

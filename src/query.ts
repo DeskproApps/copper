@@ -22,10 +22,11 @@ const QueryKey = {
   PIPELINE_STAGES: "pipeline_stages",
   OPPORTUNITY: "opportunity",
   OPPORTUNITIES: "opportunities",
-  ACTIVITY_TYPES: "activityTypes",
+  ACTIVITY_TYPES: "activity_types",
   ACTIVITIES: "activities",
   USERS: "users",
   COMPANIES: "companies",
+  LINKED_COMPANIES: "linked_companies",
 };
 
 export { queryClient, QueryKey };

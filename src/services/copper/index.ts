@@ -15,4 +15,4 @@ export { getUsersService } from "./getUsersService";
 export { getActivitiesService } from "./getActivitiesService";
 export { getOpportunityService } from "./getOpportunityService";
 export { getPipelineStagesService } from "./getPipelineStagesService";
-export { searchCompaniesService } from "./searchCompaniesService";
+export { getCompaniesService } from "./getCompaniesService";
