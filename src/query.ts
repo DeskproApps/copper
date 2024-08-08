@@ -27,6 +27,10 @@ const QueryKey = {
   USERS: "users",
   COMPANIES: "companies",
   LINKED_COMPANIES: "linked_companies",
+  COMPANY: "company",
+  COMPANY_PEOPLE: "company_people",
+  CONTACTS: "contacts",
+  NOTES: "notes",
 };
 
 export { queryClient, QueryKey };

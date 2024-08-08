@@ -10,3 +10,4 @@ export { CreateNotePage } from "./CreateNotePage";
 export { CreateActivityPage } from "./CreateActivityPage";
 export { LinkCompanyPage } from "./LinkCompanyPage";
 export { CompanyHomePage } from "./CompanyHomePage";
+export { CompanyPage } from "./CompanyPage";

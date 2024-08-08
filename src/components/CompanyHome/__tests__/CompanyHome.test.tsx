@@ -9,6 +9,7 @@ const renderCompanyHome = (props?: Partial<Props>) => render((
   <CompanyHome
     account={props?.account ?? mockAccount}
     companies={props?.companies ?? mockGetCompanies as Company[]}
+    onNavigateToCompany={props?.onNavigateToCompany || jest.fn()}
   />
 ), { wrappers: { theme: true } });
 

@@ -8,13 +8,14 @@ import {
   useDeskproAppClient,
   useDeskproAppEvents,
 } from "@deskpro/app-sdk";
-import { useRegisterElements, useUnlinkContact } from "@/hooks";
-import { isNavigatePayload } from "@/utils";
+import { useRegisterElements, useUnlinkContact, useUnlinkCompany } from "@/hooks";
+import { isNavigatePayload, isUnlinkCompanyPayload } from "@/utils";
 import { AppContainer } from "@/components/common";
 import { ErrorFallback } from "@/components/ErrorFallback/ErrorFallback";
 import {
   HomePage,
   LoadingPage,
+  CompanyPage,
   CreateNotePage,
   OpportunityPage,
   LinkContactPage,
@@ -34,10 +35,11 @@ const App: FC = () => {
   const { pathname } = useLocation();
   const { client } = useDeskproAppClient();
   const { unlink, isLoading: isLoadingUnlink } = useUnlinkContact();
+  const { unlinkCompany, isLoading: isLoadingUnlinkCompany } = useUnlinkCompany()
   const isAdmin = useMemo(() => pathname.includes("/admin/"), [pathname]);
   const isLoading = useMemo(() => {
-    return !client || isLoadingUnlink
-  }, [client, isLoadingUnlink]);
+    return !client || isLoadingUnlink || isLoadingUnlinkCompany
+  }, [client, isLoadingUnlink, isLoadingUnlinkCompany]);
 
   useRegisterElements(({ registerElement }) => {
     registerElement("refresh", { type: "refresh_button" });
@@ -47,6 +49,7 @@ const App: FC = () => {
     return match(payload.type)
       .with("changePage", () => isNavigatePayload(payload) && navigate(payload.path))
       .with("unlink", unlink)
+      .with("unlink_company", () => isUnlinkCompanyPayload(payload) && unlinkCompany(payload.company))
       .run();
   }, 500);
 
@@ -80,6 +83,7 @@ const App: FC = () => {
           <Route path="/activities/create" element={<CreateActivityPage/>}/>
           <Route path="/companies/link" element={<LinkCompanyPage/>}/>
           <Route path="/companies/home" element={<CompanyHomePage/>}/>
+          <Route path="/companies/:id" element={<CompanyPage/>}/>
           <Route index element={<LoadingPage/>}/>
         </Routes>
       </ErrorBoundary>

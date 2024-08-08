@@ -1,4 +1,5 @@
 import { cleanup } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { render } from "@deskpro/app-testing-utils";
 import { mockActivities, mockActivityTypes } from "@/testing";
 import { Activities } from "../Activities";
@@ -12,6 +13,8 @@ const mockActivityList = [
 
 const renderActivities = (props?: Partial<Props>) => render((
   <Activities
+    isLoading={props?.isLoading || false}
+    onNextActivitiesPage={props?.onNextActivitiesPage || jest.fn()}
     activities={props?.activities || mockActivityList as never[]}
     activityTypes={props?.activityTypes || mockActivityTypes.user as never[]}
     onNavigateToCreateActivity={props?.onNavigateToCreateActivity || jest.fn}
@@ -39,6 +42,16 @@ describe("Home", () => {
 
       expect(await findByText(/Activities \(0\)/i)).toBeInTheDocument();
       expect(await findByText(/No activities found/i)).toBeInTheDocument();
+    });
+
+    test("should trigger \"load next 10 activities\"", async () => {
+      const mockOnLoad = jest.fn();
+      const { findByRole } = renderActivities({ onNextActivitiesPage: mockOnLoad });
+
+      const loadButton = await findByRole("button", { name: "Load next 10 activities" });
+      await userEvent.click(loadButton as Element);
+
+      expect(mockOnLoad).toHaveBeenCalled();
     });
   });
 });

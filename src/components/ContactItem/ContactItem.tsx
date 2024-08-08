@@ -10,7 +10,7 @@ import type { Account, Contact } from "@/services/copper/types";
 export type Props = {
   contact: Contact;
   account: Maybe<Account>;
-  onClickTitle: () => void;
+  onClickTitle?: () => void;
 };
 
 const ContactItem: FC<Props> = ({ contact, account, onClickTitle }) => {
@@ -20,7 +20,6 @@ const ContactItem: FC<Props> = ({ contact, account, onClickTitle }) => {
   const link = useMemo(() => {
     return getExternalLinks.contact(account?.id, contact?.id);
   }, [account, contact]);
-
   const onClick: MouseEventHandler<HTMLAnchorElement> = useCallback((e) => {
     e.preventDefault();
     onClickTitle && onClickTitle();
@@ -34,8 +33,7 @@ const ContactItem: FC<Props> = ({ contact, account, onClickTitle }) => {
           : (<Link href="#" onClick={onClick}>{contact.name}</Link>)
         }
         marginBottom={0}
-        {...(!link ? {} : { icon: <CopperLogo /> })}
-        {...(!link ? {} : { link })}
+        {...(!link ? {} : { icon: <CopperLogo />, link })}
       />
       <Secondary type="p5">&lt;{email}&gt;</Secondary>
     </div>
