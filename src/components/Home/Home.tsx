@@ -1,6 +1,7 @@
 import { HorizontalDivider } from "@deskpro/app-sdk";
 import { Container, NotFound } from "@/components/common";
-import { ContactInfo, Opportunities, Notes, Activities } from "./blocks";
+import { Activities } from "@/components/Activities";
+import { ContactInfo, Opportunities, Notes } from "./blocks";
 import type { FC } from "react";
 import type { Activity, Opportunity, Account, UserActivityType } from "@/services/copper/types";
 import type { Contact } from "@/services/copper/types";
@@ -15,6 +16,8 @@ type Props = {
   onNavigateToCreateNote: () => void;
   onNavigateToCreateActivity: () => void;
   onNavigateToCreateOpportunity: () => void;
+  isLoadingActivities: boolean;
+  onNextActivitiesPage: () => void;
 };
 
 const Home: FC<Props> = ({
@@ -24,6 +27,8 @@ const Home: FC<Props> = ({
   activities,
   activityTypes,
   opportunities,
+  isLoadingActivities,
+  onNextActivitiesPage,
   onNavigateToCreateNote,
   onNavigateToCreateActivity,
   onNavigateToCreateOpportunity,
@@ -66,6 +71,8 @@ const Home: FC<Props> = ({
         <Activities
           activities={activities}
           activityTypes={activityTypes}
+          isLoading={isLoadingActivities}
+          onNextActivitiesPage={onNextActivitiesPage}
           onNavigateToCreateActivity={onNavigateToCreateActivity}
         />
       </Container>

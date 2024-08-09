@@ -39,12 +39,12 @@ export type Website = {
 };
 
 export type Address = {
-  street: string;
-  city: string;
-  state: string;
-  postal_code: string;
-  country: string;
-}
+  street: Maybe<string>;
+  city: Maybe<string>;
+  state: Maybe<string>;
+  postal_code: Maybe<string>;
+  country: Maybe<string>;
+};
 
 export type Contact = {
   id: number;
@@ -55,16 +55,16 @@ export type Contact = {
   last_name: string;
   suffix: null;
   address: Maybe<Address>;
-  assignee_id: null;
-  company_id: null;
-  company_name: null;
+  assignee_id: Maybe<Contact["id"]>;
+  company_id: Maybe<Company["id"]>;
+  company_name: Maybe<Company["name"]>;
   contact_type_id: number;
   details: null;
   emails: Email[];
   phone_numbers: PhoneNumber[];
   socials: unknown[];
   tags: unknown[];
-  title: null;
+  title: Maybe<string>;
   websites: Website[];
   custom_fields: {
     custom_field_definition_id: number;
@@ -80,8 +80,13 @@ export type ContactType = {
   name: string;
 };
 
+export type ContactRelated = {
+  id: Contact["id"];
+  type: "person";
+};
+
 export type OpportunityRelated = {
-  id: number;
+  id: Opportunity["id"];
   type: "opportunity";
 }
 

@@ -5,3 +5,4 @@ export { useUnlinkContact } from "./useUnlinkContact";
 export { useLinkedContact } from "./useLinkedContact";
 export { useContact } from "./useContact";
 export { useDPContext } from "./useDPContext";
+export { useUnlinkCompany } from "./useUnlinkCompany";

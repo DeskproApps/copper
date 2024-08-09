@@ -10,3 +10,4 @@ export { CreateActivity } from "./CreateActivity";
 export { LinkCompany } from "./LinkCompany";
 export { CompanyHome } from "./CompanyHome";
 export { CompanyItem } from "./CompanyItem";
+export { Company } from "./Company";

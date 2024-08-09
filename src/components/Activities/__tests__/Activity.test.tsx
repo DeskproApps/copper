@@ -9,7 +9,6 @@ const mockActivity = mockActivities[0];
 const renderActivity = (props?: Partial<Props>) => render((
   <Activity
     activity={props?.activity || mockActivity as never}
-    isLast={props?.isLast || false}
     activityTypes={props?.activityTypes || mockActivityTypes.user as never[]}
   />
 ), { wrappers: { theme: true } });

@@ -11,3 +11,5 @@ export { default as mockOpportunity } from "./mockOpportunity.json";
 export { default as mockOrganisationContext } from "./mockOrganisationContext.json";
 export { default as mockSearchCompanies } from "./mockSearchCompanies.json";
 export { default as mockGetCompanies } from "./mockGetCompanies.json";
+export { default as mockCompany } from "./mockCompany.json";
+export { default as mockPeople } from "./mockPeople.json";

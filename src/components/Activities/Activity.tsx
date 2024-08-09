@@ -1,4 +1,4 @@
-import { HorizontalDivider, Property, TwoProperties } from "@deskpro/app-sdk";
+import { Property, TwoProperties } from "@deskpro/app-sdk";
 import { format } from "@/utils/date";
 import { getActivityTypeName } from "@/utils";
 import { DPNormalize } from "@/components/common";
@@ -7,11 +7,10 @@ import type { Activity, UserActivityType } from "@/services/copper/types";
 
 export type Props = {
   activity: Activity;
-  isLast: boolean;
   activityTypes: UserActivityType[];
 };
 
-const Activity: FC<Props> = ({ activity, isLast, activityTypes }) => (
+const Activity: FC<Props> = ({ activity, activityTypes }) => (
   <>
     <br/>
     <TwoProperties
@@ -21,7 +20,6 @@ const Activity: FC<Props> = ({ activity, isLast, activityTypes }) => (
       rightText={format(activity.activity_date, { time: true })}
     />
     <Property text={<DPNormalize text={activity.details} />}/>
-    {!isLast && <HorizontalDivider/>}
   </>
 );
 

@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { LoadingSpinner } from "@deskpro/app-sdk";
 import { useRegisterElements } from "@/hooks";
@@ -7,6 +7,7 @@ import { Home } from "@/components";
 
 const HomePage = () => {
   const navigate = useNavigate();
+  const [activitiesPage, setActivitiesPage] = useState<number>(1);
   const {
     isLoading,
     contact,
@@ -15,7 +16,10 @@ const HomePage = () => {
     notes,
     activities,
     activityTypes,
-  } = useContact();
+    isLoadingActivities,
+  } = useContact(activitiesPage);
+
+  const onNextActivitiesPage = useCallback(() => setActivitiesPage(activitiesPage + 1), [activitiesPage]);
 
   const onNavigateToCreateOpportunity = useCallback(() => {
     navigate("/opportunity/create");
@@ -54,6 +58,8 @@ const HomePage = () => {
 
   return (
     <Home
+      isLoadingActivities={isLoadingActivities}
+      onNextActivitiesPage={onNextActivitiesPage}
       contact={contact}
       account={account}
       activities={activities}

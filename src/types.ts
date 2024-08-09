@@ -1,7 +1,7 @@
 import type { To, ParamKeyValuePair } from "react-router-dom";
 import type { DropdownValueType } from "@deskpro/deskpro-ui";
 import type { Context, IDeskproClient } from "@deskpro/app-sdk";
-import type { Response, Opportunity } from "@/services/copper/types";
+import type { Response, Company, Opportunity } from "@/services/copper/types";
 
 /** common */
 export type Maybe<T> = T | undefined | null;
@@ -80,9 +80,12 @@ export type NavigateToChangePage = { type: "changePage", path: To };
 
 export type UnlinkPayload = { type: "unlink" };
 
+export type UnlinkCompanyPayload = { type: "unlink_company", company: Company };
+
 export type EventPayload =
   | NavigateToChangePage
   | UnlinkPayload
+  | UnlinkCompanyPayload
 ;
 
 export type OpportunityType = Opportunity & {

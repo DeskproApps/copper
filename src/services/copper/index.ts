@@ -16,3 +16,7 @@ export { getActivitiesService } from "./getActivitiesService";
 export { getOpportunityService } from "./getOpportunityService";
 export { getPipelineStagesService } from "./getPipelineStagesService";
 export { getCompaniesService } from "./getCompaniesService";
+export { getCompanyService } from "./getCompanyService";
+export { getCompanyPeopleService } from "./getCompanyPeopleService";
+export { getContactsService } from "./getContactsService";
+export { getCompanyActivitiesService } from "./getCompanyActivitiesService";
