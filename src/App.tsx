@@ -37,9 +37,7 @@ const App: FC = () => {
   const { unlink, isLoading: isLoadingUnlink } = useUnlinkContact();
   const { unlinkCompany, isLoading: isLoadingUnlinkCompany } = useUnlinkCompany()
   const isAdmin = useMemo(() => pathname.includes("/admin/"), [pathname]);
-  const isLoading = useMemo(() => {
-    return !client || isLoadingUnlink || isLoadingUnlinkCompany
-  }, [client, isLoadingUnlink, isLoadingUnlinkCompany]);
+  const isLoading = !client || isLoadingUnlink || isLoadingUnlinkCompany;
 
   useRegisterElements(({ registerElement }) => {
     registerElement("refresh", { type: "refresh_button" });

@@ -25,35 +25,35 @@ const Activities: FC<Props> = ({
   return (
     <>
       <Title
-        title={`Activities (${activities?.length || 0})`}
-        {...(!onNavigateToCreateActivity ? {} : { onClick: onNavigateToCreateActivity })}
-        {...(!activities?.length ? {} : { marginBottom: 0 })}
+        title={`Activities (${activities.length || 0})`}
+        {...(onNavigateToCreateActivity ? { onClick: onNavigateToCreateActivity } : {})}
+        {...(activities?.length ? { marginBottom: 0 } : {})}
       />
-      {!activities?.length
-      ? <NotFound text="No activities found"/>
-      : (
-        <>
-          {activities.map((activity, idx) => (
-            <Fragment key={activity.id}>
-              <Activity
-                key={activity.id}
-                activity={activity}
-                activityTypes={activityTypes}
-              />
-              {!isLast(activities, idx) && <HorizontalDivider/>}
-            </Fragment>
-          ))}
-          <Stack justify="center" style={{ visibility: isLoading ? "visible" : "hidden" }}>
-            <Spinner size="small"/>
-          </Stack>
-          <P5>
-            <ButtonAsLink onClick={onNextActivitiesPage}>
-              Load next 10 activities
-            </ButtonAsLink>
-          </P5>
-        </>
-      )
-    }
+      {(activities?.length === 0)
+        ? <NotFound text="No activities found"/>
+        : (
+          <>
+            {activities.map((activity, idx) => (
+              <Fragment key={activity.id}>
+                <Activity
+                  key={activity.id}
+                  activity={activity}
+                  activityTypes={activityTypes}
+                />
+                {!isLast(activities, idx) && <HorizontalDivider/>}
+              </Fragment>
+            ))}
+            <Stack justify="center" style={{ visibility: isLoading ? "visible" : "hidden" }}>
+              <Spinner size="small"/>
+            </Stack>
+            <P5>
+              <ButtonAsLink onClick={onNextActivitiesPage}>
+                Load next 10 activities
+              </ButtonAsLink>
+            </P5>
+          </>
+        )
+      }
     </>
   );
 };

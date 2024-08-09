@@ -16,10 +16,10 @@ const getActivitiesService = (
     url: `/activities/search`,
     method: "POST",
     data: {
-      page_size: 1,
+      page_size: 10,
       page_number: page || 1,
       parent: { id: contactId, type: "person" },
-      ...(!types ? {} : { activity_types: types }),
+      ...(types ? { activity_types: types } : {}),
     },
   });
 };

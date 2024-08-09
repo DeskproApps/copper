@@ -33,7 +33,7 @@ const ContactItem: FC<Props> = ({ contact, account, onClickTitle }) => {
           : (<Link href="#" onClick={onClick}>{contact.name}</Link>)
         }
         marginBottom={0}
-        {...(!link ? {} : { icon: <CopperLogo />, link })}
+        {...(link ? { icon: <CopperLogo />, link } : {})}
       />
       <Secondary type="p5">&lt;{email}&gt;</Secondary>
     </div>

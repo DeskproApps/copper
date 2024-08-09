@@ -39,7 +39,7 @@ const useContact: UseContact = (activitiesPage) => {
 
   const contact = useLinkedContact();
 
-  const contactId = useMemo(() => contact?.contact?.id, [contact]);
+  const contactId = contact?.contact?.id;
 
   const pipelines = useQueryWithClient([QueryKey.PIPELINES], getPipelinesService);
 

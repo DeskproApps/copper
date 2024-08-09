@@ -21,7 +21,7 @@ const People: FC<Props> = ({
 }) => {
   return (
     <>
-      <Title title={`People (${people?.length || 0})`} />
+      <Title title={`People (${people.length || 0})`} />
       {people.length === 0
         ? <NotFound text="No people found." />
         : (

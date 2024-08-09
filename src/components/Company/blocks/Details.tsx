@@ -14,18 +14,10 @@ export type Props = {
 };
 
 const Details: FC<Props> = ({ company, account, primaryContact }) => {
-  const link = useMemo(() => {
-    return getExternalLinks.company(account?.id, company.id);
-  }, [account?.id, company.id]);
-  const contactLink = useMemo(() => {
-    return getExternalLinks.contact(account?.id, primaryContact?.id);
-  }, [account?.id, primaryContact?.id]);
-  const phones = useMemo(() => {
-    return company.phone_numbers?.map(({ number }) => number).join(`,\n`);
-  }, [company.phone_numbers]);
-  const sites = useMemo(() => {
-    return company.websites?.map(({ url }) => url).join(",\n");
-  }, [company.websites]);
+  const link = getExternalLinks.company(account?.id, company.id);
+  const contactLink = getExternalLinks.contact(account?.id, primaryContact?.id);
+  const phones = company.phone_numbers?.map(({ number }) => number).join(`,\n`);
+  const sites = company.websites?.map(({ url }) => url).join(",\n");;
 
   const address = useMemo(() => getAddress(company.address), [company]);
 

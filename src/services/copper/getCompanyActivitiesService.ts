@@ -12,7 +12,6 @@ const getCompanyActivitiesService = (
   companyId: Company["id"],
   { types, page }: Params = {},
 ) => {
-
   return baseRequest<Activity[]>(client, {
     url: `/activities/search`,
     method: "POST",
@@ -20,7 +19,7 @@ const getCompanyActivitiesService = (
       page_size: 10,
       page_number: page || 1,
       parent: { id: companyId, type: "company" },
-      ...(!types ? {} : { activity_types: types }),
+      ...(types ? { activity_types: types } : {}),
     },
   });
 };
