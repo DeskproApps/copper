@@ -1,18 +1,18 @@
 import { useMemo, useState, useCallback } from "react";
-import { get } from "lodash";
+import { get } from "lodash-es";
 import { useNavigate } from "react-router-dom";
 import { useDebouncedCallback } from "use-debounce";
 import {
   useDeskproAppClient,
   useDeskproLatestAppContext,
 } from "@deskpro/app-sdk";
-import { setEntityService } from "../../services/deskpro";
-import { useRegisterElements, useSetTitle, useAsyncError } from "../../hooks";
+import { setEntityService } from "@/services/deskpro";
+import { useRegisterElements, useSetTitle, useAsyncError } from "@/hooks";
 import { useSearch } from "./hooks";
-import { LinkContact } from "../../components";
+import { LinkContact } from "@/components";
 import type { FC } from "react";
-import type { Maybe, UserContext } from "../../types";
-import type { Contact } from "../../services/copper/types";
+import type { Maybe, UserContext } from "@/types";
+import type { Contact } from "@/services/copper/types";
 
 const LinkContactPage: FC = () => {
   const navigate = useNavigate();

@@ -1,5 +1,5 @@
-import { get, find, toLower, isPlainObject } from "lodash";
-import type { Activity, UserActivityType } from "../services/copper/types";
+import { get, find, toLower, isPlainObject } from "lodash-es";
+import type { Activity, UserActivityType } from "@/services/copper/types";
 
 const isActivity = (
   type: string,

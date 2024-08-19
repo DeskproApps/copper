@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { get, filter } from "lodash";
+import { get, filter } from "lodash-es";
 import { useQueryWithClient } from "@deskpro/app-sdk";
 import {
   getAccountService,
@@ -7,17 +7,17 @@ import {
   getActivitiesService,
   getActivityTypesService,
   getOpportunitiesService,
-} from "../../services/copper";
-import { useLinkedContact } from "../../hooks";
-import { QueryKey } from "../../query";
-import { isNote, isSms, isPhoneCall, isMeeting, enhanceOpportunities } from "../../utils";
+} from "@/services/copper";
+import { useLinkedContact } from "@/hooks";
+import { QueryKey } from "@/query";
+import { isNote, isSms, isPhoneCall, isMeeting, enhanceOpportunities } from "@/utils";
 import type {
   Account,
   Contact,
   Activity,
   Opportunity,
   UserActivityType,
-} from "../../services/copper/types";
+} from "@/services/copper/types";
 
 type UseContact = () => {
   isLoading: boolean;
@@ -39,7 +39,7 @@ const useContact: UseContact = () => {
   const pipelines = useQueryWithClient([QueryKey.PIPELINES], getPipelinesService);
 
   const opportunities = useQueryWithClient(
-    [QueryKey.OPPORTUNITIES, contactId],
+    [QueryKey.OPPORTUNITIES, `${contactId}`],
     (client) => getOpportunitiesService(client, { contactId }),
     { enabled: Boolean(contactId) },
   );

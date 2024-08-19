@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { P5 } from "@deskpro/deskpro-ui";
 import type { FC, JSX } from "react";
-import type { Maybe } from "../../../types";
+import type { Maybe } from "@/types";
 
 export type Props = {
   text?: Maybe<string|JSX.Element|Array<string|JSX.Element>>,

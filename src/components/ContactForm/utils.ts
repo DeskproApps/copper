@@ -1,7 +1,7 @@
-import { get, map, trim } from "lodash";
+import { get, map, trim } from "lodash-es";
 import { z } from "zod";
-import type { DPUser } from "../../types";
-import type { Contact, PhoneNumber } from "../../services/copper/types";
+import type { DPUser } from "@/types";
+import type { Contact, PhoneNumber } from "@/services/copper/types";
 import type { FormValidationSchema } from "./types";
 
 const validationSchema = z.object({
@@ -23,7 +23,7 @@ const getInitValues = (contact?: DPUser|Contact): FormValidationSchema => {
     phones: (get(contact, ["phone_numbers"]) || [])
       .map((phone: PhoneNumber) => get(phone, ["number"]))
       .filter(Boolean),
-    contactType: 0,
+    contactType: get(contact, ["contact_type_id"], 0),
   };
 };
 

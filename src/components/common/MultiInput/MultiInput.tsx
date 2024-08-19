@@ -1,10 +1,10 @@
 import { useMemo, useState, useEffect, useCallback } from "react";
-import { map, size, isEmpty, filter } from "lodash";
+import { map, size, isEmpty, filter } from "lodash-es";
 import { useDebouncedCallback } from "use-debounce";
 import { z } from "zod";
 import { faPlus, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { P5, Stack, IconButton } from "@deskpro/deskpro-ui";
-import { Input } from "../Input";
+import { Input } from "@/components/common/Input";
 import type { FC, MouseEvent, KeyboardEvent, ChangeEvent } from "react";
 import type { InputProps } from "@deskpro/deskpro-ui";
 

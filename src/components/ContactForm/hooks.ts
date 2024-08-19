@@ -1,10 +1,10 @@
 import { useMemo } from "react";
 import { useQueryWithClient } from "@deskpro/app-sdk";
-import { getContactTypesService } from "../../services/copper";
-import { getOptions } from "../../utils";
-import { QueryKey } from "../../query";
-import type { Option } from "../../types";
-import type { ContactType } from "../../services/copper/types";
+import { getContactTypesService } from "@/services/copper";
+import { getOptions } from "@/utils";
+import { QueryKey } from "@/query";
+import type { Option } from "@/types";
+import type { ContactType } from "@/services/copper/types";
 
 type UseFormDeps = () => {
   isLoading: boolean,

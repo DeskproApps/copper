@@ -1,13 +1,13 @@
-import { has } from "lodash";
+import { has } from "lodash-es";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Stack } from "@deskpro/deskpro-ui";
 import { Select, LoadingSpinner } from "@deskpro/app-sdk";
 import { getInitValues, validationSchema } from "./utils";
 import { useFormDeps } from "./hooks";
-import { Input, Label, Button, ErrorBlock, MultiInput } from "../common";
+import { Input, Label, Button, ErrorBlock, MultiInput } from "@/components/common";
 import type { FC } from "react";
-import type { ContactType } from "../../services/copper/types";
+import type { ContactType } from "@/services/copper/types";
 import type { Props, FormValidationSchema } from "./types";
 
 const ContactForm: FC<Props> = ({ error, onSubmit, onCancel, isEditMode, contact }) => {

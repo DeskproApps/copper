@@ -1,11 +1,11 @@
-import { get } from "lodash";
+import { get } from "lodash-es";
 import { Title, Property } from "@deskpro/app-sdk";
-import { format } from "../../utils/date";
-import { formatPrice } from "../../utils";
-import { Container, DPNormalize } from "../common";
+import { format } from "@/utils/date";
+import { formatPrice } from "@/utils";
+import { Container, DPNormalize } from "@/components/common";
 import type { FC } from "react";
-import type { Maybe } from "../../types";
-import type { Opportunity as OpportunityType } from "../../services/copper/types";
+import type { Maybe } from "@/types";
+import type { Opportunity as OpportunityType } from "@/services/copper/types";
 
 export type Props = {
   opportunity: Maybe<OpportunityType>;

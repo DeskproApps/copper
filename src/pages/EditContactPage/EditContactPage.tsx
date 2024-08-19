@@ -1,19 +1,19 @@
 import { useMemo, useState, useCallback } from "react";
-import { get } from "lodash";
+import { get } from "lodash-es";
 import { useNavigate, useParams } from "react-router-dom";
 import {
   LoadingSpinner,
   useDeskproAppClient,
   useDeskproLatestAppContext,
 } from "@deskpro/app-sdk";
-import { updateContactService } from "../../services/copper";
-import { useContact, useRegisterElements } from "../../hooks";
-import { getError } from "../../utils";
-import { getContactValues } from "../../components/ContactForm";
-import { EditContact } from "../../components";
+import { updateContactService } from "@/services/copper";
+import { useContact, useRegisterElements } from "@/hooks";
+import { getError } from "@/utils";
+import { getContactValues } from "@/components/ContactForm";
+import { EditContact } from "@/components";
 import type { FC } from "react";
-import type { Maybe, UserContext } from "../../types";
-import type { FormValidationSchema } from "../../components/ContactForm";
+import type { Maybe, UserContext } from "@/types";
+import type { FormValidationSchema } from "@/components/ContactForm";
 
 const EditContactPage: FC = () => {
   const navigate = useNavigate();

@@ -5,11 +5,11 @@ import {
   getPipelinesService,
   getOpportunityService,
   getPipelineStagesService,
-} from "../../services/copper";
-import { enhanceOpportunity } from "../../utils";
-import { QueryKey } from "../../query";
-import type { Maybe } from "../../types";
-import type { Opportunity } from "../../services/copper/types";
+} from "@/services/copper";
+import { enhanceOpportunity } from "@/utils";
+import { QueryKey } from "@/query";
+import type { Maybe } from "@/types";
+import type { Opportunity } from "@/services/copper/types";
 
 type UseOpportunity = (id?: Opportunity["id"]) => {
   isLoading: boolean;

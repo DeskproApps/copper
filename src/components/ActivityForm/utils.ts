@@ -1,7 +1,7 @@
-import { toLower, isEmpty } from "lodash";
+import { toLower, isEmpty } from "lodash-es";
 import { z } from "zod";
-import { getOptions } from "../../utils";
-import type { UserActivityType, ActivityInput } from "../../services/copper/types";
+import { getOptions } from "@/utils";
+import type { UserActivityType, ActivityInput } from "@/services/copper/types";
 import type { FormValidationSchema } from "./types";
 
 const validationSchema = z.object({

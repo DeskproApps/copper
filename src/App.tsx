@@ -8,10 +8,10 @@ import {
   useDeskproAppClient,
   useDeskproAppEvents,
 } from "@deskpro/app-sdk";
-import { useRegisterElements, useUnlinkContact } from "./hooks";
-import { isNavigatePayload } from "./utils";
-import { AppContainer } from "./components/common";
-import { ErrorFallback } from "./components/ErrorFallback/ErrorFallback";
+import { useRegisterElements, useUnlinkContact } from "@/hooks";
+import { isNavigatePayload } from "@/utils";
+import { AppContainer } from "@/components/common";
+import { ErrorFallback } from "@/components/ErrorFallback/ErrorFallback";
 import {
   HomePage,
   LoadingPage,
@@ -23,7 +23,7 @@ import {
   CreateActivityPage,
   VerifySettingsPage,
   CreateOpportunityPage,
-} from "./pages";
+} from "@/pages";
 import type { FC } from "react";
 import type { EventPayload } from "./types";
 
@@ -71,7 +71,7 @@ const App: FC = () => {
           <Route path="/home" element={<HomePage/>}/>
           <Route path="/contacts/link" element={<LinkContactPage/>}/>
           <Route path="/contacts/create" element={<CreateContactPage/>}/>
-          <Route path="/contacts/:id/edit/" element={<EditContactPage/>}/>
+          <Route path="/contacts/:id/edit" element={<EditContactPage/>}/>
           <Route path="/opportunity/create" element={<CreateOpportunityPage/>}/>
           <Route path="/opportunity/:id" element={<OpportunityPage/>}/>
           <Route path="/notes/create" element={<CreateNotePage/>}/>

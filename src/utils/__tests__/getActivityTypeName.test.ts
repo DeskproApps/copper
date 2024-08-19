@@ -1,5 +1,5 @@
 import { getActivityTypeName } from "../getActivityTypeName";
-import { mockActivityTypes, mockActivities } from "../../../testing";
+import { mockActivityTypes, mockActivities } from "@/testing";
 
 const mockCallActivity = mockActivities[6];
 
