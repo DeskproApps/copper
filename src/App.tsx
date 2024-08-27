@@ -32,7 +32,7 @@ const App: FC = () => {
   const { pathname } = useLocation();
   const { client } = useDeskproAppClient();
   const { unlink, isLoading: isLoadingUnlink } = useUnlinkContact();
-  const isAdmin = useMemo(() => pathname.includes("/admin/"), [pathname]);
+  const isAdmin = pathname.includes("/admin/");
   const isLoading = useMemo(() => {
     return !client || isLoadingUnlink
   }, [client, isLoadingUnlink]);
