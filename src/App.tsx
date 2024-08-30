@@ -71,7 +71,7 @@ const App: FC = () => {
           <Route path="/home" element={<HomePage/>}/>
           <Route path="/contacts/link" element={<LinkContactPage/>}/>
           <Route path="/contacts/create" element={<CreateContactPage/>}/>
-          <Route path="/contacts/:id/edit/" element={<EditContactPage/>}/>
+          <Route path="/contacts/:id/edit" element={<EditContactPage/>}/>
           <Route path="/opportunity/create" element={<CreateOpportunityPage/>}/>
           <Route path="/opportunity/:id" element={<OpportunityPage/>}/>
           <Route path="/notes/create" element={<CreateNotePage/>}/>
