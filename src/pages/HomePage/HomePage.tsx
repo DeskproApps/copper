@@ -41,7 +41,7 @@ const HomePage = () => {
     if (contact?.id) {
       registerElement("edit", {
         type: "edit_button",
-        payload: { type: "changePage", path: `/contacts/edit/${contact.id}` },
+        payload: { type: "changePage", path: `/contacts/${contact.id}/edit` },
       });
     }
   }, [contact?.id]);
