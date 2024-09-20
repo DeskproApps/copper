@@ -157,8 +157,8 @@ importers:
         specifier: ^3.0.2
         version: 3.0.2
       rollup-plugin-copy:
-        specifier: 3.4.0
-        version: 3.4.0
+        specifier: 3.5.0
+        version: 3.5.0
       slugify:
         specifier: ^1.6.5
         version: 1.6.6
@@ -2550,8 +2550,8 @@ packages:
     deprecated: Rimraf versions prior to v4 are no longer supported
     hasBin: true
 
-  rollup-plugin-copy@3.4.0:
-    resolution: {integrity: sha512-rGUmYYsYsceRJRqLVlE9FivJMxJ7X6jDlP79fmFkL8sJs7VVMSVyA2yfyL+PGyO/vJs4A87hwhgVfz61njI+uQ==}
+  rollup-plugin-copy@3.5.0:
+    resolution: {integrity: sha512-wI8D5dvYovRMx/YYKtUNt3Yxaw4ORC9xo6Gt9t22kveWz1enG9QrhVlagzwrxSC455xD1dHMKhIJkbsQ7d48BA==}
     engines: {node: '>=8.3'}
 
   rollup@4.18.0:
@@ -5701,7 +5701,7 @@ snapshots:
     dependencies:
       glob: 7.2.3
 
-  rollup-plugin-copy@3.4.0:
+  rollup-plugin-copy@3.5.0:
     dependencies:
       '@types/fs-extra': 8.1.5
       colorette: 1.4.0
