@@ -22,7 +22,7 @@ const useUnlinkContact: UseUnlinkContact = () => {
   const dpUserId = useMemo(() => get(context, ["data", "user", "id"]), [context]);
 
   const unlink = useCallback(() => {
-    if (!client) {
+    if (!client || !dpUserId) {
       return;
     }
 
