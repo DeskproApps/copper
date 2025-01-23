@@ -32,7 +32,7 @@ const VerifySettings: FC<Props> = ({
       />
       {nbsp}
       {!account
-        ? <Invalid type="p1">{error}</Invalid> || ""
+        ? <Invalid type="p1">{error}</Invalid>
         : (
           <Secondary>Verified as &lt;{get(account, ["name"])}&gt;</Secondary>
         )
