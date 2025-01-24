@@ -34,12 +34,12 @@ const useContact: UseContact = () => {
 
   const contact = useLinkedContact();
 
-  const contactId = useMemo(() => get(contact, ["contact", "id"]), [contact]);
+  const contactId = contact.contact?.id
 
   const pipelines = useQueryWithClient([QueryKey.PIPELINES], getPipelinesService);
 
   const opportunities = useQueryWithClient(
-    [QueryKey.OPPORTUNITIES, contactId],
+    [QueryKey.OPPORTUNITIES, contactId?.toString() ?? ""],
     (client) => getOpportunitiesService(client, { contactId }),
     { enabled: Boolean(contactId) },
   );
