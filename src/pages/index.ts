@@ -3,6 +3,7 @@ export { CreateActivityPage } from "./CreateActivityPage";
 export { CreateContactPage } from "./CreateContactPage";
 export { CreateNotePage } from "./CreateNotePage";
 export { CreateOpportunityPage } from "./CreateOpportunityPage";
+export { default as LoginPage } from "./LoginPage";
 export { EditContactPage } from "./EditContactPage";
 export { HomePage } from "./HomePage";
 export { LinkContactPage } from "./LinkContactPage";

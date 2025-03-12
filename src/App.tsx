@@ -22,6 +22,7 @@ import {
   HomePage,
   LinkContactPage,
   LoadingPage,
+  LoginPage,
   OpportunityPage,
   VerifySettingsPage,
 } from "./pages";
@@ -70,6 +71,7 @@ const App: FC = () => {
         <Routes>
           <Route path="/admin/verify_settings" element={<VerifySettingsPage />} />
           <Route path="/admin/callback" element={<AdminCallbackPage />} />
+          <Route path="/login" element={<LoginPage />} />
           <Route path="/home" element={<HomePage />} />
           <Route path="/contacts/link" element={<LinkContactPage />} />
           <Route path="/contacts/create" element={<CreateContactPage />} />
