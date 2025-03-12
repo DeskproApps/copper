@@ -9,14 +9,14 @@ import { getError } from "../../utils";
 import { getContactValues } from "../../components/ContactForm";
 import { CreateContact } from "../../components";
 import type { FC } from "react";
-import type { Maybe, UserContext } from "../../types";
+import { Settings, UserData, type Maybe } from "../../types";
 import type { FormValidationSchema } from "../../components/ContactForm";
 
 const CreateContactPage: FC = () => {
   const navigate = useNavigate();
   const { client } = useDeskproAppClient();
-  const { context } = useDeskproLatestAppContext() as { context: UserContext };
-  const [error, setError] = useState<Maybe<string|string[]>>(null);
+  const { context } = useDeskproLatestAppContext<UserData, Settings>();
+  const [error, setError] = useState<Maybe<string | string[]>>(null);
   const dpUser = useMemo(() => get(context, ["data", "user"]), [context]);
 
   const onNavigateToLink = useCallback(() => navigate("/contacts/link"), [navigate]);
@@ -44,7 +44,18 @@ const CreateContactPage: FC = () => {
     registerElement("home", {
       type: "home_button",
       payload: { type: "changePage", path: "/home" },
-    });
+    })
+
+    if (context?.settings.use_api_key !== true) {
+      registerElement("menu", {
+        type: "menu",
+        items: [{
+          title: "Logout",
+          payload: { type: "logout" },
+        }
+        ],
+      })
+    }
   });
 
   return (

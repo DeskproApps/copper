@@ -11,13 +11,13 @@ import { useRegisterElements, useSetTitle, useAsyncError } from "../../hooks";
 import { useSearch } from "./hooks";
 import { LinkContact } from "../../components";
 import type { FC } from "react";
-import type { Maybe, UserContext } from "../../types";
+import type { Maybe, Settings, UserData } from "../../types";
 import type { Contact } from "../../services/copper/types";
 
 const LinkContactPage: FC = () => {
   const navigate = useNavigate();
   const { client } = useDeskproAppClient();
-  const { context } = useDeskproLatestAppContext() as { context: UserContext };
+  const { context } = useDeskproLatestAppContext<UserData, Settings>();
   const { asyncErrorHandler } = useAsyncError();
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [selectedContact, setSelectedContact] = useState<Maybe<Contact>>(null);
@@ -51,6 +51,17 @@ const LinkContactPage: FC = () => {
       type: "home_button",
       payload: { type: "changePage", path: "/home" },
     });
+
+    if (context?.settings.use_api_key !== true) {
+      registerElement("menu", {
+        type: "menu",
+        items: [{
+          title: "Logout",
+          payload: { type: "logout" },
+        }
+        ],
+      })
+    }
   });
 
   return (

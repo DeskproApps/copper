@@ -7,8 +7,9 @@ import {
   LoadingSpinner,
   useDeskproAppClient,
   useDeskproAppEvents,
+  useDeskproLatestAppContext,
 } from "@deskpro/app-sdk";
-import { useRegisterElements, useUnlinkContact } from "./hooks";
+import { useLogout, useRegisterElements, useUnlinkContact } from "./hooks";
 import { isNavigatePayload } from "./utils";
 import { AppContainer } from "./components/common";
 import { ErrorFallback } from "./components/ErrorFallback/ErrorFallback";
@@ -27,13 +28,17 @@ import {
   VerifySettingsPage,
 } from "./pages";
 import type { FC } from "react";
-import type { EventPayload } from "./types";
+import type { EventPayload, Settings } from "./types";
 
 const App: FC = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const { client } = useDeskproAppClient();
-  const { unlink, isLoading: isLoadingUnlink } = useUnlinkContact();
+  const { unlink, isLoading: isLoadingUnlink } = useUnlinkContact()
+  const { logoutActiveUser } = useLogout()
+  const { context } = useDeskproLatestAppContext<unknown, Settings>()
+  const isUsingOAuth = context?.settings?.use_api_key !== true
+
   const isAdmin = pathname.includes("/admin/");
   const isLoading = useMemo(() => {
     return !client || isLoadingUnlink
@@ -47,6 +52,11 @@ const App: FC = () => {
     return match(payload.type)
       .with("changePage", () => isNavigatePayload(payload) && navigate(payload.path))
       .with("unlink", unlink)
+      .with("logout", () => {
+        if (isUsingOAuth) {
+          logoutActiveUser()
+        }
+      })
       .run();
   }, 500);
 
