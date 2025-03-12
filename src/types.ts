@@ -41,6 +41,7 @@ export type Settings = {
   api_key_owner_email?: string;
   use_deskpro_saas?: boolean,
   use_api_key?: boolean,
+  client_id?: string
 };
 
 export type DPUser = {
