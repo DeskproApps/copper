@@ -1,7 +1,7 @@
-import type { To, ParamKeyValuePair } from "react-router-dom";
-import type { DropdownValueType } from "@deskpro/deskpro-ui";
 import type { Context, IDeskproClient } from "@deskpro/app-sdk";
+import type { DeskproTheme, DropdownValueType } from "@deskpro/deskpro-ui";
 import type { Response } from "./services/copper/types";
+import type { To, ParamKeyValuePair } from "react-router-dom";
 
 /** common */
 export type Maybe<T> = T | undefined | null;
@@ -24,9 +24,9 @@ export type RequestParams = {
   rawUrl?: string;
   method?: ApiRequestMethod;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  data?: Dict<any>|RequestInit["body"];
+  data?: Dict<any> | RequestInit["body"];
   headers?: Dict<string>;
-  queryParams?: string|Dict<string>|ParamKeyValuePair[];
+  queryParams?: string | Dict<string> | ParamKeyValuePair[];
   settings?: Settings;
 };
 
@@ -39,6 +39,8 @@ export type Request = <T>(
 export type Settings = {
   api_key?: string;
   api_key_owner_email?: string;
+  use_deskpro_saas?: boolean,
+  use_api_key?: boolean,
 };
 
 export type DPUser = {
@@ -71,4 +73,8 @@ export type UnlinkPayload = { type: "unlink" };
 export type EventPayload =
   | NavigateToChangePage
   | UnlinkPayload
-;
+  ;
+
+export interface ThemeProps {
+  theme: DeskproTheme;
+}

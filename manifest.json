@@ -17,29 +17,77 @@
     }
   },
   "settings": {
+    "use_deskpro_saas": {
+      "title": "One-Click Installation",
+      "type": "boolean",
+      "default": true,
+      "isRequired": false,
+      "isBackendOnly": false,
+      "order": 5
+    },
+    "use_api_key": {
+      "title": "Use API Key",
+      "type": "boolean",
+      "isRequired": false,
+      "isBackendOnly": false,
+      "default": false,
+      "condition": "settings.use_deskpro_saas != true",
+      "order": 10
+    },
     "api_key": {
-      "title": "Api Key",
+      "title": "API Key",
       "description": "API Key can be obtained by following our setup guide",
       "type": "string",
-      "isRequired": true,
+      "isRequired": false,
       "isBackendOnly": true,
-      "order": 10
+      "condition": "settings.use_deskpro_saas != true && settings.use_api_key == true",
+      "order": 20
     },
     "api_key_owner_email": {
       "title": "API Key Owner Email",
       "description": "The email address associated with the account that the API Key belongs to.",
       "type": "string",
-      "isRequired": true,
+      "isRequired": false,
       "isBackendOnly": true,
-      "order": 20
+      "condition": "settings.use_deskpro_saas != true && settings.use_api_key == true",
+      "order": 30
     },
     "verify_settings": {
       "title": "",
       "type": "app_embedded",
-      "options": { "entrypoint": "#/admin/verify_settings" },
+      "options": { "entrypoint": "#/admin/verify_settings", "height": 60 },
       "isRequired": false,
       "isBackendOnly": false,
-      "order": 30
+      "condition": "settings.use_deskpro_saas != true && settings.use_api_key == true",
+      "order": 40
+    },
+    "client_id": {
+      "title": "Client ID",
+      "type": "string",
+      "isRequired": false,
+      "isBackendOnly": false,
+      "condition": "settings.use_deskpro_saas != true && settings.use_api_key != true",
+      "order": 50
+    },
+    "client_secret": {
+      "title": "Client Secret",
+      "type": "string",
+      "isRequired": false,
+      "isBackendOnly": true,
+      "condition": "settings.use_deskpro_saas != true && settings.use_api_key != true",
+      "order": 60
+    },
+    "callback_url": {
+      "title": "Callback URL",
+      "type": "app_embedded",
+      "options": {
+        "entrypoint": "#/admin/callback",
+        "height": 80
+      },
+      "isRequired": false,
+      "isBackendOnly": true,
+      "condition": "settings.use_deskpro_saas != true && settings.use_api_key != true",
+      "order": 70
     }
   },
   "proxy": {
