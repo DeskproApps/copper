@@ -96,6 +96,11 @@
         "url": "https://api.copper.com/developer_api/v1/.*",
         "methods": ["GET", "PUT", "POST", "PATCH"],
         "timeout": 20
+      },
+      {
+        "url": "https://app.copper.com/oauth/.*",
+        "methods": ["GET", "PUT", "POST", "PATCH"],
+        "timeout": 20
       }
     ]
   }
