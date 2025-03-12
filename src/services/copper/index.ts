@@ -4,6 +4,7 @@ export { createActivityService } from "./createActivityService";
 export { createContactService } from "./createContactService";
 export { createOpportunityService } from "./createOpportunityService";
 export { default as getCurrentUser } from "./getCurrentUser";
+export { default as getAccessToken } from "./getAccessToken";
 export { getAccountService } from "./getAccountService";
 export { getActivitiesService } from "./getActivitiesService";
 export { getActivityTypesService } from "./getActivityTypesService";
