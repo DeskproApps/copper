@@ -13,16 +13,17 @@ import { isNavigatePayload } from "./utils";
 import { AppContainer } from "./components/common";
 import { ErrorFallback } from "./components/ErrorFallback/ErrorFallback";
 import {
-  HomePage,
-  LoadingPage,
-  CreateNotePage,
-  OpportunityPage,
-  LinkContactPage,
-  EditContactPage,
-  CreateContactPage,
+  AdminCallbackPage,
   CreateActivityPage,
-  VerifySettingsPage,
+  CreateContactPage,
+  CreateNotePage,
   CreateOpportunityPage,
+  EditContactPage,
+  HomePage,
+  LinkContactPage,
+  LoadingPage,
+  OpportunityPage,
+  VerifySettingsPage,
 } from "./pages";
 import type { FC } from "react";
 import type { EventPayload } from "./types";
@@ -59,7 +60,7 @@ const App: FC = () => {
 
   if (isLoading) {
     return (
-      <LoadingSpinner/>
+      <LoadingSpinner />
     );
   }
 
@@ -67,16 +68,17 @@ const App: FC = () => {
     <AppContainer isAdmin={isAdmin}>
       <ErrorBoundary FallbackComponent={ErrorFallback}>
         <Routes>
-          <Route path="/admin/verify_settings" element={<VerifySettingsPage/>}/>
-          <Route path="/home" element={<HomePage/>}/>
-          <Route path="/contacts/link" element={<LinkContactPage/>}/>
-          <Route path="/contacts/create" element={<CreateContactPage/>}/>
-          <Route path="/contacts/:id/edit" element={<EditContactPage/>}/>
-          <Route path="/opportunity/create" element={<CreateOpportunityPage/>}/>
-          <Route path="/opportunity/:id" element={<OpportunityPage/>}/>
-          <Route path="/notes/create" element={<CreateNotePage/>}/>
-          <Route path="/activities/create" element={<CreateActivityPage/>}/>
-          <Route index element={<LoadingPage/>}/>
+          <Route path="/admin/verify_settings" element={<VerifySettingsPage />} />
+          <Route path="/admin/callback" element={<AdminCallbackPage />} />
+          <Route path="/home" element={<HomePage />} />
+          <Route path="/contacts/link" element={<LinkContactPage />} />
+          <Route path="/contacts/create" element={<CreateContactPage />} />
+          <Route path="/contacts/:id/edit" element={<EditContactPage />} />
+          <Route path="/opportunity/create" element={<CreateOpportunityPage />} />
+          <Route path="/opportunity/:id" element={<OpportunityPage />} />
+          <Route path="/notes/create" element={<CreateNotePage />} />
+          <Route path="/activities/create" element={<CreateActivityPage />} />
+          <Route index element={<LoadingPage />} />
         </Routes>
       </ErrorBoundary>
     </AppContainer>
