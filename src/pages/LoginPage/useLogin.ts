@@ -1,11 +1,11 @@
 import { createSearchParams, useNavigate } from "react-router-dom";
-import { OAuth2Result, useDeskproLatestAppContext, useInitialisedDeskproAppClient } from "@deskpro/app-sdk";
-import { useCallback, useState } from "react";
-import { Settings, UserData } from "../../types";
-import { placeholders } from "../../constants";
 import { getAccessToken, getCurrentUser } from "../../services/copper";
-import { tryToLinkAutomatically } from "../../utils";
 import { getEntityListService } from "../../services/deskpro";
+import { IOAuth2, OAuth2Result, useDeskproAppClient, useDeskproLatestAppContext, useInitialisedDeskproAppClient } from "@deskpro/app-sdk";
+import { placeholders } from "../../constants";
+import { Settings, UserData } from "../../types";
+import { tryToLinkAutomatically } from "../../utils";
+import { useCallback, useEffect, useState } from "react";
 
 interface UseLogin {
     onSignIn: () => void,
@@ -18,8 +18,12 @@ export default function useLogin(): UseLogin {
     const [authUrl, setAuthUrl] = useState<string | null>(null)
     const [error, setError] = useState<null | string>(null)
     const [isLoading, setIsLoading] = useState(false)
+    const [isPolling, setIsPolling] = useState(false)
+    const [oauth2, setOauth2] = useState<IOAuth2 | null>(null) 
+
     const navigate = useNavigate()
 
+    const { client } = useDeskproAppClient()
     const { context } = useDeskproLatestAppContext<UserData, Settings>()
 
     const user = context?.data?.user
@@ -45,7 +49,9 @@ export default function useLogin(): UseLogin {
             setError("A client ID is required");
             return
         }
-        const oauth2 = mode === "local" ?
+
+        // Start OAuth process depending on the authentication mode
+        const oauth2Temp = mode === "local" ?
             await client.startOauth2Local(
                 ({ state, callbackUrl }) => {
                     return `https://app.copper.com/oauth/authorize?${createSearchParams([
@@ -59,7 +65,7 @@ export default function useLogin(): UseLogin {
                 /\bcode=(?<code>[^&#]+)/,
                 async (code: string): Promise<OAuth2Result> => {
                     // Extract the callback URL from the authorization URL
-                    const url = new URL(oauth2.authorizationUrl);
+                    const url = new URL(oauth2Temp.authorizationUrl);
                     const redirectUri = url.searchParams.get("redirect_uri");
 
                     if (!redirectUri) {
@@ -74,36 +80,53 @@ export default function useLogin(): UseLogin {
             // Global Proxy Service
             : await client.startOauth2Global("TW2mwcHyQwCmkrzNjgdMAQ");
 
-        setAuthUrl(oauth2.authorizationUrl)
-        setIsLoading(false)
+        setAuthUrl(oauth2Temp.authorizationUrl)
+        setOauth2(oauth2Temp)
 
-        try {
-            const result = await oauth2.poll()
-
-            await client.setUserState(placeholders.OAUTH2_ACCESS_TOKEN_PATH, result.data.access_token, { backend: true })
-
-            if (result.data.refresh_token) {
-                await client.setUserState(placeholders.OAUTH2_REFRESH_TOKEN_PATH, result.data.refresh_token, { backend: true })
-            }
-
-            const activeUser = await getCurrentUser(client)
-
-            if (!activeUser) {
-                throw new Error("Error authenticating user")
-            }
-
-            tryToLinkAutomatically(client, user)
-                .then(() => getEntityListService(client, user.id))
-                .then((entityIds) => navigate(entityIds.length > 0 ? "/home" : "/contacts/link"))
-                .catch(() => { navigate("/contacts/link") });
-        } catch (error) {
-            setError(error instanceof Error ? error.message : 'Unknown error');
-            setIsLoading(false);
-        }
     }, [setAuthUrl, context?.settings.use_deskpro_saas])
+
+
+    useEffect(() => {
+        if (!client || !user || !oauth2) {
+            return
+        }
+
+        const startPolling = async () =>  {
+            try {
+                const result = await oauth2.poll();
+                await client.setUserState(placeholders.OAUTH2_ACCESS_TOKEN_PATH, result.data.access_token, { backend: true });
+
+                if (result.data.refresh_token) {
+                    await client.setUserState(placeholders.OAUTH2_REFRESH_TOKEN_PATH, result.data.refresh_token, { backend: true });
+                }
+
+                const activeUser = await getCurrentUser(client);
+                if (!activeUser) throw new Error("Error authenticating user");
+
+                try {
+                    await tryToLinkAutomatically(client, user);
+                    const entityIds = await getEntityListService(client, user.id);
+                    navigate(entityIds.length > 0 ? "/home" : "/contacts/link");
+                } catch {
+                    navigate("/contacts/link");
+                }
+            } catch (error) {
+                setError(error instanceof Error ? error.message : "Unknown error");
+            } finally {
+                setIsLoading(false)
+                setIsPolling(false)
+            }
+        }
+
+        if (isPolling) {
+            startPolling()
+        }
+    }, [isPolling, client, user, oauth2, navigate])
+
 
     const onSignIn = useCallback(() => {
         setIsLoading(true);
+        setIsPolling(true);
         window.open(authUrl ?? "", '_blank');
     }, [setIsLoading, authUrl]);
 
