@@ -19,7 +19,7 @@ export default function useLogin(): UseLogin {
     const [error, setError] = useState<null | string>(null)
     const [isLoading, setIsLoading] = useState(false)
     const [isPolling, setIsPolling] = useState(false)
-    const [oauth2, setOauth2] = useState<IOAuth2 | null>(null)
+    const [oauth2Context, setOAuth2Context] = useState<IOAuth2 | null>(null)
 
     const navigate = useNavigate()
 
@@ -49,7 +49,7 @@ export default function useLogin(): UseLogin {
         }
 
         // Start OAuth process depending on the authentication mode
-        const oauth2Temp = mode === "local" ?
+        const oauth2Response = mode === "local" ?
             await client.startOauth2Local(
                 ({ state, callbackUrl }) => {
                     return `https://app.copper.com/oauth/authorize?${createSearchParams([
@@ -63,7 +63,7 @@ export default function useLogin(): UseLogin {
                 /\bcode=(?<code>[^&#]+)/,
                 async (code: string): Promise<OAuth2Result> => {
                     // Extract the callback URL from the authorization URL
-                    const url = new URL(oauth2Temp.authorizationUrl);
+                    const url = new URL(oauth2Response.authorizationUrl);
                     const redirectUri = url.searchParams.get("redirect_uri");
 
                     if (!redirectUri) {
@@ -78,20 +78,20 @@ export default function useLogin(): UseLogin {
             // Global Proxy Service
             : await client.startOauth2Global("TW2mwcHyQwCmkrzNjgdMAQ");
 
-        setAuthUrl(oauth2Temp.authorizationUrl)
-        setOauth2(oauth2Temp)
+        setAuthUrl(oauth2Response.authorizationUrl)
+        setOAuth2Context(oauth2Response)
 
     }, [setAuthUrl, context?.settings.use_deskpro_saas])
 
 
     useInitialisedDeskproAppClient((client) => {
-        if (!user || !oauth2) {
+        if (!user || !oauth2Context) {
             return
         }
 
         const startPolling = async () => {
             try {
-                const result = await oauth2.poll();
+                const result = await oauth2Context.poll();
                 await client.setUserState(placeholders.OAUTH2_ACCESS_TOKEN_PATH, result.data.access_token, { backend: true });
 
                 if (result.data.refresh_token) {
@@ -119,7 +119,7 @@ export default function useLogin(): UseLogin {
         if (isPolling) {
             startPolling()
         }
-    }, [isPolling, user, oauth2, navigate])
+    }, [isPolling, user, oauth2Context, navigate])
 
 
     const onSignIn = useCallback(() => {
