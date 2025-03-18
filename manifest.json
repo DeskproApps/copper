@@ -17,10 +17,11 @@
     }
   },
   "settings": {
-    "use_deskpro_saas": {
-      "title": "One-Click Installation",
+    "use_advanced_connect": {
+      "title": "Advanced Connect",
+      "description": "Follow the setup guide and use your credentials to connect the app to Deskpro.",
       "type": "boolean",
-      "default": true,
+      "default": false,
       "isRequired": false,
       "isBackendOnly": false,
       "order": 5
@@ -31,7 +32,7 @@
       "isRequired": false,
       "isBackendOnly": false,
       "default": false,
-      "condition": "settings.use_deskpro_saas != true",
+      "condition": "settings.use_advanced_connect != false",
       "order": 10
     },
     "api_key": {
@@ -40,7 +41,7 @@
       "type": "string",
       "isRequired": false,
       "isBackendOnly": true,
-      "condition": "settings.use_deskpro_saas != true && settings.use_api_key == true",
+      "condition": "settings.use_advanced_connect != false && settings.use_api_key == true",
       "order": 20
     },
     "api_key_owner_email": {
@@ -49,7 +50,7 @@
       "type": "string",
       "isRequired": false,
       "isBackendOnly": true,
-      "condition": "settings.use_deskpro_saas != true && settings.use_api_key == true",
+      "condition": "settings.use_advanced_connect != false && settings.use_api_key == true",
       "order": 30
     },
     "verify_settings": {
@@ -58,7 +59,7 @@
       "options": { "entrypoint": "#/admin/verify_settings", "height": 60 },
       "isRequired": false,
       "isBackendOnly": false,
-      "condition": "settings.use_deskpro_saas != true && settings.use_api_key == true",
+      "condition": "settings.use_advanced_connect != false && settings.use_api_key == true",
       "order": 40
     },
     "client_id": {
@@ -66,7 +67,7 @@
       "type": "string",
       "isRequired": false,
       "isBackendOnly": false,
-      "condition": "settings.use_deskpro_saas != true && settings.use_api_key != true",
+      "condition": "settings.use_advanced_connect != false && settings.use_api_key != true",
       "order": 50
     },
     "client_secret": {
@@ -74,7 +75,7 @@
       "type": "string",
       "isRequired": false,
       "isBackendOnly": true,
-      "condition": "settings.use_deskpro_saas != true && settings.use_api_key != true",
+      "condition": "settings.use_advanced_connect != false && settings.use_api_key != true",
       "order": 60
     },
     "callback_url": {
@@ -86,7 +87,7 @@
       },
       "isRequired": false,
       "isBackendOnly": true,
-      "condition": "settings.use_deskpro_saas != true && settings.use_api_key != true",
+      "condition": "settings.use_advanced_connect != false && settings.use_api_key != true",
       "order": 70
     }
   },

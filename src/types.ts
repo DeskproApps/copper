@@ -39,7 +39,7 @@ export type Request = <T>(
 export type Settings = {
   api_key?: string;
   api_key_owner_email?: string;
-  use_deskpro_saas?: boolean,
+  use_advanced_connect?: boolean,
   use_api_key?: boolean,
   client_id?: string
 };
