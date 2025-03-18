@@ -37,7 +37,8 @@ const App: FC = () => {
   const { unlink, isLoading: isLoadingUnlink } = useUnlinkContact()
   const { logoutActiveUser } = useLogout()
   const { context } = useDeskproLatestAppContext<unknown, Settings>()
-  const isUsingOAuth = context?.settings?.use_api_key !== true
+  
+  const isUsingOAuth = context?.settings?.use_api_key !== true || context.settings.use_advanced_connect === false
 
   const isAdmin = pathname.includes("/admin/");
   const isLoading = useMemo(() => {

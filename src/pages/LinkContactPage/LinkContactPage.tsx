@@ -1,18 +1,14 @@
-import { useMemo, useState, useCallback } from "react";
-import { get } from "lodash";
-import { useNavigate } from "react-router-dom";
-import { useDebouncedCallback } from "use-debounce";
-import {
-  useDeskproAppClient,
-  useDeskproLatestAppContext,
-} from "@deskpro/app-sdk";
+import { LinkContact } from "../../components";
 import { setEntityService } from "../../services/deskpro";
+import { useDebouncedCallback } from "use-debounce";
+import { useNavigate } from "react-router-dom";
 import { useRegisterElements, useSetTitle, useAsyncError } from "../../hooks";
 import { useSearch } from "./hooks";
-import { LinkContact } from "../../components";
+import { useState, useCallback } from "react";
+import { useDeskproAppClient, useDeskproLatestAppContext } from "@deskpro/app-sdk";
+import type { Contact } from "../../services/copper/types";
 import type { FC } from "react";
 import type { Maybe, Settings, UserData } from "../../types";
-import type { Contact } from "../../services/copper/types";
 
 const LinkContactPage: FC = () => {
   const navigate = useNavigate();
@@ -23,7 +19,7 @@ const LinkContactPage: FC = () => {
   const [selectedContact, setSelectedContact] = useState<Maybe<Contact>>(null);
   const [searchQuery, setSearchQuery] = useState<string>("");
   const { contacts, account, isLoading } = useSearch(searchQuery);
-  const dpUserId = useMemo(() => get(context, ["data", "user", "id"]), [context]);
+  const dpUserId = context?.data?.user.id
 
   const onChangeSearch = useDebouncedCallback(setSearchQuery, 1000);
 
@@ -44,6 +40,8 @@ const LinkContactPage: FC = () => {
       .finally(() => setIsSubmitting(false));
   }, [client, dpUserId, selectedContact, asyncErrorHandler, navigate]);
 
+  const isUsingOAuth = context?.settings.use_api_key !== true || context.settings.use_advanced_connect === false
+
   useSetTitle();
 
   useRegisterElements(({ registerElement }) => {
@@ -52,7 +50,7 @@ const LinkContactPage: FC = () => {
       payload: { type: "changePage", path: "/home" },
     });
 
-    if (context?.settings.use_api_key !== true) {
+    if (isUsingOAuth) {
       registerElement("menu", {
         type: "menu",
         items: [{

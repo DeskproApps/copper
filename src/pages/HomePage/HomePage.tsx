@@ -20,6 +20,8 @@ const HomePage = () => {
     activityTypes,
   } = useContact();
 
+  const isUsingOAuth = context?.settings.use_api_key !== true || context.settings.use_advanced_connect === false
+
   const onNavigateToCreateOpportunity = useCallback(() => {
     navigate("/opportunity/create");
   }, [navigate]);
@@ -40,7 +42,7 @@ const HomePage = () => {
         title: !contact?.id ? "Link Contact" : "Unlink Contact",
         payload: { type: "unlink" },
       },
-      ...(context?.settings.use_api_key !== true
+      ...(isUsingOAuth
         ? [
           {
             title: "Logout",
@@ -48,7 +50,7 @@ const HomePage = () => {
           },
         ]
         : [])
-    ],
+      ],
     });
     if (contact?.id) {
       registerElement("edit", {
