@@ -3,7 +3,7 @@
   "title": "Copper",
   "description": "Elevate your customer relationships, optimize your sales pipeline, and simplify your business workflows with Copper.",
   "appStoreUrl": "https://www.deskpro.com/product-embed/apps/copper",
-  "version": "1.0.22",
+  "version": "1.0.23",
   "scope": "agent",
   "isSingleInstall": false,
   "hasDevMode": true,
@@ -82,10 +82,7 @@
     "callback_url": {
       "title": "Callback URL",
       "type": "app_embedded",
-      "options": {
-        "entrypoint": "#/admin/callback",
-        "height": 80
-      },
+      "options": { "entrypoint": "#/admin/callback", "height": 80 },
       "isRequired": false,
       "isBackendOnly": true,
       "condition": "settings.use_advanced_connect != false && settings.use_api_key != true",
