@@ -7,31 +7,39 @@ import {
   LoadingSpinner,
   useDeskproAppClient,
   useDeskproAppEvents,
+  useDeskproLatestAppContext,
 } from "@deskpro/app-sdk";
-import { useRegisterElements, useUnlinkContact } from "./hooks";
+import { useLogout, useRegisterElements, useUnlinkContact } from "./hooks";
 import { isNavigatePayload } from "./utils";
 import { AppContainer } from "./components/common";
 import { ErrorFallback } from "./components/ErrorFallback/ErrorFallback";
 import {
-  HomePage,
-  LoadingPage,
-  CreateNotePage,
-  OpportunityPage,
-  LinkContactPage,
-  EditContactPage,
-  CreateContactPage,
+  AdminCallbackPage,
   CreateActivityPage,
-  VerifySettingsPage,
+  CreateContactPage,
+  CreateNotePage,
   CreateOpportunityPage,
+  EditContactPage,
+  HomePage,
+  LinkContactPage,
+  LoadingPage,
+  LoginPage,
+  OpportunityPage,
+  VerifySettingsPage,
 } from "./pages";
 import type { FC } from "react";
-import type { EventPayload } from "./types";
+import type { EventPayload, Settings } from "./types";
 
 const App: FC = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const { client } = useDeskproAppClient();
-  const { unlink, isLoading: isLoadingUnlink } = useUnlinkContact();
+  const { unlink, isLoading: isLoadingUnlink } = useUnlinkContact()
+  const { logoutActiveUser } = useLogout()
+  const { context } = useDeskproLatestAppContext<unknown, Settings>()
+  
+  const isUsingOAuth = context?.settings?.use_api_key !== true || context.settings.use_advanced_connect === false
+
   const isAdmin = pathname.includes("/admin/");
   const isLoading = useMemo(() => {
     return !client || isLoadingUnlink
@@ -45,6 +53,11 @@ const App: FC = () => {
     return match(payload.type)
       .with("changePage", () => isNavigatePayload(payload) && navigate(payload.path))
       .with("unlink", unlink)
+      .with("logout", () => {
+        if (isUsingOAuth) {
+          logoutActiveUser()
+        }
+      })
       .run();
   }, 500);
 
@@ -59,7 +72,7 @@ const App: FC = () => {
 
   if (isLoading) {
     return (
-      <LoadingSpinner/>
+      <LoadingSpinner />
     );
   }
 
@@ -67,16 +80,18 @@ const App: FC = () => {
     <AppContainer isAdmin={isAdmin}>
       <ErrorBoundary FallbackComponent={ErrorFallback}>
         <Routes>
-          <Route path="/admin/verify_settings" element={<VerifySettingsPage/>}/>
-          <Route path="/home" element={<HomePage/>}/>
-          <Route path="/contacts/link" element={<LinkContactPage/>}/>
-          <Route path="/contacts/create" element={<CreateContactPage/>}/>
-          <Route path="/contacts/:id/edit" element={<EditContactPage/>}/>
-          <Route path="/opportunity/create" element={<CreateOpportunityPage/>}/>
-          <Route path="/opportunity/:id" element={<OpportunityPage/>}/>
-          <Route path="/notes/create" element={<CreateNotePage/>}/>
-          <Route path="/activities/create" element={<CreateActivityPage/>}/>
-          <Route index element={<LoadingPage/>}/>
+          <Route path="/admin/verify_settings" element={<VerifySettingsPage />} />
+          <Route path="/admin/callback" element={<AdminCallbackPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/home" element={<HomePage />} />
+          <Route path="/contacts/link" element={<LinkContactPage />} />
+          <Route path="/contacts/create" element={<CreateContactPage />} />
+          <Route path="/contacts/:id/edit" element={<EditContactPage />} />
+          <Route path="/opportunity/create" element={<CreateOpportunityPage />} />
+          <Route path="/opportunity/:id" element={<OpportunityPage />} />
+          <Route path="/notes/create" element={<CreateNotePage />} />
+          <Route path="/activities/create" element={<CreateActivityPage />} />
+          <Route index element={<LoadingPage />} />
         </Routes>
       </ErrorBoundary>
     </AppContainer>

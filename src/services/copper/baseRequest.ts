@@ -19,15 +19,16 @@ const baseRequest: Request = async (client, {
   const params = getQueryParams(queryParams);
   const body = getRequestBody(data);
 
-  const requestUrl = `${baseUrl}${isEmpty(params) ? "": `?${params}`}`;
+  const isUsingOAuth2 = (await client.getUserState<boolean>("isUsingOAuth"))[0]?.data
+
+
+  const requestUrl = `${baseUrl}${isEmpty(params) ? "" : `?${params}`}`;
   const options: RequestInit = {
     method,
     body,
     headers: {
       "Accept": "application/json",
       "X-PW-Application": "developer_api",
-      "X-PW-AccessToken": placeholders.API_KEY,
-      "X-PW-UserEmail": placeholders.API_OWNER_EMAIL,
       ...customHeaders,
     },
   };
@@ -35,6 +36,20 @@ const baseRequest: Request = async (client, {
   if (!isEmpty(data)) {
     options.headers = {
       "Content-Type": "application/json",
+      ...options.headers,
+    };
+  }
+
+  // Conditionally set the correct authentication header based on OAuth2 or API key
+  if (isUsingOAuth2) {
+    options.headers = {
+      "Authorization": `Bearer [user[${placeholders.OAUTH2_ACCESS_TOKEN_PATH}]]`,
+      ...options.headers,
+    }
+  } else {
+    options.headers = {
+      "X-PW-AccessToken": placeholders.API_KEY,
+      "X-PW-UserEmail": placeholders.API_OWNER_EMAIL,
       ...options.headers,
     };
   }

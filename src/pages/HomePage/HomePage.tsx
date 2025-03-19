@@ -1,11 +1,14 @@
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import { LoadingSpinner } from "@deskpro/app-sdk";
+import { LoadingSpinner, useDeskproLatestAppContext } from "@deskpro/app-sdk";
 import { useRegisterElements } from "../../hooks";
 import { useContact } from "./hooks";
 import { Home } from "../../components";
+import { Settings } from "../../types";
 
 const HomePage = () => {
+  const { context } = useDeskproLatestAppContext<unknown, Settings>();
+
   const navigate = useNavigate();
   const {
     isLoading,
@@ -16,6 +19,8 @@ const HomePage = () => {
     activities,
     activityTypes,
   } = useContact();
+
+  const isUsingOAuth = context?.settings.use_api_key !== true || context.settings.use_advanced_connect === false
 
   const onNavigateToCreateOpportunity = useCallback(() => {
     navigate("/opportunity/create");
@@ -36,7 +41,16 @@ const HomePage = () => {
       items: [{
         title: !contact?.id ? "Link Contact" : "Unlink Contact",
         payload: { type: "unlink" },
-      }],
+      },
+      ...(isUsingOAuth
+        ? [
+          {
+            title: "Logout",
+            payload: { type: "logout" },
+          },
+        ]
+        : [])
+      ],
     });
     if (contact?.id) {
       registerElement("edit", {
