@@ -8,6 +8,7 @@
   "isSingleInstall": false,
   "hasDevMode": true,
   "serveUrl": "https://apps-cdn.deskpro-service.com/__name__/__version__",
+  "secrets": "6+4k1V91ZI1qj/Go8kCS+ke1GBcKXP3ga/rf3/Auz37nJrf9osHhvsIt6oWpfUsvNARE/gxs5Ia5Rk2RGOuqrCYZoyPUloUw8np0MrAFBoxUTw8g+s7sXGAycAS+wrDoV4CMCnU9O3ZKb9kt3FUMd8eto/OpXOTbS+otPPcegOLp4wpVNimBe9O4RSSGsvkHXM/lb60qInoYokeGlob4XiGjwnYavw67IQf6Xe55dGfrFnY9CHXzO+QJCl2a3PPZ2QXb5Yk0CDKfi6x9fM6Ai6fuIpcNhmcrOZ/rvmaWV/c0WWkDvuV9NB88zqYqVkUGZU+QWdenX6bUCltjIV2KupneT20UVxcSjQvYJoRm3vMyNcPNSpl/uXflnXkdzSoXqwjnrVyKwu0UuXql23Hi5vkkYH6AH3AjA2MRzjnLwk4WifK6qQdIB9A77+uKXkwVfNrHygoPzsbfLzfSIeaC6KSZWsWjROd5vRitg88ho4aZsxqQXPRKIJ7Js2lUW3FHokfTAJfGtRIHVRHiqJC2f7K8IrI7m6GD97d3kKDkka27OP9mpF1Y7qTy5PKP6c8AQJhYb58i7CniplyW7XOJKuxxPVmul7B4HoXtdVg+qV1Ws8ahVsQyrYmUgjXZrFhppH9gu9K1uk1Fi6/NU2iDf8/P/7fJogTWYDrAy38UjQeP5fMl0vuGuyPQr7o628YJDJVfCJfSbC+S1hylelSyuDq6yRBLKGtuU/r3JR8T+yucaaKPzkIGk+nR2N+Bon872A2pzeuT6HN5EmU8J7xjrdjXCi7INvncpOUzuYQCunjyvs3ukrVlUxciMzpsLeoaiyDfUmiu6hmb4Zib0StibdujadThCAe1zRKcr23ALjmGCFuP0lEB3hSFPZYmve3e/AV012XKvCb7CMmq7GJl9TOQaavVw5FHxAY1IvejEB+RFdFOrgpxI/pb8TV0RClDH7VDbtPJ7xLIX0JdRie7wgVppeURrUbQ2XX91uMm11NerXgjlomzSFotO+gwxEEZBXNDcpRMbhmWkE8PFKS/U86Kq27ly0//GNdNqP70bQsu+y2eOrsSe5gVJt6HTdJO7Yjac0TULE5RKKWHfn1MHmvh2MNl9LFodNrLBUk/Rfsyu/ebxE9eVk5li/lwRiRz",
   "targets": [{ "target": "user_sidebar", "entrypoint": "index.html" }],
   "entityAssociations": {
     "linkedCopperContact": {
