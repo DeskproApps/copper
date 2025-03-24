@@ -20,7 +20,7 @@ const HomePage = () => {
     activityTypes,
   } = useContact();
 
-  const isUsingOAuth = context?.settings.use_api_key !== true || context.settings.use_advanced_connect === false
+  const isUsingOAuth = context?.settings.use_api_key === false || context?.settings.use_advanced_connect === false;
 
   const onNavigateToCreateOpportunity = useCallback(() => {
     navigate("/opportunity/create");

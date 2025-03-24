@@ -40,7 +40,7 @@ const LinkContactPage: FC = () => {
       .finally(() => setIsSubmitting(false));
   }, [client, dpUserId, selectedContact, asyncErrorHandler, navigate]);
 
-  const isUsingOAuth = context?.settings.use_api_key !== true || context.settings.use_advanced_connect === false
+  const isUsingOAuth = context?.settings.use_api_key === false || context?.settings.use_advanced_connect === false;
 
   useSetTitle();
 

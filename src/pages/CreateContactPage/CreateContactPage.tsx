@@ -22,7 +22,7 @@ const CreateContactPage: FC = () => {
 
   const onCancel = useCallback(() => navigate(`/home`), [navigate]);
 
-  const isUsingOAuth = context?.settings.use_api_key !== true || context.settings.use_advanced_connect === false
+  const isUsingOAuth = context?.settings.use_api_key === false || context?.settings.use_advanced_connect === false;
 
   const onSubmit = useCallback((data: FormValidationSchema) => {
     if (!client || !dpUser?.id) {
