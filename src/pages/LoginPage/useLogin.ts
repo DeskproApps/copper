@@ -26,8 +26,7 @@ export default function useLogin(): UseLogin {
     const { context } = useDeskproLatestAppContext<UserData, Settings>()
 
     const user = context?.data?.user
-    const isUsingOAuth = context?.settings.use_api_key !== true || context.settings.use_advanced_connect === false
-
+    const isUsingOAuth = context?.settings.use_api_key === false || context?.settings.use_advanced_connect === false;
 
     useInitialisedDeskproAppClient(async (client) => {
         if (!user) {
@@ -83,7 +82,7 @@ export default function useLogin(): UseLogin {
         setAuthUrl(oauth2Response.authorizationUrl)
         setOAuth2Context(oauth2Response)
 
-    }, [setAuthUrl, context?.settings.use_advanced_connect])
+    }, [setAuthUrl, isUsingOAuth, context?.settings])
 
 
     useInitialisedDeskproAppClient((client) => {
