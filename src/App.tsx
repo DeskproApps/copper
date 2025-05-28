@@ -2,7 +2,6 @@ import { useMemo } from "react";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { useDebouncedCallback } from "use-debounce";
 import { match } from "ts-pattern";
-import { ErrorBoundary } from "react-error-boundary";
 import {
   LoadingSpinner,
   useDeskproAppClient,
@@ -29,6 +28,7 @@ import {
 } from "./pages";
 import type { FC } from "react";
 import type { EventPayload, Settings } from "./types";
+import { ErrorBoundary } from "@sentry/react";
 
 const App: FC = () => {
   const navigate = useNavigate();
@@ -78,7 +78,7 @@ const App: FC = () => {
 
   return (
     <AppContainer isAdmin={isAdmin}>
-      <ErrorBoundary FallbackComponent={ErrorFallback}>
+      <ErrorBoundary fallback={ErrorFallback}>
         <Routes>
           <Route path="/admin/verify_settings" element={<VerifySettingsPage />} />
           <Route path="/admin/callback" element={<AdminCallbackPage />} />
