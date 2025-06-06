@@ -1,15 +1,10 @@
 import { Stack } from "@deskpro/deskpro-ui";
 import { getError } from "../../utils";
 import { Container, ErrorBlock } from "../common";
-import type { FC } from "react";
-import type { FallbackProps } from "react-error-boundary";
+import { FallbackRender } from "@sentry/react";
 
-type Props = Omit<FallbackProps, "error"> & {
-  error: Error,
-};
-
-export const ErrorFallback: FC<Props> = ({ error }) => {
-  const message = getError(error);
+export const ErrorFallback: FallbackRender = ({ error }) => {
+  const message = getError(error as Error);
 
   // eslint-disable-next-line no-console
   console.error(error);
