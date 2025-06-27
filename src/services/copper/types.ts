@@ -175,3 +175,17 @@ export type Activity = {
   date_created: Timestamp;
   date_modified: Timestamp;
 };
+
+export interface Company {
+  id: number
+  name: string
+  address: {
+    street: string | null
+    city: string | null
+    state: string | null
+    postal_code: string | null
+    country: string | null
+  },
+  assignee_id: number | null
+  details: string | null
+}

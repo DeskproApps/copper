@@ -37,7 +37,7 @@ const App: FC = () => {
   const { unlink, isLoading: isLoadingUnlink } = useUnlinkContact()
   const { logoutActiveUser } = useLogout()
   const { context } = useDeskproLatestAppContext<unknown, Settings>()
-  
+
   const isUsingOAuth = context?.settings.use_api_key === false || context?.settings.use_advanced_connect === false;
 
   const isAdmin = pathname.includes("/admin/");
@@ -91,6 +91,15 @@ const App: FC = () => {
           <Route path="/opportunity/:id" element={<OpportunityPage />} />
           <Route path="/notes/create" element={<CreateNotePage />} />
           <Route path="/activities/create" element={<CreateActivityPage />} />
+
+          <Route path="organisations">
+            <Route index element={<>Should redirect to the :orgId page</>} />
+            <Route path="link" element={<>I LINK ORGS</>} />
+            <Route path=":organisationId" >
+              <Route index element={<>The org details</>} />
+            </Route>
+          </Route>
+
           <Route index element={<LoadingPage />} />
         </Routes>
       </ErrorBoundary>

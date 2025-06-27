@@ -19,7 +19,7 @@ const LinkContactPage: FC = () => {
   const [selectedContact, setSelectedContact] = useState<Maybe<Contact>>(null);
   const [searchQuery, setSearchQuery] = useState<string>("");
   const { contacts, account, isLoading } = useSearch(searchQuery);
-  const dpUserId = context?.data?.user.id
+  const dpUserId = context?.data?.user?.id 
 
   const onChangeSearch = useDebouncedCallback(setSearchQuery, 1000);
 

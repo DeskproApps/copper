@@ -27,9 +27,10 @@ export default function useLogin(): UseLogin {
 
     const user = context?.data?.user
     const isUsingOAuth = context?.settings.use_api_key === false || context?.settings.use_advanced_connect === false;
+    const settings = context?.settings
 
     useInitialisedDeskproAppClient(async (client) => {
-        if (!user) {
+        if (!settings) {
             // Make sure settings have loaded.
             return
         }
@@ -40,9 +41,9 @@ export default function useLogin(): UseLogin {
             return
 
         }
-        const mode = context?.settings.use_advanced_connect === false ? 'global' : 'local';
+        const mode = settings.use_advanced_connect === false ? 'global' : 'local';
 
-        const clientId = context?.settings.client_id;
+        const clientId = settings.client_id;
         if (mode === 'local' && (typeof clientId !== 'string' || clientId.trim() === "")) {
             // Local mode requires a clientId.
             setError("A client ID is required");
@@ -102,13 +103,14 @@ export default function useLogin(): UseLogin {
                 const activeUser = await getCurrentUser(client);
                 if (!activeUser) throw new Error("Error authenticating user");
 
-                try {
-                    await tryToLinkAutomatically(client, user);
-                    const entityIds = await getEntityListService(client, user.id);
-                    navigate(entityIds.length > 0 ? "/home" : "/contacts/link");
-                } catch {
-                    navigate("/contacts/link");
-                }
+                navigate("/")
+                // try {
+                //     await tryToLinkAutomatically(client, user);
+                //     const entityIds = await getEntityListService(client, user.id);
+                //     navigate(entityIds.length > 0 ? "/home" : "/contacts/link");
+                // } catch {
+                //     navigate("/contacts/link");
+                // }
             } catch (error) {
                 setError(error instanceof Error ? error.message : "Unknown error");
             } finally {
