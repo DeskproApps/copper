@@ -20,6 +20,11 @@
     }
   ],
   "entityAssociations": {
+    "linkedCopperCompany":{
+      "entity": "person",
+      "type": "external_id",
+      "title": "Copper Company"
+    },
     "linkedCopperContact": {
       "entity": "person",
       "type": "external_id",

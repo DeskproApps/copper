@@ -81,16 +81,17 @@ export function LoadingPage(): JSX.Element {
       .then((result) => {
         if (result.success) {
           if (result.isMultiple) {
-            navigate(`/organisations/link?filter=${encodeURIComponent(deskproOrganisation.name)}`)
+            navigate(`/companies/link?filter=${encodeURIComponent(deskproOrganisation.name)}`)
             return
           }
 
-          navigate(`/organisations`)
+          navigate(`/companies`)
           return (<LoadingSpinner />)
         }
 
-        // Navigate to the org link page (Maybe the create page in the future?)
-        navigate("/organisations/link")
+        // Navigate to the org link page if nothing is linked and there's no
+        // Copper company matching the Deskpro org's name. (Maybe navigate to the create page in the future?)
+        navigate("/companies/link")
       })
     return (<LoadingSpinner />)
   }
@@ -99,7 +100,7 @@ export function LoadingPage(): JSX.Element {
     return (<LoadingSpinner />)
   }
 
-  // Handle user sidebar linking (can also be used for the ticket sidebar).
+  // Handle user sidebar linking.
   automaticallyLinkEntity(client, { type: "user", user: deskproUser })
     .then((result) => {
       if (result.success) {

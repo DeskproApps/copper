@@ -43,7 +43,7 @@ export default async function automaticallyLinkEntity(client: IDeskproClient, op
     if (!companies.length) {
       return {
         success: false,
-        message: "No organisation with the name "
+        message: "No Copper company with the provided name."
       }
     }
 

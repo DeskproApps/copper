@@ -29,6 +29,7 @@ import {
 import type { FC } from "react";
 import type { EventPayload, Settings } from "./types";
 import { ErrorBoundary } from "@sentry/react";
+import { LinkCompaniesPage } from "./pages/companies";
 
 const App: FC = () => {
   const navigate = useNavigate();
@@ -92,11 +93,11 @@ const App: FC = () => {
           <Route path="/notes/create" element={<CreateNotePage />} />
           <Route path="/activities/create" element={<CreateActivityPage />} />
 
-          <Route path="organisations">
-            <Route index element={<>Should redirect to the :orgId page</>} />
-            <Route path="link" element={<>I LINK ORGS</>} />
-            <Route path=":organisationId" >
-              <Route index element={<>The org details</>} />
+          <Route path="companies">
+            <Route index element={<>Should redirect to the :companyId page</>} />
+            <Route path="link" element={<LinkCompaniesPage/>} />
+            <Route path=":companyId" >
+              <Route index element={<>The company details</>} />
             </Route>
           </Route>
 
