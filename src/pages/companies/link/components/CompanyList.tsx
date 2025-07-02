@@ -9,7 +9,7 @@ interface CompanyListProps {
   isLoading: boolean
   isValidSearchQuery: boolean
   theme: DeskproTheme
-  account?: Account
+  account: Account | null
   setSelectedCompanyId: Dispatch<React.SetStateAction<string | null>>
   selectedCompanyId: string | null
 }

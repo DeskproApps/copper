@@ -166,6 +166,7 @@ export type Activity = {
   type: {
     id: UserActivityType["id"];
     category: "user";
+    name?: string
   },
   user_id: number;
   details: string;
@@ -187,5 +188,14 @@ export interface Company {
     country: string | null
   },
   assignee_id: number | null
+  contact_type_id: number | null
+  primary_contact_id: number | null
   details: string | null
+  email_domain: string | null
+  interaction_count: number
+  phone_numbers: {
+    number: string,
+    category: string
+  }[]
+  tags: string[]
 }

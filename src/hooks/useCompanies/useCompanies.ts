@@ -1,10 +1,9 @@
-import { QueryKey } from "@/query"
-import { getAccountService, getCompanies } from "@/services/copper"
+import { getCompanies } from "@/services/copper"
 import { setEntity } from "@/services/deskpro"
-import { UserData } from "@/types"
-import { useDeskproAppClient, useDeskproLatestAppContext, useQueryWithClient } from "@deskpro/app-sdk"
 import { useCallback, useState } from "react"
+import { useDeskproAppClient, useDeskproLatestAppContext, useQueryWithClient } from "@deskpro/app-sdk"
 import { useNavigate } from "react-router-dom"
+import { UserData } from "@/types"
 
 interface UseCompaniesParams {
   searchQuery: string
@@ -20,8 +19,6 @@ export default function useCompanies(params: Readonly<UseCompaniesParams>) {
 
   const [isLinking, setIsLinking] = useState<boolean>(false)
   const isValidSearchQuery = searchQuery.trim() !== ""
-
-  const accountResponse = useQueryWithClient([QueryKey.ACCOUNT], getAccountService);
 
   const companiesResponse = useQueryWithClient(
     ["companies", searchQuery],
@@ -45,7 +42,7 @@ export default function useCompanies(params: Readonly<UseCompaniesParams>) {
     })
 
     if (!activeCompany) {
-    setIsLinking(false)
+      setIsLinking(false)
 
       return
     }
@@ -57,9 +54,8 @@ export default function useCompanies(params: Readonly<UseCompaniesParams>) {
   }, [client, companiesResponse.data, deskproOrganisation?.id, navigate, selectedCompanyId])
 
   return {
-    isLoading: isValidSearchQuery && (companiesResponse.isLoading || accountResponse.isLoading),
+    isLoading: isValidSearchQuery && companiesResponse.isLoading,
     companies: companiesResponse.data ?? [],
-    account: accountResponse.data,
     linkCompany,
     isLinking
   }

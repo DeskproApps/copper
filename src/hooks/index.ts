@@ -1,3 +1,6 @@
+export { default as useAccount } from "./useAccount"
+export { default as useAuthentication } from "./useAuthentication"
+export { default as useCompanies } from "./useCompanies"
 export { useAsyncError } from "./useAsyncError";
 export { useContact } from "./useContact";
 export { useLinkedContact } from "./useLinkedContact";

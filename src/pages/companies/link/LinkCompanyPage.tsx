@@ -2,10 +2,10 @@ import { Button, Stack } from "@deskpro/deskpro-ui";
 import { CompanyList } from "./components";
 import { HorizontalDivider, Search, useDeskproAppTheme, useDeskproElements, useDeskproLatestAppContext, useInitialisedDeskproAppClient } from "@deskpro/app-sdk";
 import { Settings, UserData } from "@/types";
+import { useAccount, useCompanies } from "@/hooks";
 import { useDebounce } from "use-debounce";
 import { useLocation } from "react-router-dom";
 import { useState } from "react";
-import useCompanies from "@/hooks/useCompanies";
 
 export default function LinkCompanyPage() {
   useInitialisedDeskproAppClient((client) => {
@@ -18,6 +18,7 @@ export default function LinkCompanyPage() {
   useDeskproElements(({ registerElement, clearElements, deRegisterElement }) => {
     clearElements()
     deRegisterElement("home")
+    registerElement("refresh", { type: "refresh_button" })
     if (isUsingOAuth) {
       registerElement("menu", {
         type: "menu",
@@ -29,8 +30,6 @@ export default function LinkCompanyPage() {
         ],
       })
     }
-
-    registerElement("refresh", { type: "refresh_button" })
   }, [])
   
   const location = useLocation()
@@ -43,7 +42,8 @@ export default function LinkCompanyPage() {
   const [searchQuery, setSearchQuery] = useState<string>(defaultSearch ?? "")
   const [debouncedSearchQuery] = useDebounce(searchQuery, 500)
 
-  const { isLoading, companies, account, linkCompany, isLinking } = useCompanies({ searchQuery: debouncedSearchQuery, selectedCompanyId })
+  const { isLoading, companies, linkCompany, isLinking } = useCompanies({ searchQuery: debouncedSearchQuery, selectedCompanyId })
+  const {account, isLoading: accountIsLoading} = useAccount()
   return (
     <Stack style={{ width: "100%" }} vertical>
       <Stack gap={6} padding={12} style={{ width: "100%" }} vertical>
@@ -71,7 +71,7 @@ export default function LinkCompanyPage() {
       <HorizontalDivider style={{ margin: 0, width: "100%" }} />
 
       <CompanyList
-        isLoading={isLoading}
+        isLoading={isLoading || accountIsLoading}
         theme={theme}
         isValidSearchQuery={debouncedSearchQuery.trim() !== ""}
         companies={companies}
