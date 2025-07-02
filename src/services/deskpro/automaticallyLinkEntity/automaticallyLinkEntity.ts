@@ -54,6 +54,8 @@ export default async function automaticallyLinkEntity(client: IDeskproClient, op
       }
     }
 
+    await setEntity(client, {type: "organisation", organisationId: options.organisation.id, entityKey: companies[0].id.toString()})
+
     return {
       success: true
     }

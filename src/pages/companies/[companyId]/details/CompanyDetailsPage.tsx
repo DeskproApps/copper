@@ -29,7 +29,7 @@ export default function CompanyDetailsPage(): JSX.Element {
       type: "menu",
       items: [{
         title: "Unlink Company",
-        payload: { type: "unlink-company" },
+        payload: { type: "unlink" },
       },
       ...(isUsingOAuth
         ? [

@@ -8,7 +8,7 @@ import {
   useDeskproAppEvents,
   useDeskproLatestAppContext,
 } from "@deskpro/app-sdk";
-import { useLogout, useRegisterElements, useUnlinkContact } from "./hooks";
+import { useLogout, useRegisterElements, useUnlink } from "./hooks";
 import { isNavigatePayload } from "./utils";
 import { AppContainer } from "./components/common";
 import { ErrorFallback } from "./components/ErrorFallback/ErrorFallback";
@@ -27,7 +27,7 @@ import {
   VerifySettingsPage,
 } from "./pages";
 import type { FC } from "react";
-import type { EventPayload, Settings } from "./types";
+import type { EventPayload, Settings, UserData } from "./types";
 import { ErrorBoundary } from "@sentry/react";
 import { CompanyDetailsPage, HandleCompanyLinkPage, LinkCompaniesPage } from "./pages/companies";
 
@@ -35,9 +35,9 @@ const App: FC = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const { client } = useDeskproAppClient();
-  const { unlink, isLoading: isLoadingUnlink } = useUnlinkContact()
+  const { unlink, isLoading: isLoadingUnlink } = useUnlink()
   const { logoutActiveUser } = useLogout()
-  const { context } = useDeskproLatestAppContext<unknown, Settings>()
+  const { context } = useDeskproLatestAppContext<UserData, Settings>()
 
   const isUsingOAuth = context?.settings.use_api_key === false || context?.settings.use_advanced_connect === false;
 
