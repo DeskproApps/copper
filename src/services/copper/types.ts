@@ -4,6 +4,7 @@ export type Response<T> = Promise<T>;
 
 export type CopperAPIError = {
   //..
+  message?: string
 };
 
 export type User = {
