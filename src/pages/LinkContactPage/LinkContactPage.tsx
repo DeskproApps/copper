@@ -1,5 +1,4 @@
 import { LinkContact } from "../../components";
-import { setEntityService } from "../../services/deskpro";
 import { useDebouncedCallback } from "use-debounce";
 import { useNavigate } from "react-router-dom";
 import { useRegisterElements, useSetTitle } from "../../hooks";
@@ -9,6 +8,7 @@ import { useDeskproAppClient, useDeskproLatestAppContext } from "@deskpro/app-sd
 import type { Contact } from "../../services/copper/types";
 import type { FC } from "react";
 import type { Maybe, Settings, UserData } from "../../types";
+import { setEntity } from "@/services/deskpro";
 
 const LinkContactPage: FC = () => {
   const navigate = useNavigate();
@@ -18,7 +18,7 @@ const LinkContactPage: FC = () => {
   const [selectedContact, setSelectedContact] = useState<Maybe<Contact>>(null);
   const [searchQuery, setSearchQuery] = useState<string>("");
   const { contacts, account, isLoading } = useSearch(searchQuery);
-  const dpUserId = context?.data?.user?.id 
+  const dpUserId = context?.data?.user?.id
 
   const onChangeSearch = useDebouncedCallback(setSearchQuery, 1000);
 
@@ -33,11 +33,11 @@ const LinkContactPage: FC = () => {
 
     setIsSubmitting(true);
 
-    return setEntityService(client, dpUserId, `${selectedContact.id}`)
+    return setEntity(client, { type: "user", userId: dpUserId, entityKey: selectedContact.id.toString() })
       .then(() => navigate("/home"))
-      .catch((e)=>{
+      .catch((e) => {
         // eslint-disable-next-line no-console
-        console.error("Error Linking Contact: ", e instanceof Error? e.message: "Unknown Error")
+        console.error("Error Linking Contact: ", e instanceof Error ? e.message : "Unknown Error")
       })
       .finally(() => setIsSubmitting(false));
   }, [client, dpUserId, selectedContact, navigate]);

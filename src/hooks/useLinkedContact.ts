@@ -1,15 +1,11 @@
-import { useMemo } from "react";
-import { get } from "lodash";
-import {
-  useQueryWithClient,
-  useDeskproLatestAppContext,
-} from "@deskpro/app-sdk";
-import { getEntityListService } from "../services/deskpro";
-import { useContact } from "./useContact";
+import { getEntityList } from "@/services/deskpro";
 import { QueryKey } from "../query";
-import type { UserContext } from "../types";
+import { useContact } from "./useContact";
+import { useMemo } from "react";
+import { useQueryWithClient, useDeskproLatestAppContext } from "@deskpro/app-sdk";
+import { UserData } from "../types";
 import type { Contact } from "../services/copper/types";
-import type { Maybe } from "../types";
+import type { Maybe, Settings } from "../types";
 
 type UseLinkedContact = () => {
   isLoading: boolean;
@@ -17,17 +13,23 @@ type UseLinkedContact = () => {
 };
 
 const useLinkedContact: UseLinkedContact = () => {
-  const { context } = useDeskproLatestAppContext() as { context: UserContext };
-  const dpUserId = useMemo(() => get(context, ["data", "user", "id"]), [context]);
+  const { context } = useDeskproLatestAppContext<UserData, Settings>()
+  const dpUserId = context?.data?.user?.id;
 
   const contactIds = useQueryWithClient(
-    [QueryKey.LINKED_CONTACT, dpUserId as string],
-    (client) => getEntityListService(client, dpUserId as string),
+    [QueryKey.LINKED_CONTACT, dpUserId ?? ""],
+    async (client) => {
+      if (!dpUserId) {
+        return []
+      }
+
+      return getEntityList(client, { type: "user", userId: dpUserId })
+    },
     { enabled: Boolean(dpUserId) },
   );
 
   const contactId = useMemo(() => {
-    const id = get(contactIds.data, [0]);
+    const id = contactIds.data?.[0]
     return !id ? null : parseInt(id);
   }, [contactIds.data]);
 

@@ -2,7 +2,7 @@ import { CreateContact } from "../../components";
 import { createContactService } from "../../services/copper";
 import { getContactValues } from "../../components/ContactForm";
 import { getError } from "../../utils";
-import { setEntityService } from "../../services/deskpro";
+import { setEntity } from "../../services/deskpro";
 import { Settings, UserData, type Maybe } from "../../types";
 import { useDeskproAppClient, useDeskproLatestAppContext } from "@deskpro/app-sdk";
 import { useNavigate } from "react-router-dom";
@@ -16,7 +16,7 @@ const CreateContactPage: FC = () => {
   const { client } = useDeskproAppClient();
   const { context } = useDeskproLatestAppContext<UserData, Settings>();
   const [error, setError] = useState<Maybe<string | string[]>>(null);
-  const dpUser = context?.data?.user 
+  const dpUser = context?.data?.user
 
   const onNavigateToLink = useCallback(() => navigate("/contacts/link"), [navigate]);
 
@@ -24,16 +24,16 @@ const CreateContactPage: FC = () => {
 
   const isUsingOAuth = context?.settings.use_api_key === false || context?.settings.use_advanced_connect === false;
 
-  const onSubmit = useCallback((data: FormValidationSchema) => {
+  const onSubmit = useCallback(async (data: FormValidationSchema) => {
     if (!client || !dpUser?.id) {
-      return Promise.resolve();
+      return 
     }
 
     return createContactService(client, getContactValues(data))
       .then((contact) => {
         return !contact?.id
           ? Promise.resolve()
-          : setEntityService(client, dpUser.id, `${contact.id}`);
+          : setEntity(client, { type: "user", userId: dpUser.id, entityKey: contact.id.toString() })
       })
       .then(() => navigate("/home"))
       .catch((err) => setError(getError(err)));
