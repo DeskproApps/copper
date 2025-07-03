@@ -102,13 +102,6 @@ export default function useLogin(): UseLogin {
                 if (!activeUser) throw new Error("Error authenticating user");
 
                 navigate("/")
-                // try {
-                //     await tryToLinkAutomatically(client, user);
-                //     const entityIds = await getEntityListService(client, user.id);
-                //     navigate(entityIds.length > 0 ? "/home" : "/contacts/link");
-                // } catch {
-                //     navigate("/contacts/link");
-                // }
             } catch (error) {
                 setError(error instanceof Error ? error.message : "Unknown error");
             } finally {

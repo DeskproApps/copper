@@ -1,4 +1,3 @@
-export { tryToLinkAutomatically } from "./tryToLinkAutomatically";
 export { addBlankTargetToLinks } from "./addBlankTargetToLinks";
 export { getAddress } from "./getAddress";
 export { formatPrice } from "./formatPrice";
