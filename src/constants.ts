@@ -7,8 +7,6 @@ export const LOCALE = "en-GB";
 /** Deskpro */
 export const DEFAULT_ERROR = "There was an error!";
 
-export const ENTITY = "linkedCopperContact";
-
 export const ENTITY_PLACEHOLDERS = {
   USER: "linkedCopperContact",
   ORGANISATION: "linkedCopperCompany"
