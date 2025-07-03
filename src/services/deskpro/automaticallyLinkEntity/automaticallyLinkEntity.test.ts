@@ -1,13 +1,13 @@
-import { DeskproOrganisation, DPUser } from "@/types"
-import { getCompanies, getPersonByEmailService } from "@/services/copper"
-import { getEntityList, setEntity } from "@/services/deskpro/"
-import automaticallyLinkEntity from "./automaticallyLinkEntity"
-import { IDeskproClient } from "@deskpro/app-sdk"
+import { DeskproOrganisation, DPUser } from "@/types";
+import { getCompanies, getPersonByEmailService } from "@/services/copper";
+import { getEntityList, setEntity } from "@/services/deskpro/";
+import automaticallyLinkEntity from "./automaticallyLinkEntity";
+import { IDeskproClient } from "@deskpro/app-sdk";
 
-jest.mock("@/services/copper")
-jest.mock("@/services/deskpro/")
+jest.mock("@/services/copper");
+jest.mock("@/services/deskpro/");
 
-const mockClient = {} as IDeskproClient
+const mockClient = {} as IDeskproClient;
 
 describe("automaticallyLinkEntity", () => {
   const mockOrganisation = {
@@ -22,28 +22,28 @@ describe("automaticallyLinkEntity", () => {
 
   beforeEach(() => {
     jest.clearAllMocks()
-  })
+  }) 
 
-  describe("Organisation", () => {
+  describe("Organisation linking", () => {
     it("should return success if an organisation is already linked", async () => {
-      (getEntityList as jest.Mock).mockResolvedValue([{ id: "existing-link" }])
+      (getEntityList as jest.Mock).mockResolvedValue([{ id: "existing-link" }]) 
 
       const result = await automaticallyLinkEntity(mockClient, {
         type: "organisation",
         organisation: mockOrganisation
-      })
+      }) 
 
-      expect(result).toEqual({ success: true })
+      expect(result).toEqual({ success: true }) 
       expect(getEntityList).toHaveBeenCalledWith(mockClient, {
         type: "organisation",
         organisationId: "org-123"
-      })
-      expect(getCompanies).not.toHaveBeenCalled()
-    })
+      }) 
+      expect(getCompanies).not.toHaveBeenCalled() 
+    }) 
 
-    it("should return failure when no matching company is found", async () => {
-      (getEntityList as jest.Mock).mockResolvedValue([])
-      (getCompanies as jest.Mock).mockResolvedValue([])
+    it("should return failure when no matching company found", async () => {
+      (getEntityList as jest.Mock).mockResolvedValue([]);
+      (getCompanies as jest.Mock).mockResolvedValue([]);
 
       const result = await automaticallyLinkEntity(mockClient, {
         type: "organisation",
@@ -54,13 +54,13 @@ describe("automaticallyLinkEntity", () => {
         success: false,
         message: "No Copper company with the provided name."
       })
-      expect(getCompanies).toHaveBeenCalledWith(mockClient, { name: "Test Org" })
-      expect(setEntity).not.toHaveBeenCalled()
+      expect(getCompanies).toHaveBeenCalledWith(mockClient, { name: "Test Org" });
+      expect(setEntity).not.toHaveBeenCalled();
     })
 
-    it("should return success with isMultiple when multiple companies are found", async () => {
-      (getEntityList as jest.Mock).mockResolvedValue([])
-      (getCompanies as jest.Mock).mockResolvedValue([{ id: 1 }, { id: 2 }])
+    it("should return success with isMultiple when multiple companies found", async () => {
+      (getEntityList as jest.Mock).mockResolvedValue([]);
+      (getCompanies as jest.Mock).mockResolvedValue([{ id: 1 }, { id: 2 }]);
 
       const result = await automaticallyLinkEntity(mockClient, {
         type: "organisation",
@@ -71,13 +71,13 @@ describe("automaticallyLinkEntity", () => {
         success: true,
         isMultiple: true
       })
-      expect(setEntity).not.toHaveBeenCalled()
+      expect(setEntity).not.toHaveBeenCalled();
     })
 
-    it("should link organisation when exactly one matching company is found", async () => {
-      (getEntityList as jest.Mock).mockResolvedValue([])
-      (getCompanies as jest.Mock).mockResolvedValue([{ id: 123 }])
-      (setEntity as jest.Mock).mockResolvedValue(undefined)
+    it("should link organisation when exactly one matching company found", async () => {
+      (getEntityList as jest.Mock).mockResolvedValue([]);
+      (getCompanies as jest.Mock).mockResolvedValue([{ id: 123 }]);
+      (setEntity as jest.Mock).mockResolvedValue(undefined);
 
       const result = await automaticallyLinkEntity(mockClient, {
         type: "organisation",
@@ -94,8 +94,8 @@ describe("automaticallyLinkEntity", () => {
   })
 
   describe("User linking", () => {
-    it("should return success if a user is already linked", async () => {
-      (getEntityList as jest.Mock).mockResolvedValue([{ id: "existing-link" }])
+    it("should return success if user is already linked", async () => {
+      (getEntityList as jest.Mock).mockResolvedValue([{ id: "existing-link" }]);
 
       const result = await automaticallyLinkEntity(mockClient, {
         type: "user",
@@ -111,8 +111,8 @@ describe("automaticallyLinkEntity", () => {
     })
 
     it("should return failure when no contact found with the email", async () => {
-      (getEntityList as jest.Mock).mockResolvedValue([])
-      (getPersonByEmailService as jest.Mock).mockResolvedValue(null)
+      (getEntityList as jest.Mock).mockResolvedValue([]);
+      (getPersonByEmailService as jest.Mock).mockResolvedValue(null);
 
       const result = await automaticallyLinkEntity(mockClient, {
         type: "user",
@@ -123,21 +123,21 @@ describe("automaticallyLinkEntity", () => {
         success: false,
         message: "No contact found with the provided email"
       })
-      expect(getPersonByEmailService).toHaveBeenCalledWith(mockClient, "test@example.com")
-      expect(setEntity).not.toHaveBeenCalled()
+      expect(getPersonByEmailService).toHaveBeenCalledWith(mockClient, "test@example.com");
+      expect(setEntity).not.toHaveBeenCalled();
     })
 
     it("should link user when contact is found", async () => {
-      (getEntityList as jest.Mock).mockResolvedValue([])
-      (getPersonByEmailService as jest.Mock).mockResolvedValue({ id: 456 })
-      (setEntity as jest.Mock).mockResolvedValue(undefined)
+      (getEntityList as jest.Mock).mockResolvedValue([]);
+      (getPersonByEmailService as jest.Mock).mockResolvedValue({ id: 456 });
+      (setEntity as jest.Mock).mockResolvedValue(undefined);
 
       const result = await automaticallyLinkEntity(mockClient, {
         type: "user",
         user: mockUser
       })
 
-      expect(result).toEqual({ success: true })
+      expect(result).toEqual({ success: true });
       expect(setEntity).toHaveBeenCalledWith(mockClient, {
         type: "user",
         userId: "user-123",
