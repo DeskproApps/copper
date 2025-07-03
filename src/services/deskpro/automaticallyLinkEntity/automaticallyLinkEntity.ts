@@ -1,8 +1,7 @@
 import { DeskproOrganisation, DPUser } from "@/types";
 import { getCompanies, getPersonByEmailService } from "@/services/copper";
 import { IDeskproClient } from "@deskpro/app-sdk";
-import getEntityList from "../getEntityList";
-import setEntity from "../setEntity";
+import { getEntityList, setEntity } from "@/services/deskpro/";
 
 interface OrganisationEntity {
   type: "organisation",
@@ -54,7 +53,7 @@ export default async function automaticallyLinkEntity(client: IDeskproClient, op
       }
     }
 
-    await setEntity(client, {type: "organisation", organisationId: options.organisation.id, entityKey: companies[0].id.toString()})
+    await setEntity(client, { type: "organisation", organisationId: options.organisation.id, entityKey: companies[0].id.toString() })
 
     return {
       success: true
