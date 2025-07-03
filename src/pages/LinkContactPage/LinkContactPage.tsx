@@ -2,7 +2,7 @@ import { LinkContact } from "../../components";
 import { setEntityService } from "../../services/deskpro";
 import { useDebouncedCallback } from "use-debounce";
 import { useNavigate } from "react-router-dom";
-import { useRegisterElements, useSetTitle, useAsyncError } from "../../hooks";
+import { useRegisterElements, useSetTitle } from "../../hooks";
 import { useSearch } from "./hooks";
 import { useState, useCallback } from "react";
 import { useDeskproAppClient, useDeskproLatestAppContext } from "@deskpro/app-sdk";
@@ -14,7 +14,6 @@ const LinkContactPage: FC = () => {
   const navigate = useNavigate();
   const { client } = useDeskproAppClient();
   const { context } = useDeskproLatestAppContext<UserData, Settings>();
-  const { asyncErrorHandler } = useAsyncError();
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [selectedContact, setSelectedContact] = useState<Maybe<Contact>>(null);
   const [searchQuery, setSearchQuery] = useState<string>("");
@@ -36,9 +35,12 @@ const LinkContactPage: FC = () => {
 
     return setEntityService(client, dpUserId, `${selectedContact.id}`)
       .then(() => navigate("/home"))
-      .catch(asyncErrorHandler)
+      .catch((e)=>{
+        // eslint-disable-next-line no-console
+        console.error("Error Linking Contact: ", e instanceof Error? e.message: "Unknown Error")
+      })
       .finally(() => setIsSubmitting(false));
-  }, [client, dpUserId, selectedContact, asyncErrorHandler, navigate]);
+  }, [client, dpUserId, selectedContact, navigate]);
 
   const isUsingOAuth = context?.settings.use_api_key === false || context?.settings.use_advanced_connect === false;
 
