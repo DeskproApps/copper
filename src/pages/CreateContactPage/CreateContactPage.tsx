@@ -1,15 +1,15 @@
-import { CreateContact } from "../../components";
-import { createContactService } from "../../services/copper";
+import { CreateContact } from "@/components";
+import { createContactService } from "@/services/copper";
 import { getContactValues } from "../../components/ContactForm";
-import { getError } from "../../utils";
-import { setEntity } from "../../services/deskpro";
-import { Settings, UserData, type Maybe } from "../../types";
+import { getError } from "@/utils";
+import { setEntity } from "@/services/deskpro";
+import { Settings, UserData, type Maybe } from "@/types";
 import { useDeskproAppClient, useDeskproLatestAppContext } from "@deskpro/app-sdk";
 import { useNavigate } from "react-router-dom";
-import { useSetTitle, useRegisterElements } from "../../hooks";
+import { useSetTitle, useRegisterElements } from "@/hooks";
 import { useState, useCallback } from "react";
 import type { FC } from "react";
-import type { FormValidationSchema } from "../../components/ContactForm";
+import type { FormValidationSchema } from "@/components/ContactForm";
 
 const CreateContactPage: FC = () => {
   const navigate = useNavigate();

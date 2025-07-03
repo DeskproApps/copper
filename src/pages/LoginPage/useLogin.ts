@@ -1,8 +1,8 @@
 import { createSearchParams, useNavigate } from "react-router-dom";
-import { getAccessToken, getCurrentUser } from "../../services/copper";
+import { getAccessToken, getCurrentUser } from "@/services/copper";
 import { IOAuth2, OAuth2Result, useDeskproLatestAppContext, useInitialisedDeskproAppClient } from "@deskpro/app-sdk";
-import { placeholders } from "../../constants";
-import { Settings, UserData } from "../../types";
+import { placeholders } from "@/constants";
+import { Settings, UserData } from "@/types";
 import { useCallback, useState } from "react";
 
 interface UseLogin {

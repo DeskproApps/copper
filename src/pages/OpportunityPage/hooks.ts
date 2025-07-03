@@ -1,14 +1,9 @@
+import { enhanceOpportunity } from "@/utils";
+import { QueryKey } from "@/query";
 import { useMemo } from "react";
 import { useQueryWithClient } from "@deskpro/app-sdk";
-import {
-  getUsersService,
-  getPipelinesService,
-  getOpportunityService,
-  getPipelineStagesService,
-} from "../../services/copper";
-import { enhanceOpportunity } from "../../utils";
-import { QueryKey } from "../../query";
-import type { Maybe } from "../../types";
+import { getOpportunityService, getPipelinesService, getPipelineStagesService, getUsersService } from "@/services/copper";
+import type { Maybe } from "@/types";
 import type { Opportunity } from "../../services/copper/types";
 
 type UseOpportunity = (id?: Opportunity["id"]) => {

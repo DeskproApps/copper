@@ -1,6 +1,6 @@
 import { get, map, find, assign, isEmpty } from "lodash";
-import type { Maybe } from "../types";
-import type { Opportunity, Pipeline, User } from "../services/copper/types";
+import type { Maybe } from "@/types";
+import type { Opportunity, Pipeline, User } from "@/services/copper/types";
 
 const enhanceOpportunity = (o: Opportunity, pipelines?: Pipeline[], users?: User[]) => {
   const pipeline = find(pipelines, { id: o.pipeline_id });

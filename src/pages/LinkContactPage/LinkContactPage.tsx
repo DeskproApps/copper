@@ -1,14 +1,14 @@
-import { LinkContact } from "../../components";
+import { LinkContact } from "@/components";
+import { setEntity } from "@/services/deskpro";
 import { useDebouncedCallback } from "use-debounce";
+import { useDeskproAppClient, useDeskproLatestAppContext } from "@deskpro/app-sdk";
 import { useNavigate } from "react-router-dom";
-import { useRegisterElements, useSetTitle } from "../../hooks";
+import { useRegisterElements, useSetTitle } from "@/hooks";
 import { useSearch } from "./hooks";
 import { useState, useCallback } from "react";
-import { useDeskproAppClient, useDeskproLatestAppContext } from "@deskpro/app-sdk";
-import type { Contact } from "../../services/copper/types";
+import type { Contact } from "@/services/copper/types";
 import type { FC } from "react";
-import type { Maybe, Settings, UserData } from "../../types";
-import { setEntity } from "@/services/deskpro";
+import type { Maybe, Settings, UserData } from "@/types";
 
 const LinkContactPage: FC = () => {
   const navigate = useNavigate();

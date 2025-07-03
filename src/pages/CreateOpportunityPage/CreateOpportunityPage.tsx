@@ -1,22 +1,22 @@
-import { useState, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
+import { CreateOpportunity } from "@/components";
+import { createOpportunityService } from "@/services/copper";
+import { getError } from "@/utils";
+import { getValues } from "@/components/OpportunityForm";
+import { queryClient } from "@/query";
 import { useDeskproAppClient, LoadingSpinner } from "@deskpro/app-sdk";
-import { useSetTitle, useLinkedContact, useRegisterElements } from "../../hooks";
-import { createOpportunityService } from "../../services/copper";
-import { getError } from "../../utils";
-import { queryClient } from "../../query";
-import { getValues } from "../../components/OpportunityForm";
-import { CreateOpportunity } from "../../components";
+import { useNavigate } from "react-router-dom";
+import { useSetTitle, useLinkedContact, useRegisterElements } from "@/hooks";
+import { useState, useCallback } from "react";
+import type { Contact } from "@/services/copper/types";
 import type { FC } from "react";
-import type { Maybe } from "../../types";
-import type { Contact } from "../../services/copper/types";
-import type { FormValidationSchema } from "../../components/OpportunityForm";
+import type { FormValidationSchema } from "@/components/OpportunityForm";
+import type { Maybe } from "@/types";
 
 const CreateOpportunityPage: FC = () => {
   const navigate = useNavigate();
   const { client } = useDeskproAppClient();
   const { isLoading, contact } = useLinkedContact();
-  const [error, setError] = useState<Maybe<string|string[]>>(null);
+  const [error, setError] = useState<Maybe<string | string[]>>(null);
 
   const onCancel = useCallback(() => navigate(`/home`), [navigate]);
 
@@ -42,7 +42,7 @@ const CreateOpportunityPage: FC = () => {
 
   if (isLoading) {
     return (
-      <LoadingSpinner/>
+      <LoadingSpinner />
     );
   }
 

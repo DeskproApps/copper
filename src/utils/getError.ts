@@ -1,6 +1,6 @@
 import { get } from "lodash";
-import { CopperError } from "../services/copper";
-import { DEFAULT_ERROR } from "../constants";
+import { CopperError } from "@/services/copper";
+import { DEFAULT_ERROR } from "@/constants";
 
 const getError = (error: Error) => {
   if (error instanceof CopperError) {

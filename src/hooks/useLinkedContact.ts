@@ -1,11 +1,11 @@
 import { getEntityList } from "@/services/deskpro";
-import { QueryKey } from "../query";
+import { QueryKey } from "@/query";
 import { useContact } from "./useContact";
 import { useMemo } from "react";
 import { useQueryWithClient, useDeskproLatestAppContext } from "@deskpro/app-sdk";
 import { UserData } from "../types";
-import type { Contact } from "../services/copper/types";
-import type { Maybe, Settings } from "../types";
+import type { Contact } from "@/services/copper/types";
+import type { Maybe, Settings } from "@/types";
 
 type UseLinkedContact = () => {
   isLoading: boolean;
