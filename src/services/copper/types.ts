@@ -1,4 +1,4 @@
-import type { Maybe, Timestamp } from "../../types";
+import type { Timestamp } from "../../types";
 
 export type Response<T> = Promise<T>;
 
@@ -38,11 +38,11 @@ export type Website = {
 };
 
 export type Address = {
-  street: string;
-  city: string;
-  state: string;
-  postal_code: string;
-  country: null;
+  street: string | null
+  city: string | null
+  state: string | null
+  postal_code: string | null
+  country: string | null
 }
 
 export type Contact = {
@@ -53,7 +53,7 @@ export type Contact = {
   middle_name: null;
   last_name: string;
   suffix: null;
-  address: Maybe<Address>;
+  address: Address;
   assignee_id: null;
   company_id: null;
   company_name: null;
@@ -180,13 +180,7 @@ export type Activity = {
 export interface Company {
   id: number
   name: string
-  address: {
-    street: string | null
-    city: string | null
-    state: string | null
-    postal_code: string | null
-    country: string | null
-  },
+  address: Address,
   assignee_id: number | null
   contact_type_id: number | null
   primary_contact_id: number | null

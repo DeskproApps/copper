@@ -1,5 +1,4 @@
 export { addBlankTargetToLinks } from "./addBlankTargetToLinks";
-export { getAddress } from "./getAddress";
 export { formatPrice } from "./formatPrice";
 export { isActivity } from "./isActivity";
 export { isMeeting } from "./isMeeting";

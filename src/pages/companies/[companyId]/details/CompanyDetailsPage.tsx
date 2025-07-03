@@ -1,15 +1,15 @@
-import { Company } from "@/services/copper/types";
 import { ActivitySection, CompanyPhoneNumbers, CompanyTags, NameWithLink } from "./components";
 import { CopperLogo } from "@/components/common";
 import { ExternalIconLink, HorizontalDivider, LoadingSpinner, Property, useDeskproAppTheme, useDeskproElements, useDeskproLatestAppContext, useInitialisedDeskproAppClient } from "@deskpro/app-sdk";
 import { H3, Stack } from "@deskpro/deskpro-ui";
+import { Settings, UserData } from "@/types";
 import { useParams } from "react-router-dom";
 import Callout from "@/components/Callout";
+import formatAddress from "@/utils/formatAddress";
 import isValidInteger from "@/utils/isValidInteger";
-import useCompany from "@/hooks/useCompany";
 import useAccount from "@/hooks/useAccount";
-import { Settings, UserData } from "@/types";
 import useActivityTypes from "@/hooks/useActivityTypes";
+import useCompany from "@/hooks/useCompany";
 
 export default function CompanyDetailsPage(): JSX.Element {
   const { companyId } = useParams();
@@ -146,16 +146,4 @@ export default function CompanyDetailsPage(): JSX.Element {
         activityTypes={activityTypes} />
     </Stack>
   )
-}
-
-function formatAddress(address: Company["address"]): string | null {
-  const parts = [
-    address.street,
-    address.city,
-    address.state,
-    address.postal_code,
-    address.country,
-  ].filter(part => part && part.trim() !== '')
-
-  return parts.length > 0 ? parts.join(', ') : null
 }
