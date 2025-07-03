@@ -54,7 +54,7 @@ export default function HandleCompanyLinkPage(): JSX.Element {
       <Stack vertical gap={16} padding={12} justify={"center"} align={"center"}>
         <P2>No Copper company is currently linked to this organisation</P2>
 
-        <Button text={"Link a company"} intent={"secondary"} onClick={() => { navigate("/home") }} />
+        <Button text={"Link a company"} intent={"secondary"} onClick={() => { navigate("/companies/link") }} />
 
       </Stack>
     )
