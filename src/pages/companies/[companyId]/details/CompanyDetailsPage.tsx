@@ -6,7 +6,6 @@ import { Settings, UserData } from "@/types";
 import { useParams } from "react-router-dom";
 import Callout from "@/components/Callout";
 import formatAddress from "@/utils/formatAddress";
-import isValidInteger from "@/utils/isValidInteger";
 import useAccount from "@/hooks/useAccount";
 import useActivityTypes from "@/hooks/useActivityTypes";
 import useCompany from "@/hooks/useCompany";
@@ -49,7 +48,7 @@ export default function CompanyDetailsPage(): JSX.Element {
   const { account, isLoading: accountIsLoading } = useAccount()
   const { isLoading: isLoadingActivityTypes, activityTypes } = useActivityTypes()
 
-  if (!companyId || !isValidInteger(companyId)) {
+  if (!companyId || !Number.isInteger(Number(companyId))) {
     return (
       <Stack padding={12}>
         <Callout accent="red" style={{ width: "100%" }}>
