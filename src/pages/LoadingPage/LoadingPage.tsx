@@ -57,11 +57,11 @@ export function LoadingPage(): JSX.Element {
         if (result.success) {
           if (result.isMultiple) {
             navigate(`/companies/link?filter=${encodeURIComponent(deskproOrganisation.name)}`)
-            return (<LoadingSpinner />)
+            return
           }
 
           navigate(`/companies`)
-          return (<LoadingSpinner />)
+          return
         }
 
         // Navigate to the org link page if nothing is linked and there's no
