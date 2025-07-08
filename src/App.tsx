@@ -39,7 +39,7 @@ const App: FC = () => {
   const { logoutActiveUser } = useLogout()
   const { context } = useDeskproLatestAppContext<UserData, Settings>()
 
-  const isUsingOAuth = context?.settings.use_api_key === false || context?.settings.use_advanced_connect === false;
+  const isUsingOAuth = context?.settings?.use_api_key === false || context?.settings?.use_advanced_connect === false;
 
   const isAdmin = pathname.includes("/admin/");
   const isLoading = useMemo(() => {
