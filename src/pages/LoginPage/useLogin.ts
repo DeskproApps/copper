@@ -23,7 +23,6 @@ export default function useLogin(): UseLogin {
 
     const { context } = useDeskproLatestAppContext<UserData, Settings>()
 
-    const user = context?.data?.user
     const isUsingOAuth = context?.settings.use_api_key === false || context?.settings.use_advanced_connect === false;
     const settings = context?.settings
 
@@ -85,7 +84,7 @@ export default function useLogin(): UseLogin {
 
 
     useInitialisedDeskproAppClient((client) => {
-        if (!user || !oauth2Context) {
+        if (!oauth2Context) {
             return
         }
 
@@ -99,7 +98,9 @@ export default function useLogin(): UseLogin {
                 }
 
                 const activeUser = await getCurrentUser(client);
-                if (!activeUser) throw new Error("Error authenticating user");
+                if (!activeUser) {
+                    throw new Error("Error authenticating user");
+                }
 
                 navigate("/")
             } catch (error) {
@@ -113,7 +114,7 @@ export default function useLogin(): UseLogin {
         if (isPolling) {
             startPolling()
         }
-    }, [isPolling, user, oauth2Context, navigate])
+    }, [isPolling, oauth2Context, navigate])
 
 
     const onSignIn = useCallback(() => {
