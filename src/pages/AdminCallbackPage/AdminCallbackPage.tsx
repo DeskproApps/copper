@@ -1,7 +1,7 @@
 import { CopyToClipboardInput, LoadingSpinner, OAuth2Result, useInitialisedDeskproAppClient, } from "@deskpro/app-sdk";
 import { createSearchParams } from "react-router-dom";
 import { P1 } from "@deskpro/deskpro-ui";
-import { ThemeProps } from "../../types";
+import { ThemeProps } from "@/types";
 import { useState } from "react";
 import styled from "styled-components";
 import type { FC } from "react";

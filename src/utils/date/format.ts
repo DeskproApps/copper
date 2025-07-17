@@ -1,6 +1,6 @@
 import { isNumber, isString, split } from "lodash";
-import { LOCALE } from "../../constants";
-import type { Maybe, Timestamp, DateTime } from "../../types";
+import { LOCALE } from "@/constants";
+import type { Maybe, Timestamp, DateTime } from "@/types";
 
 type Options = {
   date?: boolean;

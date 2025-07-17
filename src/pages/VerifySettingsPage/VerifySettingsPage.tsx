@@ -1,12 +1,8 @@
 import { useState } from "react";
-import {
-  useDeskproAppClient,
-  useDeskproAppEvents,
-  adminGenericProxyFetch,
-} from "@deskpro/app-sdk";
-import { VerifySettings } from "../../components";
-import type { Maybe, Settings } from "../../types";
-import type { Account } from "../../services/copper/types";
+import { VerifySettings } from "@/components";
+import { adminGenericProxyFetch, useDeskproAppClient, useDeskproAppEvents } from "@deskpro/app-sdk";
+import type { Account } from "@/services/copper/types";
+import type { Maybe, Settings } from "@/types";
 
 const VerifySettingsPage = () => {
   const { client } = useDeskproAppClient();

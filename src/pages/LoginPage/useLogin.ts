@@ -1,10 +1,8 @@
 import { createSearchParams, useNavigate } from "react-router-dom";
-import { getAccessToken, getCurrentUser } from "../../services/copper";
-import { getEntityListService } from "../../services/deskpro";
+import { getAccessToken, getCurrentUser } from "@/services/copper";
 import { IOAuth2, OAuth2Result, useDeskproLatestAppContext, useInitialisedDeskproAppClient } from "@deskpro/app-sdk";
-import { placeholders } from "../../constants";
-import { Settings, UserData } from "../../types";
-import { tryToLinkAutomatically } from "../../utils";
+import { placeholders } from "@/constants";
+import { Settings, UserData } from "@/types";
 import { useCallback, useState } from "react";
 
 interface UseLogin {
@@ -25,11 +23,11 @@ export default function useLogin(): UseLogin {
 
     const { context } = useDeskproLatestAppContext<UserData, Settings>()
 
-    const user = context?.data?.user
     const isUsingOAuth = context?.settings.use_api_key === false || context?.settings.use_advanced_connect === false;
+    const settings = context?.settings
 
     useInitialisedDeskproAppClient(async (client) => {
-        if (!user) {
+        if (!settings) {
             // Make sure settings have loaded.
             return
         }
@@ -40,9 +38,9 @@ export default function useLogin(): UseLogin {
             return
 
         }
-        const mode = context?.settings.use_advanced_connect === false ? 'global' : 'local';
+        const mode = settings.use_advanced_connect === false ? 'global' : 'local';
 
-        const clientId = context?.settings.client_id;
+        const clientId = settings.client_id;
         if (mode === 'local' && (typeof clientId !== 'string' || clientId.trim() === "")) {
             // Local mode requires a clientId.
             setError("A client ID is required");
@@ -86,7 +84,7 @@ export default function useLogin(): UseLogin {
 
 
     useInitialisedDeskproAppClient((client) => {
-        if (!user || !oauth2Context) {
+        if (!oauth2Context) {
             return
         }
 
@@ -100,15 +98,11 @@ export default function useLogin(): UseLogin {
                 }
 
                 const activeUser = await getCurrentUser(client);
-                if (!activeUser) throw new Error("Error authenticating user");
-
-                try {
-                    await tryToLinkAutomatically(client, user);
-                    const entityIds = await getEntityListService(client, user.id);
-                    navigate(entityIds.length > 0 ? "/home" : "/contacts/link");
-                } catch {
-                    navigate("/contacts/link");
+                if (!activeUser) {
+                    throw new Error("Error authenticating user");
                 }
+
+                navigate("/")
             } catch (error) {
                 setError(error instanceof Error ? error.message : "Unknown error");
             } finally {
@@ -120,7 +114,7 @@ export default function useLogin(): UseLogin {
         if (isPolling) {
             startPolling()
         }
-    }, [isPolling, user, oauth2Context, navigate])
+    }, [isPolling, oauth2Context, navigate])
 
 
     const onSignIn = useCallback(() => {

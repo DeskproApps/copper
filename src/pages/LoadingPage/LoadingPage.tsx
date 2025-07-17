@@ -1,79 +1,92 @@
-import { ErrorBlock } from "../../components/common";
-import { getCurrentUser } from "../../services/copper";
-import { getEntityListService } from "../../services/deskpro";
+import { automaticallyLinkEntity } from "@/services/deskpro";
+import { ErrorBlock } from "@/components/common";
 import { LoadingSpinner, useDeskproAppClient, useDeskproElements, useDeskproLatestAppContext, useInitialisedDeskproAppClient } from "@deskpro/app-sdk";
-import { Settings, UserData } from "../../types";
+import { Settings, UserData } from "@/types";
 import { Stack } from "@deskpro/deskpro-ui";
-import { tryToLinkAutomatically } from "../../utils";
 import { useNavigate } from "react-router-dom";
-import { useState, type FC } from "react";
+import { useAuthentication } from "@/hooks";
 
-const LoadingPage: FC = () => {
-  const { client } = useDeskproAppClient()
-  const { context } = useDeskproLatestAppContext<UserData, Settings>()
-
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false)
-  const [isFetchingAuth, setIsFetchingAuth] = useState<boolean>(true)
-
-  const navigate = useNavigate()
-
-  const isUsingOAuth = context?.settings.use_api_key === false || context?.settings.use_advanced_connect === false;
-  const user = context?.data?.user
-
+export function LoadingPage(): JSX.Element {
   useDeskproElements(({ registerElement, clearElements }) => {
     clearElements()
     registerElement("refresh", { type: "refresh_button" })
-  })
+  }, [])
 
   useInitialisedDeskproAppClient((client) => {
     client.setTitle("Copper")
+  }, [])
 
-    if (!context || !context?.settings || !user) {
-      return
-    }
+  const { client } = useDeskproAppClient()
+  const { context } = useDeskproLatestAppContext<UserData, Settings>()
+  const navigate = useNavigate()
 
-    // Store the authentication method in the user state
-    client.setUserState("isUsingOAuth", isUsingOAuth)
+  const isUsingOAuth = context?.settings.use_api_key === false || context?.settings.use_advanced_connect === false;
+  const isOrgView = Boolean(context?.data?.organisation)
+  const deskproUser = context?.data?.user
+  const deskproOrganisation = context?.data?.organisation
 
-    // Verify authentication status
-    // If OAuth2 mode and the user is logged in the request would be make with their stored access token
-    // If in API key mode the request would be made with the API key provided in the app setup
-    getCurrentUser(client)
-      .then((user) => {
-        if (user) {
-          setIsAuthenticated(true)
-        }
-      })
-      .catch(() => { })
-      .finally(() => {
-        setIsFetchingAuth(false)
-      })
-  }, [context, context?.settings])
+  const { isLoading, isAuthenticated } = useAuthentication({ isUsingOAuth })
 
-  if (!client || !user || isFetchingAuth) {
+  if (!client || isLoading) {
     return (<LoadingSpinner />)
   }
 
-  if (isAuthenticated) {
+  // Handle unauthenticated states.
+  if (!isAuthenticated) {
+    if (isUsingOAuth) {
+      navigate(`/login`);
+      return (<LoadingSpinner />)
+    }
 
-    tryToLinkAutomatically(client, user)
-      .then(() => getEntityListService(client, user.id))
-      .then((entityIds) => navigate(entityIds.length > 0 ? "/home" : "/contacts/link"))
-      .catch(() => { navigate("/contacts/link") });
-  } else if (isUsingOAuth) {
-    navigate("/login");
-  } else {
     // Show error for invalid API keys (expired or not present)
     return (
       <Stack padding={12}>
         <ErrorBlock text="Invalid API Key" />
       </Stack>
-    );
+    )
   }
-  
+
+  // Handle organisation sidebar linking.
+  if (isOrgView) {
+    if (!deskproOrganisation) {
+      return (<LoadingSpinner />)
+    }
+
+    automaticallyLinkEntity(client, { type: "organisation", organisation: deskproOrganisation })
+      .then((result) => {
+        if (result.success) {
+          if (result.isMultiple) {
+            navigate(`/companies/link?filter=${encodeURIComponent(deskproOrganisation.name)}`)
+            return
+          }
+
+          navigate(`/companies`)
+          return
+        }
+
+        // Navigate to the org link page if nothing is linked and there's no
+        // Copper company matching the Deskpro org's name. (Maybe navigate to the create page in the future?)
+        navigate("/companies/link")
+      })
+    return (<LoadingSpinner />)
+  }
+
+  if (!deskproUser) {
+    return (<LoadingSpinner />)
+  }
+
+  // Handle user sidebar linking.
+  automaticallyLinkEntity(client, { type: "user", user: deskproUser })
+    .then((result) => {
+      if (result.success) {
+        navigate("/home")
+        return
+      }
+      navigate("/contacts/link")
+    })
+
   return (
     <LoadingSpinner />
   );
 };
 
-export { LoadingPage };
