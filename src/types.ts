@@ -61,8 +61,17 @@ export type DPUser = {
   locale: string;
 };
 
+export interface DeskproOrganisation {
+  id: string;
+  name: string;
+  summary: string;
+  dateCreated: string;
+  customFields: Record<string, unknown>;
+}
+
 export type UserData = {
-  user: DPUser;
+  user?: DPUser;
+  organisation?: DeskproOrganisation
 };
 
 export type UserContext = Context<UserData, Maybe<Settings>>;

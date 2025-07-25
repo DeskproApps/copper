@@ -1,10 +1,11 @@
 import { useMemo } from "react";
 import { get, map } from "lodash";
 import { Title, Property } from "@deskpro/app-sdk";
-import { getAddress, getExternalLinks } from "../../../utils";
-import { CopperLogo, DPNormalize } from "../../common";
+import { getExternalLinks } from "@/utils";
+import { CopperLogo, DPNormalize } from "@/components/common";
 import type { FC } from "react";
-import type { Contact, Account } from "../../../services/copper/types";
+import type { Contact, Account } from "@/services/copper/types";
+import formatAddress from "@/utils/formatAddress";
 
 export type Props = {
   contact: Contact;
@@ -18,7 +19,6 @@ const ContactInfo: FC<Props> = ({ contact, account }) => {
   const phone = useMemo(() => {
     return map(get(contact, ["phone_numbers"]), "number").join(`,\n`);
   }, [contact]);
-  const address = useMemo(() => getAddress(get(contact, ["address"])), [contact]);
   const link = useMemo(() => {
     return getExternalLinks.contact(account?.id, contact?.id);
   }, [account, contact]);
@@ -41,7 +41,7 @@ const ContactInfo: FC<Props> = ({ contact, account }) => {
       <Property label="Title" text={contact.title}/>
       <Property label="Owner" text={get(contact, ["assignee_name"])}/>
       <Property label="Company name" text={get(contact, ["company_name"])}/>
-      <Property label="Address" text={address}/>
+      <Property label="Address" text={formatAddress (contact.address)}/>
     </>
   );
 };

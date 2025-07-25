@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 import { useDeskproAppClient } from "@deskpro/app-sdk";
 import { useNavigate } from "react-router-dom";
-import { placeholders } from "../constants";
+import { placeholders } from "@/constants";
 
 export function useLogout() {
     const navigate = useNavigate();
