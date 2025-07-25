@@ -1,10 +1,11 @@
-import { automaticallyLinkEntity } from "@/services/deskpro";
-import { ErrorBlock } from "@/components/common";
+import { handleNavigation } from "./handleNavigation";
 import { LoadingSpinner, useDeskproAppClient, useDeskproElements, useDeskproLatestAppContext, useInitialisedDeskproAppClient } from "@deskpro/app-sdk";
 import { Settings, UserData } from "@/types";
 import { Stack } from "@deskpro/deskpro-ui";
-import { useNavigate } from "react-router-dom";
 import { useAuthentication } from "@/hooks";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import Callout from "@/components/Callout";
 
 export function LoadingPage(): JSX.Element {
   useDeskproElements(({ registerElement, clearElements }) => {
@@ -21,69 +22,49 @@ export function LoadingPage(): JSX.Element {
   const navigate = useNavigate()
 
   const isUsingOAuth = context?.settings.use_api_key === false || context?.settings.use_advanced_connect === false;
-  const isOrgView = Boolean(context?.data?.organisation)
+  const view = context?.data?.organisation ? "organisation" : "user"
   const deskproUser = context?.data?.user
   const deskproOrganisation = context?.data?.organisation
 
   const { isLoading, isAuthenticated } = useAuthentication({ isUsingOAuth })
 
+  useEffect(() => {
+    if (!client || isLoading) {
+      return
+    }
+
+    if (!isAuthenticated && isUsingOAuth) {
+      navigate(`/login`);
+      return
+    }
+
+    if (isAuthenticated) {
+      handleNavigation(client, {
+        deskproOrganisation,
+        deskproUser,
+        navigate,
+        view
+      })
+    }
+  }, [client, deskproOrganisation, deskproUser, isAuthenticated, isLoading, isUsingOAuth, navigate, view])
+
   if (!client || isLoading) {
     return (<LoadingSpinner />)
   }
 
-  // Handle unauthenticated states.
-  if (!isAuthenticated) {
-    if (isUsingOAuth) {
-      navigate(`/login`);
-      return (<LoadingSpinner />)
-    }
-
-    // Show error for invalid API keys (expired or not present)
+  // Show error for invalid API keys (expired or not present)
+  if (!isAuthenticated && !isUsingOAuth) {
     return (
-      <Stack padding={12}>
-        <ErrorBlock text="Invalid API Key" />
+      <Stack padding={12} style={{ width: "100%" }}>
+        <Callout
+          style={{ width: "100%" }}
+          accent="red"
+        >
+          The Copper API credentials provided during the app setup process are invalid or expired. Please contact your admin to verify your credentials and try again.
+        </Callout>
       </Stack>
     )
   }
-
-  // Handle organisation sidebar linking.
-  if (isOrgView) {
-    if (!deskproOrganisation) {
-      return (<LoadingSpinner />)
-    }
-
-    automaticallyLinkEntity(client, { type: "organisation", organisation: deskproOrganisation })
-      .then((result) => {
-        if (result.success) {
-          if (result.isMultiple) {
-            navigate(`/companies/link?filter=${encodeURIComponent(deskproOrganisation.name)}`)
-            return
-          }
-
-          navigate(`/companies`)
-          return
-        }
-
-        // Navigate to the org link page if nothing is linked and there's no
-        // Copper company matching the Deskpro org's name. (Maybe navigate to the create page in the future?)
-        navigate("/companies/link")
-      })
-    return (<LoadingSpinner />)
-  }
-
-  if (!deskproUser) {
-    return (<LoadingSpinner />)
-  }
-
-  // Handle user sidebar linking.
-  automaticallyLinkEntity(client, { type: "user", user: deskproUser })
-    .then((result) => {
-      if (result.success) {
-        navigate("/home")
-        return
-      }
-      navigate("/contacts/link")
-    })
 
   return (
     <LoadingSpinner />
