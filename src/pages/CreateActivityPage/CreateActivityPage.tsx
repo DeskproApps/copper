@@ -1,23 +1,23 @@
-import {useCallback, useMemo, useState} from "react";
+import { CreateActivity } from "@/components";
+import { createActivityService } from "@/services/copper";
+import { getError } from "@/utils";
+import { getValues } from "@/components/ActivityForm";
+import { useDeskproAppClient } from "@deskpro/app-sdk";
 import { useNavigate } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
-import { useDeskproAppClient } from "@deskpro/app-sdk";
-import { useSetTitle, useRegisterElements, useLinkedContact } from "../../hooks";
-import { createActivityService } from "../../services/copper";
-import { getError } from "../../utils";
-import { getValues } from "../../components/ActivityForm";
-import { CreateActivity } from "../../components";
+import { useSetTitle, useRegisterElements, useLinkedContact } from "@/hooks";
+import { useCallback, useState } from "react";
 import type { FC } from "react";
-import type { Maybe } from "../../types";
-import type { FormValidationSchema } from "../../components/ActivityForm";
+import type { FormValidationSchema } from "@/components/ActivityForm";
+import type { Maybe } from "@/types";
 
 const CreateActivityPage: FC = () => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const { client } = useDeskproAppClient();
   const { contact } = useLinkedContact();
-  const [error, setError] = useState<Maybe<string|string[]>>(null);
-  const contactId = useMemo(() => contact?.id, [contact]);
+  const [error, setError] = useState<Maybe<string | string[]>>(null);
+  const contactId = contact?.id
 
   const debouncedInvalidate = useCallback(() => {
     return new Promise((resolve) => {
