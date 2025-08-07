@@ -21,7 +21,7 @@
   ],
   "entityAssociations": {
     "linkedCopperCompany":{
-      "entity": "person",
+      "entity": "organization",
       "type": "external_id",
       "title": "Copper Company"
     },
