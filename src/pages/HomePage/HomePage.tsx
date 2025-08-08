@@ -1,10 +1,10 @@
-import { useCallback } from "react";
-import { useNavigate } from "react-router-dom";
+import { Home } from "@/components";
 import { LoadingSpinner, useDeskproLatestAppContext } from "@deskpro/app-sdk";
-import { useRegisterElements } from "../../hooks";
+import { Settings } from "@/types";
+import { useCallback } from "react";
 import { useContact } from "./hooks";
-import { Home } from "../../components";
-import { Settings } from "../../types";
+import { useNavigate } from "react-router-dom";
+import { useRegisterElements } from "@/hooks";
 
 const HomePage = () => {
   const { context } = useDeskproLatestAppContext<unknown, Settings>();

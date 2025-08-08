@@ -1,9 +1,10 @@
-import type { Maybe, Timestamp } from "../../types";
+import type { Timestamp } from "../../types";
 
 export type Response<T> = Promise<T>;
 
 export type CopperAPIError = {
   //..
+  message?: string
 };
 
 export type User = {
@@ -38,11 +39,11 @@ export type Website = {
 };
 
 export type Address = {
-  street: string;
-  city: string;
-  state: string;
-  postal_code: string;
-  country: null;
+  street: string | null
+  city: string | null
+  state: string | null
+  postal_code: string | null
+  country: string | null
 }
 
 export type Contact = {
@@ -53,7 +54,7 @@ export type Contact = {
   middle_name: null;
   last_name: string;
   suffix: null;
-  address: Maybe<Address>;
+  address: Address;
   assignee_id: null;
   company_id: null;
   company_name: null;
@@ -166,6 +167,7 @@ export type Activity = {
   type: {
     id: UserActivityType["id"];
     category: "user";
+    name?: string
   },
   user_id: number;
   details: string;
@@ -175,3 +177,20 @@ export type Activity = {
   date_created: Timestamp;
   date_modified: Timestamp;
 };
+
+export interface Company {
+  id: number
+  name: string
+  address: Address,
+  assignee_id: number | null
+  contact_type_id: number | null
+  primary_contact_id: number | null
+  details: string | null
+  email_domain: string | null
+  interaction_count: number
+  phone_numbers: {
+    number: string,
+    category: string
+  }[]
+  tags: string[]
+}

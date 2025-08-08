@@ -1,9 +1,9 @@
 import { isEmpty } from "lodash";
 import { proxyFetch, adminGenericProxyFetch } from "@deskpro/app-sdk";
 import { BASE_URL, placeholders } from "../../constants";
-import { getQueryParams, getRequestBody } from "../../utils";
+import { getQueryParams, getRequestBody } from "@/utils";
 import { CopperError } from "./CopperError";
-import type { Request } from "../../types";
+import type { Request } from "@/types";
 
 const baseRequest: Request = async (client, {
   url,

@@ -1,25 +1,24 @@
-import { LinkContact } from "../../components";
-import { setEntityService } from "../../services/deskpro";
+import { LinkContact } from "@/components";
+import { setEntity } from "@/services/deskpro";
 import { useDebouncedCallback } from "use-debounce";
+import { useDeskproAppClient, useDeskproLatestAppContext } from "@deskpro/app-sdk";
 import { useNavigate } from "react-router-dom";
-import { useRegisterElements, useSetTitle, useAsyncError } from "../../hooks";
+import { useRegisterElements, useSetTitle } from "@/hooks";
 import { useSearch } from "./hooks";
 import { useState, useCallback } from "react";
-import { useDeskproAppClient, useDeskproLatestAppContext } from "@deskpro/app-sdk";
-import type { Contact } from "../../services/copper/types";
+import type { Contact } from "@/services/copper/types";
 import type { FC } from "react";
-import type { Maybe, Settings, UserData } from "../../types";
+import type { Maybe, Settings, UserData } from "@/types";
 
 const LinkContactPage: FC = () => {
   const navigate = useNavigate();
   const { client } = useDeskproAppClient();
   const { context } = useDeskproLatestAppContext<UserData, Settings>();
-  const { asyncErrorHandler } = useAsyncError();
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [selectedContact, setSelectedContact] = useState<Maybe<Contact>>(null);
   const [searchQuery, setSearchQuery] = useState<string>("");
   const { contacts, account, isLoading } = useSearch(searchQuery);
-  const dpUserId = context?.data?.user.id
+  const dpUserId = context?.data?.user?.id
 
   const onChangeSearch = useDebouncedCallback(setSearchQuery, 1000);
 
@@ -34,11 +33,14 @@ const LinkContactPage: FC = () => {
 
     setIsSubmitting(true);
 
-    return setEntityService(client, dpUserId, `${selectedContact.id}`)
+    return setEntity(client, { type: "user", userId: dpUserId, entityKey: selectedContact.id.toString() })
       .then(() => navigate("/home"))
-      .catch(asyncErrorHandler)
+      .catch((e) => {
+        // eslint-disable-next-line no-console
+        console.error("Error Linking Contact: ", e instanceof Error ? e.message : "Unknown Error")
+      })
       .finally(() => setIsSubmitting(false));
-  }, [client, dpUserId, selectedContact, asyncErrorHandler, navigate]);
+  }, [client, dpUserId, selectedContact, navigate]);
 
   const isUsingOAuth = context?.settings.use_api_key === false || context?.settings.use_advanced_connect === false;
 

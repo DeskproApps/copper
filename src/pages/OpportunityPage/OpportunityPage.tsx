@@ -1,8 +1,8 @@
-import { useParams } from "react-router-dom";
 import { LoadingSpinner,  } from "@deskpro/app-sdk";
-import { useSetTitle, useRegisterElements } from "../../hooks";
+import { Opportunity } from "@/components";
 import { useOpportunity } from "./hooks";
-import { Opportunity } from "../../components";
+import { useParams } from "react-router-dom";
+import { useSetTitle, useRegisterElements } from "@/hooks";
 import type { FC } from "react";
 
 const OpportunityPage: FC = () => {

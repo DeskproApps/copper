@@ -8,7 +8,7 @@ import {
   useDeskproAppEvents,
   useDeskproLatestAppContext,
 } from "@deskpro/app-sdk";
-import { useLogout, useRegisterElements, useUnlinkContact } from "./hooks";
+import { useLogout, useRegisterElements, useUnlink } from "./hooks";
 import { isNavigatePayload } from "./utils";
 import { AppContainer } from "./components/common";
 import { ErrorFallback } from "./components/ErrorFallback/ErrorFallback";
@@ -27,18 +27,19 @@ import {
   VerifySettingsPage,
 } from "./pages";
 import type { FC } from "react";
-import type { EventPayload, Settings } from "./types";
+import type { EventPayload, Settings, UserData } from "./types";
 import { ErrorBoundary } from "@sentry/react";
+import { CompanyDetailsPage, HandleCompanyLinkPage, LinkCompaniesPage } from "./pages/companies";
 
 const App: FC = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const { client } = useDeskproAppClient();
-  const { unlink, isLoading: isLoadingUnlink } = useUnlinkContact()
+  const { unlink, isLoading: isLoadingUnlink } = useUnlink()
   const { logoutActiveUser } = useLogout()
-  const { context } = useDeskproLatestAppContext<unknown, Settings>()
-  
-  const isUsingOAuth = context?.settings.use_api_key === false || context?.settings.use_advanced_connect === false;
+  const { context } = useDeskproLatestAppContext<UserData, Settings>()
+
+  const isUsingOAuth = context?.settings?.use_api_key === false || context?.settings?.use_advanced_connect === false;
 
   const isAdmin = pathname.includes("/admin/");
   const isLoading = useMemo(() => {
@@ -91,6 +92,15 @@ const App: FC = () => {
           <Route path="/opportunity/:id" element={<OpportunityPage />} />
           <Route path="/notes/create" element={<CreateNotePage />} />
           <Route path="/activities/create" element={<CreateActivityPage />} />
+
+          <Route path="companies">
+            <Route index element={<HandleCompanyLinkPage />} />
+            <Route path="link" element={<LinkCompaniesPage />} />
+            <Route path=":companyId" >
+              <Route index element={<CompanyDetailsPage />} />
+            </Route>
+          </Route>
+
           <Route index element={<LoadingPage />} />
         </Routes>
       </ErrorBoundary>

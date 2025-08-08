@@ -1,79 +1,73 @@
-import { ErrorBlock } from "../../components/common";
-import { getCurrentUser } from "../../services/copper";
-import { getEntityListService } from "../../services/deskpro";
+import { handleNavigation } from "./handleNavigation";
 import { LoadingSpinner, useDeskproAppClient, useDeskproElements, useDeskproLatestAppContext, useInitialisedDeskproAppClient } from "@deskpro/app-sdk";
-import { Settings, UserData } from "../../types";
+import { Settings, UserData } from "@/types";
 import { Stack } from "@deskpro/deskpro-ui";
-import { tryToLinkAutomatically } from "../../utils";
+import { useAuthentication } from "@/hooks";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useState, type FC } from "react";
+import Callout from "@/components/Callout";
 
-const LoadingPage: FC = () => {
-  const { client } = useDeskproAppClient()
-  const { context } = useDeskproLatestAppContext<UserData, Settings>()
-
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false)
-  const [isFetchingAuth, setIsFetchingAuth] = useState<boolean>(true)
-
-  const navigate = useNavigate()
-
-  const isUsingOAuth = context?.settings.use_api_key === false || context?.settings.use_advanced_connect === false;
-  const user = context?.data?.user
-
+export function LoadingPage(): JSX.Element {
   useDeskproElements(({ registerElement, clearElements }) => {
     clearElements()
     registerElement("refresh", { type: "refresh_button" })
-  })
+  }, [])
 
   useInitialisedDeskproAppClient((client) => {
     client.setTitle("Copper")
+  }, [])
 
-    if (!context || !context?.settings || !user) {
+  const { client } = useDeskproAppClient()
+  const { context } = useDeskproLatestAppContext<UserData, Settings>()
+  const navigate = useNavigate()
+
+  const isUsingOAuth = context?.settings.use_api_key === false || context?.settings.use_advanced_connect === false;
+  const view = context?.data?.organisation ? "organisation" : "user"
+  const deskproUser = context?.data?.user
+  const deskproOrganisation = context?.data?.organisation
+
+  const { isLoading, isAuthenticated } = useAuthentication({ isUsingOAuth })
+
+  useEffect(() => {
+    if (!client || isLoading) {
       return
     }
 
-    // Store the authentication method in the user state
-    client.setUserState("isUsingOAuth", isUsingOAuth)
+    if (!isAuthenticated && isUsingOAuth) {
+      navigate(`/login`);
+      return
+    }
 
-    // Verify authentication status
-    // If OAuth2 mode and the user is logged in the request would be make with their stored access token
-    // If in API key mode the request would be made with the API key provided in the app setup
-    getCurrentUser(client)
-      .then((user) => {
-        if (user) {
-          setIsAuthenticated(true)
-        }
+    if (isAuthenticated) {
+      handleNavigation(client, {
+        deskproOrganisation,
+        deskproUser,
+        navigate,
+        view
       })
-      .catch(() => { })
-      .finally(() => {
-        setIsFetchingAuth(false)
-      })
-  }, [context, context?.settings])
+    }
+  }, [client, deskproOrganisation, deskproUser, isAuthenticated, isLoading, isUsingOAuth, navigate, view])
 
-  if (!client || !user || isFetchingAuth) {
+  if (!client || isLoading) {
     return (<LoadingSpinner />)
   }
 
-  if (isAuthenticated) {
-
-    tryToLinkAutomatically(client, user)
-      .then(() => getEntityListService(client, user.id))
-      .then((entityIds) => navigate(entityIds.length > 0 ? "/home" : "/contacts/link"))
-      .catch(() => { navigate("/contacts/link") });
-  } else if (isUsingOAuth) {
-    navigate("/login");
-  } else {
-    // Show error for invalid API keys (expired or not present)
+  // Show error for invalid API keys (expired or not present)
+  if (!isAuthenticated && !isUsingOAuth) {
     return (
-      <Stack padding={12}>
-        <ErrorBlock text="Invalid API Key" />
+      <Stack padding={12} style={{ width: "100%" }}>
+        <Callout
+          style={{ width: "100%" }}
+          accent="red"
+        >
+          The Copper API credentials provided during the app setup process are invalid or expired. Please contact your admin to verify your credentials and try again.
+        </Callout>
       </Stack>
-    );
+    )
   }
-  
+
   return (
     <LoadingSpinner />
   );
 };
 
-export { LoadingPage };
