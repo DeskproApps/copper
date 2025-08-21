@@ -7,3 +7,4 @@ export { EditContact } from "./EditContact";
 export { CreateOpportunity } from "./CreateOpportunity";
 export { CreateNote } from "./CreateNote";
 export { CreateActivity } from "./CreateActivity";
+export { default as LogoutEventListener } from "./LogoutEventListener";

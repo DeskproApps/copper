@@ -30,6 +30,7 @@ import type { FC } from "react";
 import type { EventPayload, Settings, UserData } from "./types";
 import { ErrorBoundary } from "@sentry/react";
 import { CompanyDetailsPage, HandleCompanyLinkPage, LinkCompaniesPage } from "./pages/companies";
+import { LogoutEventListener } from "./components";
 
 const App: FC = () => {
   const navigate = useNavigate();
@@ -81,26 +82,49 @@ const App: FC = () => {
     <AppContainer isAdmin={isAdmin}>
       <ErrorBoundary fallback={ErrorFallback}>
         <Routes>
-          <Route path="/admin/verify_settings" element={<VerifySettingsPage />} />
-          <Route path="/admin/callback" element={<AdminCallbackPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/home" element={<HomePage />} />
-          <Route path="/contacts/link" element={<LinkContactPage />} />
-          <Route path="/contacts/create" element={<CreateContactPage />} />
-          <Route path="/contacts/:id/edit" element={<EditContactPage />} />
-          <Route path="/opportunity/create" element={<CreateOpportunityPage />} />
-          <Route path="/opportunity/:id" element={<OpportunityPage />} />
-          <Route path="/notes/create" element={<CreateNotePage />} />
-          <Route path="/activities/create" element={<CreateActivityPage />} />
+          <Route element={<LogoutEventListener />}>
+            {/* Routes that require authentication (pretty much all routes besides login) should go here. */}
+            <Route path="admin" >
+              <Route path="verify_settings" element={<VerifySettingsPage />} />
+              <Route path="callback" element={<AdminCallbackPage />} />
+            </Route>
 
-          <Route path="companies">
-            <Route index element={<HandleCompanyLinkPage />} />
-            <Route path="link" element={<LinkCompaniesPage />} />
-            <Route path=":companyId" >
-              <Route index element={<CompanyDetailsPage />} />
+            <Route path="contacts" >
+              <Route path="link" element={<LinkContactPage />} />
+              <Route path="create" element={<CreateContactPage />} />
+              <Route path=":id" >
+                <Route path="edit" element={<EditContactPage />} />
+              </Route>
+            </Route>
+
+            <Route path="opportunity" >
+              <Route path="create" element={<CreateOpportunityPage />} />
+              <Route path=":id" >
+                <Route index element={<OpportunityPage />} />
+              </Route>
+            </Route>
+
+            <Route path="/home" element={<HomePage />} />
+
+
+            <Route path="notes" >
+              <Route path="create" element={<CreateNotePage />} />
+            </Route>
+
+            <Route path="activities" >
+              <Route path="create" element={<CreateActivityPage />} />
+            </Route>
+
+            <Route path="companies">
+              <Route index element={<HandleCompanyLinkPage />} />
+              <Route path="link" element={<LinkCompaniesPage />} />
+              <Route path=":companyId" >
+                <Route index element={<CompanyDetailsPage />} />
+              </Route>
             </Route>
           </Route>
 
+          <Route path="/login" element={<LoginPage />} />
           <Route index element={<LoadingPage />} />
         </Routes>
       </ErrorBoundary>
