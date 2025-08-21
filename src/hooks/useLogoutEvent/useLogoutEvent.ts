@@ -9,6 +9,6 @@ export default function useLogoutEvent(){
 
       return {
         logoutEvent,
-        setLogoutEvent: setLogoutEvent
+        setLogoutEvent
       }
 }
