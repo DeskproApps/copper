@@ -1,25 +1,9 @@
 import { useLogoutEvent } from "@/hooks";
-import { Dispatch, useEffect } from "react";
+import { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 
 export default function LogoutEventListener() {
   const { logoutEvent, setLogoutEvent } = useLogoutEvent()
-
-  return (<>
-    <Outlet />
-    <NavToLogin
-      logoutEvent={logoutEvent ?? false}
-      setLogoutEvent={setLogoutEvent}
-    />
-  </>)
-}
-
-interface NavToLoginProps {
-  logoutEvent: boolean
-  setLogoutEvent: Dispatch<React.SetStateAction<boolean | undefined>>
-}
-function NavToLogin(props: Readonly<NavToLoginProps>) {
-  const { logoutEvent, setLogoutEvent } = props
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -29,8 +13,7 @@ function NavToLogin(props: Readonly<NavToLoginProps>) {
     }
   }, [logoutEvent, navigate, setLogoutEvent]);
 
-
-  logoutEvent
-
-  return <></>
+  return (<>
+    <Outlet />
+  </>)
 }
