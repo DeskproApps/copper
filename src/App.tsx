@@ -82,12 +82,9 @@ const App: FC = () => {
     <AppContainer isAdmin={isAdmin}>
       <ErrorBoundary fallback={ErrorFallback}>
         <Routes>
+
           <Route element={<LogoutEventListener />}>
             {/* Routes that require authentication (pretty much all routes besides login) should go here. */}
-            <Route path="admin" >
-              <Route path="verify_settings" element={<VerifySettingsPage />} />
-              <Route path="callback" element={<AdminCallbackPage />} />
-            </Route>
 
             <Route path="contacts" >
               <Route path="link" element={<LinkContactPage />} />
@@ -124,6 +121,10 @@ const App: FC = () => {
             </Route>
           </Route>
 
+          <Route path="admin" >
+            <Route path="verify_settings" element={<VerifySettingsPage />} />
+            <Route path="callback" element={<AdminCallbackPage />} />
+          </Route>
           <Route path="/login" element={<LoginPage />} />
           <Route index element={<LoadingPage />} />
         </Routes>

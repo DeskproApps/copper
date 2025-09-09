@@ -44,7 +44,6 @@ const LoginPage: FC = () => {
                     accent="red"
                     style={{ width: "100%" }}
                 >
-                    {/* {errorMessage} */}
                     {error}
                 </Callout>
             )}
