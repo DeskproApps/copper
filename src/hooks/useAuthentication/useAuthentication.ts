@@ -6,7 +6,7 @@ interface UseAuthenticationParams {
 }
 export default function useAuthentication(params: Readonly<UseAuthenticationParams>) {
   const { isUsingOAuth } = params
-  const authStatusResponse = useQueryWithClient(
+  const { isLoading, isFetching, data } = useQueryWithClient(
     ["authStatus", isUsingOAuth.toString()],
     async (client) => {
       try {
@@ -30,7 +30,7 @@ export default function useAuthentication(params: Readonly<UseAuthenticationPara
   )
 
   return {
-    isLoading: authStatusResponse.isLoading,
-    isAuthenticated: authStatusResponse.data ?? false
+    isLoading: Boolean(isLoading || isFetching),
+    isAuthenticated: data ?? false
   }
 }

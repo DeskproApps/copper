@@ -1,7 +1,8 @@
 import { AnchorButton, H3, Stack } from "@deskpro/deskpro-ui"
-import { ErrorBlock } from "../../components/common"
-import { FC } from "react"
+import { FC, useEffect } from "react"
 import { useDeskproElements, useInitialisedDeskproAppClient } from "@deskpro/app-sdk"
+import { useLogoutEvent } from "@/hooks"
+import Callout from "@/components/Callout"
 import useLogin from "./useLogin"
 
 const LoginPage: FC = () => {
@@ -10,9 +11,19 @@ const LoginPage: FC = () => {
         registerElement("refresh", { type: "refresh_button" })
     })
 
-    useInitialisedDeskproAppClient((client)=>{
+    useInitialisedDeskproAppClient((client) => {
         client.setTitle("Login")
     }, [])
+
+    const { logoutEvent, setLogoutEvent } = useLogoutEvent()
+
+    useEffect(() => {
+        if (logoutEvent) {
+            setLogoutEvent(undefined)
+        }
+
+    }, [logoutEvent, setLogoutEvent])
+
 
     const { onSignIn, authUrl, isLoading, error } = useLogin();
 
@@ -28,7 +39,14 @@ const LoginPage: FC = () => {
                 text={"Log In"}
             />
 
-            {error && (<div style={{width: "100%"}}><ErrorBlock text={error}/></div>)}
+            {error && (
+                <Callout
+                    accent="red"
+                    style={{ width: "100%" }}
+                >
+                    {error}
+                </Callout>
+            )}
         </Stack>
     )
 }
